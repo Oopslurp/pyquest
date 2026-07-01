@@ -1,0 +1,60 @@
+{
+  "game": "PyQuest",
+  "version": 1,
+  "worlds": [
+    {
+      "id": "monde-0",
+      "title": "Île du Réveil",
+      "description": "Le didacticiel : on vérifie que la magie fonctionne.",
+      "file": "monde-0-test.json",
+      "requires": null,
+      "color": "#41a6f6",
+      "node": { "x": 13, "y": 68 }
+    },
+    {
+      "id": "monde-1",
+      "title": "Forêt des Variables",
+      "description": "Bientôt disponible.",
+      "file": null,
+      "requires": "monde-0",
+      "color": "#38b764",
+      "node": { "x": 30, "y": 50 }
+    },
+    {
+      "id": "monde-2",
+      "title": "Grottes des Conditions",
+      "description": "Bientôt disponible.",
+      "file": null,
+      "requires": "monde-1",
+      "color": "#5d275d",
+      "node": { "x": 46, "y": 64 }
+    },
+    {
+      "id": "monde-3",
+      "title": "Marais des Boucles",
+      "description": "Bientôt disponible.",
+      "file": null,
+      "requires": "monde-2",
+      "color": "#257179",
+      "node": { "x": 61, "y": 46 }
+    },
+    {
+      "id": "monde-4",
+      "title": "Pics des Fonctions",
+      "description": "Bientôt disponible.",
+      "file": null,
+      "requires": "monde-3",
+      "color": "#ef7d57",
+      "node": { "x": 76, "y": 60 }
+    },
+    {
+      "id": "monde-5",
+      "title": "Château des Données",
+      "description": "Bientôt disponible.",
+      "file": null,
+      "requires": "monde-4",
+      "color": "#ffcd75",
+      "node": { "x": 89, "y": 38 }
+    }
+  ]
+}

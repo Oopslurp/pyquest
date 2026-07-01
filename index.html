@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PyQuest — L'aventure Python</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=JetBrains+Mono:wght@400;600&display=swap"
+    rel="stylesheet"
+  />
+  <link rel="stylesheet" href="assets/css/style.css" />
+</head>
+<body>
+  <!-- ================= BOOT / CHARGEMENT ================= -->
+  <div id="boot-screen" class="screen boot-screen">
+    <div class="boot-box">
+      <h1 class="logo">PyQuest</h1>
+      <p class="logo-sub">L'AVENTURE PYTHON</p>
+
+      <div class="boot-loader">
+        <div class="boot-bar"><div id="boot-fill" class="boot-fill"></div></div>
+        <p id="boot-status" class="boot-status">Initialisation…</p>
+      </div>
+
+      <button id="boot-start" class="btn btn-primary hidden">▶ COMMENCER L'AVENTURE</button>
+
+      <p id="boot-tip" class="boot-tip"></p>
+    </div>
+  </div>
+
+  <!-- ================= HUD ================= -->
+  <header id="hud" class="hud hidden">
+    <div class="hud-left">
+      <span class="hud-logo">PyQuest</span>
+    </div>
+    <div class="hud-center">
+      <span id="hud-level" class="hud-level">Niv. 1</span>
+      <div class="hud-xp">
+        <div class="hud-xp-bar"><div id="hud-xp-fill" class="hud-xp-fill"></div></div>
+        <span id="hud-xp-text" class="hud-xp-text">0 XP</span>
+      </div>
+    </div>
+    <div class="hud-right">
+      <button id="btn-mute" class="btn btn-icon" title="Couper le son">🔊</button>
+      <button id="btn-reset" class="btn btn-icon" title="Réinitialiser la progression">⟲</button>
+    </div>
+  </header>
+
+  <!-- ================= OVERWORLD ================= -->
+  <main id="overworld" class="screen hidden">
+    <div class="overworld-inner">
+      <h2 class="screen-title">Choisis ta destination</h2>
+      <div id="map" class="map">
+        <canvas id="map-canvas" class="map-canvas" width="384" height="216"></canvas>
+        <svg id="map-paths" class="map-paths" viewBox="0 0 100 100" preserveAspectRatio="none"></svg>
+        <div id="map-nodes" class="map-nodes"></div>
+      </div>
+      <p class="map-hint">Termine un monde pour débloquer le suivant.</p>
+    </div>
+  </main>
+
+  <!-- ================= PANNEAU MONDE (sélection niveau) ================= -->
+  <div id="world-panel" class="overlay hidden">
+    <div class="panel">
+      <button id="world-close" class="panel-close" title="Fermer">✕</button>
+      <div id="world-panel-body"></div>
+    </div>
+  </div>
+
+  <!-- ================= VUE NIVEAU ================= -->
+  <section id="level-view" class="screen hidden"></section>
+
+  <!-- ================= EFFETS (XP, confettis, bannières) ================= -->
+  <div id="fx-layer" class="fx-layer"></div>
+
+  <!-- ================= LIBS EXTERNES ================= -->
+  <script src="https://cdn.jsdelivr.net/pyodide/v0.26.2/full/pyodide.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.45.0/min/vs/loader.min.js"></script>
+
+  <!-- ================= MOTEUR PYQUEST ================= -->
+  <script src="engine/util.js"></script>
+  <script src="engine/palette.js"></script>
+  <script src="engine/audio.js"></script>
+  <script src="engine/storage.js"></script>
+  <script src="engine/pyrunner.js"></script>
+  <script src="engine/overworld.js"></script>
+  <script src="engine/level.js"></script>
+  <script src="engine/game.js"></script>
+</body>
+</html>
