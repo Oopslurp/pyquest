@@ -105,12 +105,15 @@ PyQuest.Level = (function () {
     renderHints();
 
     // ---------- Éditeur Monaco ----------
+    // Police monospace fiable (jamais la police pixel) + ligatures désactivées
+    // pour un positionnement de curseur exact.
     editor = monaco.editor.create(editorHost, {
       value: startCode,
       language: 'python',
       theme: 'pyquest',
       fontSize: 14,
-      fontFamily: "'JetBrains Mono','Fira Code',Consolas,monospace",
+      fontFamily: PyQuest.CODE_FONT,
+      fontLigatures: false,
       minimap: { enabled: false },
       automaticLayout: true,
       scrollBeyondLastLine: false,
@@ -118,6 +121,15 @@ PyQuest.Level = (function () {
       insertSpaces: true,
       lineNumbersMinChars: 3,
       padding: { top: 10 },
+    });
+
+    // Filet de sécurité : si la police web finit de charger juste après la
+    // création de l'éditeur, on force Monaco à re-mesurer les largeurs de
+    // caractères puis on relaie le layout (sinon le curseur reste décalé).
+    PyQuest.util.ensureFont(PyQuest.CODE_FONT_FAMILY, ['14px', '600 14px']).then(() => {
+      if (!editor) return;
+      try { monaco.editor.remeasureFonts(); } catch (e) { /* noop */ }
+      editor.layout();
     });
 
     const saveCode = PyQuest.util.debounce(() => {

@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" shape-rendering="crispEdges">
+  <!-- Maison du village -->
+  <rect x="10" y="2" width="1" height="4" fill="#566c86"/>            <!-- cheminée -->
+  <rect x="7" y="2" width="2" height="1" fill="#b13e53"/>             <!-- toit -->
+  <rect x="6" y="3" width="4" height="1" fill="#b13e53"/>
+  <rect x="5" y="4" width="6" height="1" fill="#ef7d57"/>
+  <rect x="4" y="5" width="8" height="1" fill="#b13e53"/>
+  <rect x="4" y="6" width="8" height="8" fill="#ffcd75"/>             <!-- mur -->
+  <rect x="4" y="6" width="8" height="1" fill="#f4f4f4"/>            <!-- liseré haut -->
+  <rect x="7" y="9" width="2" height="5" fill="#5d275d"/>            <!-- porte -->
+  <rect x="8" y="11" width="1" height="1" fill="#ffcd75"/>           <!-- poignée -->
+  <rect x="5" y="8" width="2" height="2" fill="#73eff7"/>            <!-- fenêtre G -->
+  <rect x="9" y="8" width="2" height="2" fill="#73eff7"/>            <!-- fenêtre D -->
+  <rect x="4" y="14" width="8" height="1" fill="#566c86"/>           <!-- base -->
+</svg>

@@ -7,6 +7,12 @@
    ============================================================ */
 window.PyQuest = window.PyQuest || {};
 
+// Police de CODE partagée : une vraie monospace (jamais la police pixel de l'UI).
+// La 1re famille est une web font ; elle sert aussi de référence pour précharger
+// les métriques avant que Monaco ne mesure les caractères.
+PyQuest.CODE_FONT_FAMILY = 'JetBrains Mono';
+PyQuest.CODE_FONT = "'JetBrains Mono', 'Fira Code', Consolas, 'Courier New', monospace";
+
 PyQuest.Game = (function () {
   const { $, el, esc, fetchJSON, showScreen } = PyQuest.util;
   const Storage = PyQuest.Storage;
@@ -92,7 +98,7 @@ PyQuest.Game = (function () {
           },
         };
         require.config({ paths: { vs: MONACO_BASE + '/vs' } });
-        require(['vs/editor/editor.main'], () => {
+        require(['vs/editor/editor.main'], async () => {
           monaco.editor.defineTheme('pyquest', {
             base: 'vs-dark',
             inherit: true,
@@ -112,6 +118,12 @@ PyQuest.Game = (function () {
               'editor.selectionBackground': '#3b5dc966',
             },
           });
+          // IMPORTANT : la police de CODE doit être chargée AVANT que Monaco
+          // mesure la largeur des caractères, sinon le curseur se décale
+          // (il mesure la police de secours puis peint avec la vraie).
+          onProgress && onProgress('Chargement de la police de code…');
+          await PyQuest.util.ensureFont(PyQuest.CODE_FONT_FAMILY, ['14px', '600 14px']);
+          try { monaco.editor.remeasureFonts(); } catch (e) { /* noop */ }
           resolve(window.monaco);
         }, reject);
       });
@@ -225,6 +237,9 @@ PyQuest.Game = (function () {
       const body = $('#world-panel-body');
       body.innerHTML = '';
 
+      if (entry.banner) {
+        body.appendChild(el('img', { class: 'panel-banner', src: entry.banner, alt: entry.title }));
+      }
       body.appendChild(el('h2', { class: 'panel-title' }, entry.title));
       body.appendChild(el('p', { class: 'panel-desc' }, world.description || entry.description || ''));
 

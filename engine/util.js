@@ -56,5 +56,26 @@ PyQuest.util = (function () {
     };
   };
 
-  return { $, $$, el, esc, fetchJSON, clamp, showScreen, debounce };
+  /** Garantit qu'une police web est réellement chargée (metrics dispo)
+   *  avant qu'un consommateur (ex: Monaco) ne mesure les caractères.
+   *  `specs` : variantes CSS à charger, ex: ['14px', '600 14px'].
+   *  Résout toujours (une police manquante n'est pas bloquante). */
+  const _fontCache = {};
+  function ensureFont(family, specs = ['14px']) {
+    const key = family + '|' + specs.join(',');
+    if (_fontCache[key]) return _fontCache[key];
+    _fontCache[key] = (async () => {
+      try {
+        if (document.fonts && document.fonts.load) {
+          await Promise.all(specs.map((s) => document.fonts.load(`${s} "${family}"`)));
+          await document.fonts.ready;
+        }
+      } catch (e) {
+        /* police non critique : on continue avec la police de secours */
+      }
+    })();
+    return _fontCache[key];
+  }
+
+  return { $, $$, el, esc, fetchJSON, clamp, showScreen, debounce, ensureFont };
 })();

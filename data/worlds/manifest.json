@@ -13,11 +13,13 @@
     },
     {
       "id": "monde-1",
-      "title": "Forêt des Variables",
-      "description": "Bientôt disponible.",
-      "file": null,
-      "requires": "monde-0",
+      "title": "Village des Fondamentaux",
+      "description": "Variables, types, opérateurs, conditions, boucles et entrées-sorties.",
+      "file": "monde-1-fondamentaux.json",
+      "requires": null,
       "color": "#38b764",
+      "theme": "village",
+      "banner": "assets/sprites/village/banner.svg",
       "node": { "x": 30, "y": 50 }
     },
     {

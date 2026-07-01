@@ -66,7 +66,7 @@ PyQuest.Overworld = (function () {
     worlds.forEach((w, i) => {
       const cx = (w.node.x / 100) * W;
       const cy = (w.node.y / 100) * H;
-      drawIslet(ctx, cx, cy + 14, i === 0);
+      drawIslet(ctx, cx, cy + 14, i === 0, w);
     });
   }
 
@@ -88,8 +88,9 @@ PyQuest.Overworld = (function () {
     }
   }
 
-  // Petit îlot (mont) ; `withLighthouse` ajoute un phare clin d'œil à la réf.
-  function drawIslet(ctx, cx, cy, withLighthouse) {
+  // Petit îlot (mont). `withLighthouse` ajoute un phare (clin d'œil à la réf) ;
+  // sinon on dessine le décor associé au thème du monde (`entry.theme`).
+  function drawIslet(ctx, cx, cy, withLighthouse, entry) {
     cx = Math.round(cx); cy = Math.round(cy);
     // ombre/reflet
     ctx.fillStyle = P.named.navy;
@@ -106,7 +107,24 @@ PyQuest.Overworld = (function () {
       ctx.fillStyle = P.named.red;   ctx.fillRect(cx - 2, cy - 8, 4, 2);
       // lanterne
       ctx.fillStyle = P.named.gold;  ctx.fillRect(cx - 1, cy - 19, 2, 3);
+    } else if (entry && entry.theme === 'village') {
+      drawHouseMini(ctx, cx, cy - 1);
     }
+  }
+
+  // Mini-maison du village (décor de carte, cohérent avec assets/sprites/village).
+  function drawHouseMini(ctx, cx, cy) {
+    cx = Math.round(cx); cy = Math.round(cy);
+    // toit
+    ctx.fillStyle = P.named.orange; ctx.fillRect(cx - 2, cy - 11, 4, 1);
+    ctx.fillStyle = P.named.red;    ctx.fillRect(cx - 3, cy - 10, 6, 1);
+    ctx.fillStyle = P.named.red;    ctx.fillRect(cx - 4, cy - 9, 8, 1);
+    // mur
+    ctx.fillStyle = P.named.gold;   ctx.fillRect(cx - 3, cy - 8, 6, 5);
+    // porte
+    ctx.fillStyle = P.named.purple; ctx.fillRect(cx - 1, cy - 6, 2, 3);
+    // fenêtres
+    ctx.fillStyle = P.named.cyan;   ctx.fillRect(cx - 3, cy - 7, 1, 1); ctx.fillRect(cx + 2, cy - 7, 1, 1);
   }
 
   function ellipseFill(ctx, cx, cy, rx, ry) {

@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" shape-rendering="crispEdges">
+  <!-- Puits du village -->
+  <rect x="4" y="2" width="8" height="1" fill="#b13e53"/>  <!-- toit -->
+  <rect x="5" y="3" width="6" height="1" fill="#ef7d57"/>
+  <rect x="4" y="4" width="1" height="6" fill="#566c86"/>  <!-- poteau G -->
+  <rect x="11" y="4" width="1" height="6" fill="#566c86"/> <!-- poteau D -->
+  <rect x="4" y="10" width="8" height="4" fill="#94b0c2"/> <!-- margelle -->
+  <rect x="4" y="10" width="8" height="1" fill="#f4f4f4"/>
+  <rect x="6" y="11" width="4" height="2" fill="#41a6f6"/> <!-- eau -->
+  <rect x="6" y="11" width="4" height="1" fill="#73eff7"/>
+  <rect x="4" y="13" width="8" height="1" fill="#566c86"/>
+</svg>

@@ -234,6 +234,11 @@ img, canvas { image-rendering: pixelated; }
   border: 3px solid var(--c-night); cursor: pointer;
   font-family: var(--font-pixel); padding: 6px 10px;
 }
+.panel-banner {
+  display: block; width: 100%; height: 96px; object-fit: cover;
+  image-rendering: pixelated;
+  border: 3px solid var(--c-deep); margin-bottom: 16px;
+}
 .panel-title { color: var(--c-gold); font-size: 15px; margin: 0 0 8px; }
 .panel-desc { font-size: 9px; color: var(--c-silver); line-height: 2; margin-bottom: 20px; }
 
@@ -295,6 +300,9 @@ img, canvas { image-rendering: pixelated; }
 .editor-toolbar .spacer { flex: 1; }
 .editor-host {
   height: 340px; border: 4px solid var(--panel-border); background: var(--c-night);
+  /* Zone de code : lissage normal (le body force 'none' pour le look pixel). */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: auto;
 }
 .editor-status { font-size: 9px; color: var(--c-silver); min-height: 16px; }
 
