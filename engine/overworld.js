@@ -109,7 +109,26 @@ PyQuest.Overworld = (function () {
       ctx.fillStyle = P.named.gold;  ctx.fillRect(cx - 1, cy - 19, 2, 3);
     } else if (entry && entry.theme === 'village') {
       drawHouseMini(ctx, cx, cy - 1);
+    } else if (entry && entry.theme === 'marche') {
+      drawStallMini(ctx, cx, cy - 1);
     }
+  }
+
+  // Mini-étal du marché (décor de carte, cohérent avec assets/sprites/marche).
+  function drawStallMini(ctx, cx, cy) {
+    cx = Math.round(cx); cy = Math.round(cy);
+    // auvent rayé rouge/blanc
+    ctx.fillStyle = P.named.red;   ctx.fillRect(cx - 4, cy - 10, 8, 2);
+    ctx.fillStyle = P.named.white; ctx.fillRect(cx - 3, cy - 10, 2, 2);
+    ctx.fillStyle = P.named.white; ctx.fillRect(cx + 1, cy - 10, 2, 2);
+    // poteaux
+    ctx.fillStyle = P.named.slate;
+    ctx.fillRect(cx - 4, cy - 8, 1, 5);
+    ctx.fillRect(cx + 3, cy - 8, 1, 5);
+    // comptoir + marchandises
+    ctx.fillStyle = P.named.gold;   ctx.fillRect(cx - 4, cy - 5, 8, 2);
+    ctx.fillStyle = P.named.lime;   ctx.fillRect(cx - 2, cy - 6, 2, 1);
+    ctx.fillStyle = P.named.orange; ctx.fillRect(cx + 1, cy - 6, 2, 1);
   }
 
   // Mini-maison du village (décor de carte, cohérent avec assets/sprites/village).

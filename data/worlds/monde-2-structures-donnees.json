@@ -1,0 +1,152 @@
+{
+  "id": "monde-2",
+  "title": "Marché des Structures",
+  "description": "Le grand marché du village : listes, tuples, dictionnaires, ensembles et compréhensions pour ranger, compter et transformer les données.",
+  "theme": "marche",
+  "levels": [
+    {
+      "id": "2-1",
+      "title": "L'inventaire du marchand",
+      "statement": "<p>Le marchand range son étal. La liste <code>fruits</code> est déjà donnée. Crée :</p><ul><li><code>panier</code> : une liste contenant <code>\"pain\"</code>, <code>\"lait\"</code>, <code>\"miel\"</code> (dans cet ordre)</li><li><code>premier</code> : le <strong>premier</strong> fruit de la liste <code>fruits</code></li><li><code>dernier</code> : le <strong>dernier</strong> fruit (utilise un index négatif)</li></ul>",
+      "startCode": "fruits = [\"pomme\", \"poire\", \"cerise\", \"fraise\"]\n\npanier = []     # crée la liste : \"pain\", \"lait\", \"miel\"\npremier = \"\"    # le premier fruit de la liste fruits\ndernier = \"\"    # le dernier fruit (index négatif !)\n",
+      "xp": 25,
+      "hints": [
+        "Une liste s'écrit entre crochets. Le premier élément est à l'index <code>0</code>, et <code>-1</code> désigne le dernier.",
+        "<code>panier = [\"pain\", \"lait\", \"miel\"]</code>, <code>premier = fruits[0]</code>, <code>dernier = fruits[-1]</code>."
+      ],
+      "tests": [
+        { "type": "variable", "description": "panier contient pain, lait, miel", "name": "panier", "expected": ["pain", "lait", "miel"] },
+        { "type": "variable", "description": "premier vaut \"pomme\"", "name": "premier", "expected": "pomme" },
+        { "type": "variable", "description": "dernier vaut \"fraise\"", "name": "dernier", "expected": "fraise" }
+      ]
+    },
+    {
+      "id": "2-2",
+      "title": "Réassort de l'étal",
+      "statement": "<p>Livraison du matin ! Modifie la liste <code>stock</code> avec ses <strong>méthodes</strong> :</p><ol><li>Ajoute <code>\"kiwi\"</code> à la fin</li><li>Retire <code>\"banane\"</code></li><li>Trie la liste par ordre alphabétique</li></ol><p>N'utilise pas de nouvelle liste : modifie <code>stock</code> directement.</p>",
+      "startCode": "stock = [\"pomme\", \"poire\", \"banane\"]\n\n# 1. Ajoute \"kiwi\" à la fin du stock\n# 2. Retire \"banane\"\n# 3. Trie le stock par ordre alphabétique\n",
+      "xp": 30,
+      "hints": [
+        "Les méthodes s'appellent avec un point : <code>stock.append(...)</code>, <code>stock.remove(...)</code>, <code>stock.sort()</code>.",
+        "<code>stock.append(\"kiwi\")</code> puis <code>stock.remove(\"banane\")</code> puis <code>stock.sort()</code>."
+      ],
+      "tests": [
+        { "type": "variable", "description": "stock final trié : kiwi, poire, pomme", "name": "stock", "expected": ["kiwi", "poire", "pomme"] },
+        { "type": "expression", "description": "la banane a bien disparu", "expression": "\"banane\" not in stock", "expected": true },
+        { "type": "expression", "description": "le stock compte 3 articles", "expression": "len(stock) == 3", "expected": true }
+      ]
+    },
+    {
+      "id": "2-3",
+      "title": "La file d'attente",
+      "statement": "<p>Les clients font la queue devant l'étal. Avec le <strong>slicing</strong> (découpage de liste), crée :</p><ul><li><code>trois_premiers</code> : les 3 premiers clients</li><li><code>deux_derniers</code> : les 2 derniers</li><li><code>un_sur_deux</code> : un client sur deux, en partant du premier (Ana, Chloé, Eva)</li></ul>",
+      "startCode": "file_attente = [\"Ana\", \"Bob\", \"Chloé\", \"Dan\", \"Eva\", \"Fred\"]\n\ntrois_premiers = None   # les 3 premiers\ndeux_derniers = None    # les 2 derniers\nun_sur_deux = None      # un sur deux (pas de 2)\n",
+      "xp": 35,
+      "hints": [
+        "<code>liste[a:b]</code> va de l'index <code>a</code> à <code>b</code> exclu. On peut omettre <code>a</code> ou <code>b</code>, utiliser des index négatifs, et ajouter un pas : <code>liste[a:b:pas]</code>.",
+        "<code>trois_premiers = file_attente[:3]</code>, <code>deux_derniers = file_attente[-2:]</code>, <code>un_sur_deux = file_attente[::2]</code>."
+      ],
+      "tests": [
+        { "type": "variable", "description": "trois_premiers : Ana, Bob, Chloé", "name": "trois_premiers", "expected": ["Ana", "Bob", "Chloé"] },
+        { "type": "variable", "description": "deux_derniers : Eva, Fred", "name": "deux_derniers", "expected": ["Eva", "Fred"] },
+        { "type": "variable", "description": "un_sur_deux : Ana, Chloé, Eva", "name": "un_sur_deux", "expected": ["Ana", "Chloé", "Eva"] }
+      ]
+    },
+    {
+      "id": "2-4",
+      "title": "Le sceau du marché",
+      "statement": "<p>Le sceau officiel est un <strong>tuple</strong> : une fois frappé, impossible de le modifier !</p><ul><li>Crée le tuple <code>stand = (\"Fruits\", 12)</code> (nom du stand, numéro d'allée)</li><li><strong>Dépaquette</strong>-le en deux variables : <code>nom</code> et <code>allee</code></li><li>Écris la fonction <code>echange(a, b)</code> qui renvoie le tuple <code>(b, a)</code></li></ul>",
+      "startCode": "stand = None          # crée le tuple (\"Fruits\", 12)\nnom, allee = \"?\", 0   # dépaquette stand en nom et allee\n\ndef echange(a, b):\n    # renvoie le tuple (b, a)\n    pass\n",
+      "xp": 35,
+      "hints": [
+        "Un tuple s'écrit entre parenthèses. Le dépaquetage s'écrit <code>x, y = mon_tuple</code>.",
+        "<code>stand = (\"Fruits\", 12)</code>, <code>nom, allee = stand</code>, et dans la fonction : <code>return (b, a)</code>."
+      ],
+      "tests": [
+        { "type": "expression", "description": "stand est le tuple (\"Fruits\", 12)", "expression": "stand == (\"Fruits\", 12) and type(stand) == tuple", "expected": true },
+        { "type": "expression", "description": "nom et allee sont bien dépaquetés", "expression": "nom == \"Fruits\" and allee == 12", "expected": true },
+        { "type": "expression", "description": "echange(1, 2) renvoie (2, 1)", "expression": "echange(1, 2) == (2, 1) and echange(\"a\", \"b\") == (\"b\", \"a\")", "expected": true }
+      ]
+    },
+    {
+      "id": "2-5",
+      "title": "Les étiquettes de prix",
+      "statement": "<p>Chaque article a son étiquette : un <strong>dictionnaire</strong> associe un article à son prix.</p><ul><li>Crée le dictionnaire <code>prix</code> : <code>\"pomme\"</code> → <code>2</code>, <code>\"poire\"</code> → <code>3</code>, <code>\"cerise\"</code> → <code>8</code></li><li>Écris <code>prix_de(article)</code> qui renvoie le prix de l'article demandé</li></ul>",
+      "startCode": "prix = {}   # \"pomme\": 2, \"poire\": 3, \"cerise\": 8\n\ndef prix_de(article):\n    # renvoie le prix de l'article (cherche dans prix)\n    pass\n",
+      "xp": 40,
+      "hints": [
+        "Un dictionnaire s'écrit <code>{\"clé\": valeur, ...}</code> et on lit une valeur avec <code>mon_dico[clé]</code>.",
+        "<code>prix = {\"pomme\": 2, \"poire\": 3, \"cerise\": 8}</code> et <code>return prix[article]</code>."
+      ],
+      "tests": [
+        { "type": "variable", "description": "le dictionnaire prix est correct", "name": "prix", "expected": { "pomme": 2, "poire": 3, "cerise": 8 } },
+        { "type": "function", "description": "prix_de(\"poire\") renvoie 3", "name": "prix_de", "args": ["poire"], "expected": 3 },
+        { "type": "function", "description": "prix_de(\"cerise\") renvoie 8", "name": "prix_de", "args": ["cerise"], "expected": 8 }
+      ]
+    },
+    {
+      "id": "2-6",
+      "title": "Le registre du marché",
+      "statement": "<p>Fin de journée : on fait les comptes dans le registre (un dictionnaire article → montant).</p><ul><li><code>total_caisse(ventes)</code> renvoie la <strong>somme de toutes les valeurs</strong></li><li><code>articles_chers(prix, seuil)</code> renvoie la <strong>liste triée</strong> des articles dont le prix est supérieur ou égal à <code>seuil</code></li></ul>",
+      "startCode": "def total_caisse(ventes):\n    # somme de toutes les valeurs du dictionnaire\n    pass\n\ndef articles_chers(prix, seuil):\n    # liste TRIÉE des articles (clés) dont le prix >= seuil\n    pass\n",
+      "xp": 45,
+      "hints": [
+        "<code>.values()</code> donne les valeurs (utilise <code>sum(...)</code>), et <code>.items()</code> donne les paires (clé, valeur) pour boucler avec un test.",
+        "<code>return sum(ventes.values())</code> ; pour l'autre : boucle sur <code>prix.items()</code>, garde les clés qui conviennent dans une liste, puis <code>return sorted(resultat)</code>."
+      ],
+      "tests": [
+        { "type": "function", "description": "total_caisse({pomme: 10, poire: 5}) renvoie 15", "name": "total_caisse", "args": [{ "pomme": 10, "poire": 5 }], "expected": 15 },
+        { "type": "function", "description": "total_caisse({}) renvoie 0", "name": "total_caisse", "args": [{}], "expected": 0 },
+        { "type": "function", "description": "articles_chers trie les articles à 5 ou plus", "name": "articles_chers", "args": [{ "pomme": 2, "cerise": 8, "melon": 6 }, 5], "expected": ["cerise", "melon"] }
+      ]
+    },
+    {
+      "id": "2-7",
+      "title": "Le stand des raretés",
+      "statement": "<p>Qui est venu au marché ? Les <strong>ensembles</strong> (<code>set</code>) ignorent les doublons et se combinent :</p><ul><li><code>fideles</code> : clients venus les <strong>deux</strong> jours (intersection)</li><li><code>tous</code> : tous les clients, sans doublon (union)</li><li><code>uniquement_lundi</code> : venus lundi mais pas mardi (différence)</li></ul>",
+      "startCode": "clients_lundi = {\"Ana\", \"Bob\", \"Chloé\"}\nclients_mardi = {\"Bob\", \"Dan\"}\n\nfideles = None           # intersection\ntous = None              # union\nuniquement_lundi = None  # différence\n",
+      "xp": 45,
+      "hints": [
+        "Les opérateurs d'ensembles : <code>&amp;</code> (intersection), <code>|</code> (union), <code>-</code> (différence).",
+        "<code>fideles = clients_lundi &amp; clients_mardi</code>, <code>tous = clients_lundi | clients_mardi</code>, <code>uniquement_lundi = clients_lundi - clients_mardi</code>."
+      ],
+      "tests": [
+        { "type": "expression", "description": "fideles = {Bob}", "expression": "fideles == {\"Bob\"}", "expected": true },
+        { "type": "expression", "description": "tous = {Ana, Bob, Chloé, Dan}", "expression": "tous == {\"Ana\", \"Bob\", \"Chloé\", \"Dan\"}", "expected": true },
+        { "type": "expression", "description": "uniquement_lundi = {Ana, Chloé}", "expression": "uniquement_lundi == {\"Ana\", \"Chloé\"}", "expected": true }
+      ]
+    },
+    {
+      "id": "2-8",
+      "title": "La machine à transformer",
+      "statement": "<p>Une machine magique transforme des listes entières en une seule ligne : la <strong>compréhension de liste</strong>.</p><pre>[x * 2 for x in liste]\n[x for x in liste if x &gt; 0]</pre><ul><li><code>doubles(nombres)</code> renvoie la liste des doubles</li><li><code>pairs(nombres)</code> renvoie la liste des nombres pairs uniquement</li></ul><p>Utilise une compréhension dans chaque fonction.</p>",
+      "startCode": "def doubles(nombres):\n    # renvoie [chaque nombre x 2], en une compréhension\n    pass\n\ndef pairs(nombres):\n    # renvoie uniquement les nombres pairs, en une compréhension\n    pass\n",
+      "xp": 50,
+      "hints": [
+        "C'est une boucle <code>for</code> repliée dans des crochets. Le filtre s'ajoute avec <code>if</code> à la fin. Rappel du Monde 1 : pair = <code>x % 2 == 0</code>.",
+        "<code>return [x * 2 for x in nombres]</code> et <code>return [x for x in nombres if x % 2 == 0]</code>."
+      ],
+      "tests": [
+        { "type": "function", "description": "doubles([1, 2, 3]) renvoie [2, 4, 6]", "name": "doubles", "args": [[1, 2, 3]], "expected": [2, 4, 6] },
+        { "type": "function", "description": "pairs([1, 2, 3, 4, 5, 6]) renvoie [2, 4, 6]", "name": "pairs", "args": [[1, 2, 3, 4, 5, 6]], "expected": [2, 4, 6] },
+        { "type": "function", "description": "pairs([7, 9]) renvoie []", "name": "pairs", "args": [[7, 9]], "expected": [] }
+      ]
+    },
+    {
+      "id": "2-9",
+      "title": "Le Grand Inventaire (BOSS)",
+      "statement": "<p><strong>BOSS.</strong> Le doyen du marché te confie l'inventaire général : une <strong>liste de dictionnaires</strong>, un par étal :</p><pre>etals = [\n  {\"nom\": \"pomme\", \"vendu\": 12},\n  {\"nom\": \"poire\", \"vendu\": 3},\n  {\"nom\": \"miel\",  \"vendu\": 25},\n]</pre><ul><li><code>bilan(etals)</code> renvoie le <strong>total</strong> des quantités vendues</li><li><code>stars(etals, seuil)</code> renvoie la <strong>liste triée</strong> des noms des produits dont <code>\"vendu\"</code> est supérieur ou égal à <code>seuil</code> — compréhension conseillée !</li></ul>",
+      "startCode": "# Chaque étal est un dictionnaire : {\"nom\": ..., \"vendu\": ...}\n\ndef bilan(etals):\n    # renvoie le TOTAL des quantités vendues\n    pass\n\ndef stars(etals, seuil):\n    # renvoie la liste TRIÉE des noms dont \"vendu\" >= seuil\n    pass\n",
+      "xp": 80,
+      "hints": [
+        "Chaque élément <code>e</code> de la liste est un dictionnaire : accède à <code>e[\"vendu\"]</code> et <code>e[\"nom\"]</code>. Additionne dans une boucle, ou filtre avec une compréhension.",
+        "<code>return sum(e[\"vendu\"] for e in etals)</code> et <code>return sorted([e[\"nom\"] for e in etals if e[\"vendu\"] &gt;= seuil])</code>."
+      ],
+      "tests": [
+        { "type": "function", "description": "bilan renvoie 40 sur l'exemple", "name": "bilan", "args": [[{ "nom": "pomme", "vendu": 12 }, { "nom": "poire", "vendu": 3 }, { "nom": "miel", "vendu": 25 }]], "expected": 40 },
+        { "type": "function", "description": "stars(etals, 10) renvoie [miel, pomme] (trié)", "name": "stars", "args": [[{ "nom": "pomme", "vendu": 12 }, { "nom": "poire", "vendu": 3 }, { "nom": "miel", "vendu": 25 }], 10], "expected": ["miel", "pomme"] },
+        { "type": "function", "description": "stars(etals, 100) renvoie []", "name": "stars", "args": [[{ "nom": "pomme", "vendu": 12 }, { "nom": "poire", "vendu": 3 }], 100], "expected": [] }
+      ]
+    }
+  ]
+}

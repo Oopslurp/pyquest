@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" shape-rendering="crispEdges">
+  <!-- Étal du marché (auvent rayé) -->
+  <rect x="2" y="2" width="12" height="1" fill="#b13e53"/>            <!-- faîte -->
+  <rect x="2" y="3" width="2" height="2" fill="#b13e53"/>             <!-- rayures -->
+  <rect x="4" y="3" width="2" height="2" fill="#f4f4f4"/>
+  <rect x="6" y="3" width="2" height="2" fill="#b13e53"/>
+  <rect x="8" y="3" width="2" height="2" fill="#f4f4f4"/>
+  <rect x="10" y="3" width="2" height="2" fill="#b13e53"/>
+  <rect x="12" y="3" width="2" height="2" fill="#f4f4f4"/>
+  <rect x="2" y="5" width="1" height="6" fill="#566c86"/>             <!-- poteau G -->
+  <rect x="13" y="5" width="1" height="6" fill="#566c86"/>            <!-- poteau D -->
+  <rect x="3" y="9" width="10" height="1" fill="#ffcd75"/>            <!-- plateau -->
+  <rect x="3" y="10" width="10" height="4" fill="#ef7d57"/>           <!-- comptoir -->
+  <rect x="4" y="8" width="2" height="1" fill="#a7f070"/>             <!-- marchandises -->
+  <rect x="7" y="8" width="2" height="1" fill="#ffcd75"/>
+  <rect x="10" y="8" width="2" height="1" fill="#b13e53"/>
+  <rect x="3" y="14" width="10" height="1" fill="#566c86"/>           <!-- base -->
+</svg>

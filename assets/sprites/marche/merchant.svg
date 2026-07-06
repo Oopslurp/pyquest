@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" shape-rendering="crispEdges">
+  <!-- Marchand (tablier + chapeau de paille) -->
+  <rect x="5" y="1" width="6" height="1" fill="#ffcd75"/>  <!-- bord du chapeau -->
+  <rect x="6" y="2" width="4" height="1" fill="#ef7d57"/>  <!-- calotte -->
+  <rect x="6" y="3" width="4" height="3" fill="#ffcd75"/>  <!-- visage -->
+  <rect x="7" y="4" width="1" height="1" fill="#1a1c2c"/>  <!-- oeil G -->
+  <rect x="9" y="4" width="1" height="1" fill="#1a1c2c"/>  <!-- oeil D -->
+  <rect x="5" y="6" width="6" height="5" fill="#38b764"/>  <!-- tunique -->
+  <rect x="6" y="7" width="4" height="4" fill="#f4f4f4"/>  <!-- tablier -->
+  <rect x="4" y="6" width="1" height="4" fill="#38b764"/>  <!-- bras G -->
+  <rect x="11" y="6" width="1" height="4" fill="#38b764"/> <!-- bras D -->
+  <rect x="12" y="9" width="2" height="1" fill="#a7f070"/> <!-- pomme en main -->
+  <rect x="6" y="11" width="1" height="3" fill="#333c57"/> <!-- jambe G -->
+  <rect x="9" y="11" width="1" height="3" fill="#333c57"/> <!-- jambe D -->
+</svg>

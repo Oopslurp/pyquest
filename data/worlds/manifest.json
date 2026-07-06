@@ -24,11 +24,13 @@
     },
     {
       "id": "monde-2",
-      "title": "Grottes des Conditions",
-      "description": "Bientôt disponible.",
-      "file": null,
+      "title": "Marché des Structures",
+      "description": "Listes, tuples, dictionnaires, ensembles et compréhensions au grand marché.",
+      "file": "monde-2-structures-donnees.json",
       "requires": "monde-1",
-      "color": "#5d275d",
+      "color": "#b13e53",
+      "theme": "marche",
+      "banner": "assets/sprites/marche/banner.svg",
       "node": { "x": 46, "y": 64 }
     },
     {
