@@ -8,5 +8,8 @@ Desktop.ini
 .idea/
 *.swp
 
+# Config perso Claude Code (local, non partagée)
+.claude/settings.local.json
+
 # Serveur local / logs
 *.log
