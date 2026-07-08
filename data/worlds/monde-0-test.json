@@ -5,6 +5,7 @@
   "levels": [
     {
       "id": "0-1",
+      "solution": "print(\"Bonjour, aventurier !\")\n",
       "title": "Premier signal",
       "statement": "<p>Fais afficher le message exact&nbsp;: <code>Bonjour, aventurier !</code></p><p>Utilise la fonction <code>print()</code>.</p>",
       "startCode": "# Écris ton code ici\n",
@@ -24,6 +25,7 @@
     },
     {
       "id": "0-2",
+      "solution": "def addition(a, b):\n    return a + b\n",
       "title": "La formule d'addition",
       "statement": "<p>Écris une fonction <code>addition(a, b)</code> qui <strong>renvoie</strong> la somme de <code>a</code> et <code>b</code>.</p><p>Exemple&nbsp;: <code>addition(2, 3)</code> doit renvoyer <code>5</code>.</p><pre>def addition(a, b):\n    return ...</pre>",
       "startCode": "def addition(a, b):\n    # remplace pass par le bon calcul\n    pass\n",

@@ -35,7 +35,8 @@ engine/                # logique GÉNÉRIQUE, réutilisable
   palette.js           # palette + interpolation couleur
   audio.js             # bips rétro (WebAudio, sans asset)
   storage.js           # sauvegarde localStorage
-  pyrunner.js          # Pyodide + harnais de tests Python
+  pyrunner.js          # client du worker Python (timeout + relance)
+  pyworker.js          # Web Worker : Pyodide + harnais de tests Python
   overworld.js         # carte pixel-art (canvas + noeuds)
   level.js             # moteur de niveau (Monaco + exécution + feedback)
   game.js              # orchestrateur (boot, navigation, HUD, déverrouillage)
@@ -52,8 +53,9 @@ data/worlds/
 
 Rien d'autre : le moteur s'occupe du reste.
 
-## Limite connue (v1)
+## Exécution du code Python
 
-Le code Python s'exécute sur le thread principal. Une boucle infinie
-(`while True:`) figera l'onglet — il suffit de recharger la page. Une future
-version déplacera Pyodide dans un Web Worker avec délai d'expiration.
+Le code de l'élève s'exécute dans un **Web Worker** (`engine/pyworker.js`),
+hors du thread principal. Chaque exécution a un **délai de 6 s** : une boucle
+infinie (`while True:`) ne gèle donc jamais l'onglet — le worker est arrêté,
+un message l'explique, et un nouveau moteur est relancé automatiquement.

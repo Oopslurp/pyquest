@@ -77,7 +77,8 @@
   <div id="fx-layer" class="fx-layer"></div>
 
   <!-- ================= LIBS EXTERNES ================= -->
-  <script src="https://cdn.jsdelivr.net/pyodide/v0.26.2/full/pyodide.js"></script>
+  <!-- Pyodide n'est plus chargé ici : c'est engine/pyworker.js (Web Worker)
+       qui charge sa propre copie, hors du thread principal. -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.45.0/min/vs/loader.min.js"></script>
 
   <!-- ================= MOTEUR PYQUEST ================= -->
@@ -86,6 +87,7 @@
   <script src="engine/audio.js"></script>
   <script src="engine/storage.js"></script>
   <script src="engine/pyrunner.js"></script>
+  <script src="engine/errhints.js"></script>
   <script src="engine/overworld.js"></script>
   <script src="engine/level.js"></script>
   <script src="engine/game.js"></script>

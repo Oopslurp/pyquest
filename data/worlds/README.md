@@ -44,6 +44,7 @@ Liste ordonnée des mondes et leur placement sur la carte.
 ```jsonc
 {
   "id": "0-1",                 // unique dans le monde
+  "solution": "print(\"…\")\n",// OBLIGATOIRE : code de référence, sert au validateur
   "title": "Premier signal",
   "statement": "<p>Énoncé en HTML…</p>", // <code>, <pre>, <strong> autorisés
   "startCode": "# code de départ\n",     // pré-rempli dans l'éditeur
@@ -52,6 +53,9 @@ Liste ordonnée des mondes et leur placement sur la carte.
   "tests": [ /* voir ci-dessous */ ]     // TOUS doivent passer pour réussir
 }
 ```
+
+> Le champ `"solution"` n'est **pas** utilisé par le jeu (le moteur l'ignore) :
+> il sert uniquement au validateur (voir « Valider les mondes » plus bas).
 
 Un niveau est **débloqué** si c'est le premier du monde, ou si le niveau
 précédent est réussi.
@@ -104,3 +108,19 @@ entre tests). Champ commun optionnel : `"description"` (affiché à l'élève).
 ```
 L'expression est évaluée **après** le code de l'élève, dans le même espace
 de noms (elle voit donc ses variables et fonctions).
+
+## Valider les mondes
+
+Après toute modification de contenu :
+
+    py tools/validate_worlds.py
+
+Le validateur vérifie le schéma, exécute chaque `solution` contre ses tests
+(tout doit passer) et chaque `startCode` (il doit échouer — pas de niveau
+gratuit). Il sort en code 0 si tout est vert, 1 sinon.
+
+> **Piège JSON** : tuples et sets n'existent pas en JSON. Un test
+> `variable`/`function` dont la valeur attendue est un tuple/set échouera
+> toujours (`(2, 1) == [2, 1]` est faux en Python). Vérifier ces valeurs via
+> un test `expression` (ex. `"stand == (\"Fruits\", 12)"`). Le validateur
+> affiche une `[note]` sur tout `expected` de type liste pour le rappeler.

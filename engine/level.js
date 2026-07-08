@@ -44,7 +44,8 @@ PyQuest.Level = (function () {
     ]);
 
     const hints = Array.isArray(level.hints) ? level.hints : [];
-    const hintBtn = el('button', { class: 'btn btn-ghost', onClick: revealHint },
+    // () => revealHint() : ne PAS passer l'événement (il vaudrait `auto`).
+    const hintBtn = el('button', { class: 'btn btn-ghost', onClick: () => revealHint() },
       hints.length ? `💡 Indice (0/${hints.length})` : '💡 Aucun indice');
     if (!hints.length) hintBtn.disabled = true;
 
@@ -62,19 +63,39 @@ PyQuest.Level = (function () {
         : `💡 Indice (${hintsShown}/${hints.length})`;
       if (hintsShown >= hints.length) hintBtn.disabled = true;
     }
-    function revealHint() {
-      if (hintsShown < hints.length) {
-        hintsShown++;
-        game.state.hintsSeen[key] = hintsShown;
-        game.save();
-        renderHints();
-        Audio.click();
+    let armed = false; // premier clic sur le dernier indice = confirmation
+    function revealHint(auto) {
+      if (hintsShown >= hints.length) return;
+      const isLast = hintsShown === hints.length - 1;
+      if (isLast && !auto && !armed) {
+        armed = true;
+        hintBtn.textContent = '💡 Révéler la solution ?';
+        setTimeout(() => { // désarme après 4 s sans second clic
+          if (armed) { armed = false; renderHints(); }
+        }, 4000);
+        return;
       }
+      if (isLast && auto) return; // JAMAIS la solution automatiquement
+      armed = false;
+      hintsShown++;
+      game.state.hintsSeen[key] = hintsShown;
+      game.save();
+      renderHints();
+      Audio.click();
     }
 
     // ---------- Colonne droite : atelier ----------
     const editorHost = el('div', { class: 'editor-host' });
-    const statusLine = el('div', { class: 'editor-status' }, 'Écris ton code, puis « Valider ».');
+    const statusLine = el('div', { class: 'editor-status' },
+      'Ctrl+Entrée : valider · Alt+Entrée : exécuter');
+    const stdinArea = el('textarea', {
+      class: 'stdin-input', rows: '3',
+      placeholder: "Une ligne par appel à input()\nex :\n7",
+    });
+    const stdinBox = el('details', { class: 'stdin-box' }, [
+      el('summary', {}, '⌨ Entrées pour input() (mode Exécuter)'),
+      stdinArea,
+    ]);
     const console_ = el('div', { class: 'console' }, [
       el('div', { class: 'console-title' }, 'CONSOLE'),
       el('pre', {}, '—'),
@@ -97,6 +118,7 @@ PyQuest.Level = (function () {
       ]),
       editorHost,
       statusLine,
+      stdinBox,
       console_,
       results,
     ]);
@@ -132,6 +154,11 @@ PyQuest.Level = (function () {
       editor.layout();
     });
 
+    // Raccourcis : Ctrl+Entrée = Valider, Alt+Entrée = Exécuter.
+    // (execute/validate sont hoistées : déclarées plus bas dans mount().)
+    editor.addCommand(monaco.KeyMod.CtrlCmd | monaco.KeyCode.Enter, () => validate());
+    editor.addCommand(monaco.KeyMod.Alt | monaco.KeyCode.Enter, () => execute());
+
     const saveCode = PyQuest.util.debounce(() => {
       game.state.code[key] = editor.getValue();
       game.save();
@@ -143,18 +170,27 @@ PyQuest.Level = (function () {
       Audio.click();
       setBusy(true, 'Exécution…');
       const pre = console_.querySelector('pre');
+      const clearHint = () => {
+        const old = console_.querySelector('.err-hint');
+        if (old) old.remove();
+      };
       try {
-        const { stdout, error } = await PyQuest.PyRunner.runRaw(editor.getValue());
+        const { stdout, error } = await PyQuest.PyRunner.runRaw(editor.getValue(), stdinArea.value);
         if (error) {
           pre.className = 'err';
           pre.textContent = error;
+          clearHint();
+          const h = PyQuest.ErrHints.explain(error);
+          if (h) console_.appendChild(el('div', { class: 'err-hint', html: `💡 <b>${h.type}</b> — ${esc(h.advice)}` }));
         } else {
           pre.className = '';
           pre.textContent = stdout || '(aucune sortie)';
+          clearHint();
         }
       } catch (e) {
         pre.className = 'err';
-        pre.textContent = String(e);
+        pre.textContent = e.message || String(e);
+        clearHint();
       } finally {
         setBusy(false, 'Exécution terminée.');
       }
@@ -174,7 +210,15 @@ PyQuest.Level = (function () {
         try {
           outcomes.push({ test, res: await PyQuest.PyRunner.runTest(code, test) });
         } catch (e) {
-          outcomes.push({ test, res: { ok: false, error: String(e) } });
+          outcomes.push({ test, res: { ok: false, error: e.message || String(e) } });
+          if (e.isTimeout) {
+            // Ne pas attendre la relance du moteur pour chaque test restant :
+            // on marque les suivants comme non exécutés et on s'arrête.
+            tests.slice(outcomes.length).forEach((t2) => {
+              outcomes.push({ test: t2, res: { ok: false, error: 'Non exécuté (délai dépassé au test précédent).' } });
+            });
+            break;
+          }
         }
       }
 
@@ -191,10 +235,14 @@ PyQuest.Level = (function () {
         setBusy(false, 'Bravo, tous les tests passent !');
         onSuccess();
       } else {
-        setBusy(false, 'Pas encore… regarde les tests en rouge.');
+        const tries = (game.state.attempts[key] = (game.state.attempts[key] || 0) + 1);
+        game.save();
+        setBusy(false, tries >= 2
+          ? 'Pas encore… pense au bouton 💡 Indice.'
+          : 'Pas encore… regarde les tests en rouge.');
         Audio.fail();
-        // Révèle un indice supplémentaire à chaque échec (jusqu'au max).
-        if (hintsShown < hints.length) revealHint();
+        // Seul le PREMIER indice se révèle automatiquement, au 2e échec.
+        if (tries === 2 && hintsShown === 0 && hints.length > 0) revealHint(true);
       }
     }
 
@@ -209,6 +257,8 @@ PyQuest.Level = (function () {
         let detailHtml;
         if (res.error) {
           detailHtml = `<b>Erreur :</b><br><code>${esc(res.error)}</code>`;
+          const h = PyQuest.ErrHints.explain(res.error);
+          if (h) detailHtml += `<div class="err-hint">💡 <b>${h.type}</b> — ${esc(h.advice)}</div>`;
         } else {
           detailHtml =
             `<b>Attendu :</b> <code>${esc(fmt(res.expected))}</code><br>` +

@@ -17,7 +17,7 @@ PyQuest.Storage = (function () {
   const KEY = 'pyquest.save.v1';
 
   function makeDefault() {
-    return { version: 1, xp: 0, completed: {}, code: {}, hintsSeen: {}, muted: false };
+    return { version: 1, xp: 0, completed: {}, code: {}, hintsSeen: {}, attempts: {}, muted: false };
   }
 
   function load() {

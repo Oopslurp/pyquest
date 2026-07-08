@@ -342,5 +342,13 @@ window.addEventListener('DOMContentLoaded', () => {
   });
   wp.addEventListener('click', (e) => { if (e.target === wp) wp.classList.add('hidden'); });
 
+  // Échap ferme le panneau monde.
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && !wp.classList.contains('hidden')) {
+      wp.classList.add('hidden');
+      PyQuest.Audio.click();
+    }
+  });
+
   PyQuest.Game.init();
 });

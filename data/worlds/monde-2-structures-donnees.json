@@ -6,6 +6,7 @@
   "levels": [
     {
       "id": "2-1",
+      "solution": "fruits = [\"pomme\", \"poire\", \"cerise\", \"fraise\"]\npanier = [\"pain\", \"lait\", \"miel\"]\npremier = fruits[0]\ndernier = fruits[-1]\n",
       "title": "L'inventaire du marchand",
       "statement": "<p>Le marchand range son étal. La liste <code>fruits</code> est déjà donnée. Crée :</p><ul><li><code>panier</code> : une liste contenant <code>\"pain\"</code>, <code>\"lait\"</code>, <code>\"miel\"</code> (dans cet ordre)</li><li><code>premier</code> : le <strong>premier</strong> fruit de la liste <code>fruits</code></li><li><code>dernier</code> : le <strong>dernier</strong> fruit (utilise un index négatif)</li></ul>",
       "startCode": "fruits = [\"pomme\", \"poire\", \"cerise\", \"fraise\"]\n\npanier = []     # crée la liste : \"pain\", \"lait\", \"miel\"\npremier = \"\"    # le premier fruit de la liste fruits\ndernier = \"\"    # le dernier fruit (index négatif !)\n",
@@ -22,6 +23,7 @@
     },
     {
       "id": "2-2",
+      "solution": "stock = [\"pomme\", \"poire\", \"banane\"]\nstock.append(\"kiwi\")\nstock.remove(\"banane\")\nstock.sort()\n",
       "title": "Réassort de l'étal",
       "statement": "<p>Livraison du matin ! Modifie la liste <code>stock</code> avec ses <strong>méthodes</strong> :</p><ol><li>Ajoute <code>\"kiwi\"</code> à la fin</li><li>Retire <code>\"banane\"</code></li><li>Trie la liste par ordre alphabétique</li></ol><p>N'utilise pas de nouvelle liste : modifie <code>stock</code> directement.</p>",
       "startCode": "stock = [\"pomme\", \"poire\", \"banane\"]\n\n# 1. Ajoute \"kiwi\" à la fin du stock\n# 2. Retire \"banane\"\n# 3. Trie le stock par ordre alphabétique\n",
@@ -38,6 +40,7 @@
     },
     {
       "id": "2-3",
+      "solution": "file_attente = [\"Ana\", \"Bob\", \"Chloé\", \"Dan\", \"Eva\", \"Fred\"]\ntrois_premiers = file_attente[:3]\ndeux_derniers = file_attente[-2:]\nun_sur_deux = file_attente[::2]\n",
       "title": "La file d'attente",
       "statement": "<p>Les clients font la queue devant l'étal. Avec le <strong>slicing</strong> (découpage de liste), crée :</p><ul><li><code>trois_premiers</code> : les 3 premiers clients</li><li><code>deux_derniers</code> : les 2 derniers</li><li><code>un_sur_deux</code> : un client sur deux, en partant du premier (Ana, Chloé, Eva)</li></ul>",
       "startCode": "file_attente = [\"Ana\", \"Bob\", \"Chloé\", \"Dan\", \"Eva\", \"Fred\"]\n\ntrois_premiers = None   # les 3 premiers\ndeux_derniers = None    # les 2 derniers\nun_sur_deux = None      # un sur deux (pas de 2)\n",
@@ -54,6 +57,7 @@
     },
     {
       "id": "2-4",
+      "solution": "stand = (\"Fruits\", 12)\nnom, allee = stand\n\ndef echange(a, b):\n    return (b, a)\n",
       "title": "Le sceau du marché",
       "statement": "<p>Le sceau officiel est un <strong>tuple</strong> : une fois frappé, impossible de le modifier !</p><ul><li>Crée le tuple <code>stand = (\"Fruits\", 12)</code> (nom du stand, numéro d'allée)</li><li><strong>Dépaquette</strong>-le en deux variables : <code>nom</code> et <code>allee</code></li><li>Écris la fonction <code>echange(a, b)</code> qui renvoie le tuple <code>(b, a)</code></li></ul>",
       "startCode": "stand = None          # crée le tuple (\"Fruits\", 12)\nnom, allee = \"?\", 0   # dépaquette stand en nom et allee\n\ndef echange(a, b):\n    # renvoie le tuple (b, a)\n    pass\n",
@@ -70,6 +74,7 @@
     },
     {
       "id": "2-5",
+      "solution": "prix = {\"pomme\": 2, \"poire\": 3, \"cerise\": 8}\n\ndef prix_de(article):\n    return prix[article]\n",
       "title": "Les étiquettes de prix",
       "statement": "<p>Chaque article a son étiquette : un <strong>dictionnaire</strong> associe un article à son prix.</p><ul><li>Crée le dictionnaire <code>prix</code> : <code>\"pomme\"</code> → <code>2</code>, <code>\"poire\"</code> → <code>3</code>, <code>\"cerise\"</code> → <code>8</code></li><li>Écris <code>prix_de(article)</code> qui renvoie le prix de l'article demandé</li></ul>",
       "startCode": "prix = {}   # \"pomme\": 2, \"poire\": 3, \"cerise\": 8\n\ndef prix_de(article):\n    # renvoie le prix de l'article (cherche dans prix)\n    pass\n",
@@ -86,6 +91,7 @@
     },
     {
       "id": "2-6",
+      "solution": "def total_caisse(ventes):\n    return sum(ventes.values())\n\ndef articles_chers(prix, seuil):\n    resultat = []\n    for article, p in prix.items():\n        if p >= seuil:\n            resultat.append(article)\n    return sorted(resultat)\n",
       "title": "Le registre du marché",
       "statement": "<p>Fin de journée : on fait les comptes dans le registre (un dictionnaire article → montant).</p><ul><li><code>total_caisse(ventes)</code> renvoie la <strong>somme de toutes les valeurs</strong></li><li><code>articles_chers(prix, seuil)</code> renvoie la <strong>liste triée</strong> des articles dont le prix est supérieur ou égal à <code>seuil</code></li></ul>",
       "startCode": "def total_caisse(ventes):\n    # somme de toutes les valeurs du dictionnaire\n    pass\n\ndef articles_chers(prix, seuil):\n    # liste TRIÉE des articles (clés) dont le prix >= seuil\n    pass\n",
@@ -102,6 +108,7 @@
     },
     {
       "id": "2-7",
+      "solution": "clients_lundi = {\"Ana\", \"Bob\", \"Chloé\"}\nclients_mardi = {\"Bob\", \"Dan\"}\nfideles = clients_lundi & clients_mardi\ntous = clients_lundi | clients_mardi\nuniquement_lundi = clients_lundi - clients_mardi\n",
       "title": "Le stand des raretés",
       "statement": "<p>Qui est venu au marché ? Les <strong>ensembles</strong> (<code>set</code>) ignorent les doublons et se combinent :</p><ul><li><code>fideles</code> : clients venus les <strong>deux</strong> jours (intersection)</li><li><code>tous</code> : tous les clients, sans doublon (union)</li><li><code>uniquement_lundi</code> : venus lundi mais pas mardi (différence)</li></ul>",
       "startCode": "clients_lundi = {\"Ana\", \"Bob\", \"Chloé\"}\nclients_mardi = {\"Bob\", \"Dan\"}\n\nfideles = None           # intersection\ntous = None              # union\nuniquement_lundi = None  # différence\n",
@@ -118,6 +125,7 @@
     },
     {
       "id": "2-8",
+      "solution": "def doubles(nombres):\n    return [x * 2 for x in nombres]\n\ndef pairs(nombres):\n    return [x for x in nombres if x % 2 == 0]\n",
       "title": "La machine à transformer",
       "statement": "<p>Une machine magique transforme des listes entières en une seule ligne : la <strong>compréhension de liste</strong>.</p><pre>[x * 2 for x in liste]\n[x for x in liste if x &gt; 0]</pre><ul><li><code>doubles(nombres)</code> renvoie la liste des doubles</li><li><code>pairs(nombres)</code> renvoie la liste des nombres pairs uniquement</li></ul><p>Utilise une compréhension dans chaque fonction.</p>",
       "startCode": "def doubles(nombres):\n    # renvoie [chaque nombre x 2], en une compréhension\n    pass\n\ndef pairs(nombres):\n    # renvoie uniquement les nombres pairs, en une compréhension\n    pass\n",
@@ -134,6 +142,7 @@
     },
     {
       "id": "2-9",
+      "solution": "def bilan(etals):\n    return sum(e[\"vendu\"] for e in etals)\n\ndef stars(etals, seuil):\n    return sorted([e[\"nom\"] for e in etals if e[\"vendu\"] >= seuil])\n",
       "title": "Le Grand Inventaire (BOSS)",
       "statement": "<p><strong>BOSS.</strong> Le doyen du marché te confie l'inventaire général : une <strong>liste de dictionnaires</strong>, un par étal :</p><pre>etals = [\n  {\"nom\": \"pomme\", \"vendu\": 12},\n  {\"nom\": \"poire\", \"vendu\": 3},\n  {\"nom\": \"miel\",  \"vendu\": 25},\n]</pre><ul><li><code>bilan(etals)</code> renvoie le <strong>total</strong> des quantités vendues</li><li><code>stars(etals, seuil)</code> renvoie la <strong>liste triée</strong> des noms des produits dont <code>\"vendu\"</code> est supérieur ou égal à <code>seuil</code> — compréhension conseillée !</li></ul>",
       "startCode": "# Chaque étal est un dictionnaire : {\"nom\": ..., \"vendu\": ...}\n\ndef bilan(etals):\n    # renvoie le TOTAL des quantités vendues\n    pass\n\ndef stars(etals, seuil):\n    # renvoie la liste TRIÉE des noms dont \"vendu\" >= seuil\n    pass\n",

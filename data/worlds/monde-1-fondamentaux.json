@@ -6,6 +6,7 @@
   "levels": [
     {
       "id": "1-1",
+      "solution": "pseudo = \"Alex\"\nniveau = 1\nenergie = 100.0\nactif = True\n",
       "title": "Les papiers du village",
       "statement": "<p>Le maire enregistre les nouveaux venus. Donne à chaque variable la <strong>bonne valeur</strong> :</p><ul><li><code>pseudo</code> : le texte <code>\"Alex\"</code></li><li><code>niveau</code> : l'entier <code>1</code></li><li><code>energie</code> : le décimal <code>100.0</code></li><li><code>actif</code> : le booléen <code>True</code></li></ul>",
       "startCode": "# Complète chaque variable avec la bonne valeur\npseudo = \"...\"    # texte (str)\nniveau = 0        # entier (int)\nenergie = 0.0     # décimal (float)\nactif = False     # booléen (bool)\n",
@@ -22,6 +23,7 @@
     },
     {
       "id": "1-2",
+      "solution": "a = 17\nb = 5\nsomme = a + b\nproduit = a * b\nreste = a % b\n",
       "title": "Le comptoir du marchand",
       "statement": "<p>Le marchand a besoin de calculs. Les nombres <code>a = 17</code> et <code>b = 5</code> sont déjà donnés. Crée :</p><ul><li><code>somme = a + b</code></li><li><code>produit = a * b</code></li><li><code>reste</code> : le reste de la division de <code>a</code> par <code>b</code> (opérateur <code>%</code>)</li></ul>",
       "startCode": "a = 17\nb = 5\n\nsomme = 0     # à corriger : a + b\nproduit = 0   # à corriger : a * b\nreste = 0     # à corriger : a % b\n",
@@ -38,6 +40,7 @@
     },
     {
       "id": "1-3",
+      "solution": "x = 8\ny = 12\negal = x == y\nplus_grand = x > y\ndifferent = x != y\n",
       "title": "Le garde compare",
       "statement": "<p>Avec <code>x = 8</code> et <code>y = 12</code>, crée trois variables <strong>booléennes</strong> :</p><ul><li><code>egal</code> : est-ce que <code>x</code> est égal à <code>y</code> ?</li><li><code>plus_grand</code> : est-ce que <code>x</code> est strictement supérieur à <code>y</code> ?</li><li><code>different</code> : est-ce que <code>x</code> est différent de <code>y</code> ?</li></ul>",
       "startCode": "x = 8\ny = 12\n\negal = None         # x == y ?\nplus_grand = None   # x > y ?\ndifferent = None    # x != y ?\n",
@@ -54,6 +57,7 @@
     },
     {
       "id": "1-4",
+      "solution": "pluie = True\nvent = False\nsortir = not pluie and not vent\nalerte = pluie or vent\nbeau_temps = not alerte\n",
       "title": "La météo du village",
       "statement": "<p>On te donne <code>pluie = True</code> et <code>vent = False</code>. Combine-les avec <code>and</code>, <code>or</code> et <code>not</code> :</p><ul><li><code>sortir</code> : vrai s'il ne pleut pas <em>et</em> qu'il n'y a pas de vent</li><li><code>alerte</code> : vrai s'il pleut <em>ou</em> s'il y a du vent</li><li><code>beau_temps</code> : l'inverse de <code>alerte</code></li></ul>",
       "startCode": "pluie = True\nvent = False\n\nsortir = None      # pas de pluie ET pas de vent\nalerte = None      # pluie OU vent\nbeau_temps = None  # l'inverse de alerte\n",
@@ -70,6 +74,7 @@
     },
     {
       "id": "1-5",
+      "solution": "def mention(note):\n    if note < 10:\n        return \"Recalé\"\n    elif note < 14:\n        return \"Passable\"\n    else:\n        return \"Bien\"\n",
       "title": "Le tableau d'honneur",
       "statement": "<p>Écris la fonction <code>mention(note)</code> qui <strong>renvoie</strong> :</p><ul><li><code>\"Recalé\"</code> si <code>note &lt; 10</code></li><li><code>\"Passable\"</code> si <code>note</code> va de 10 à 13</li><li><code>\"Bien\"</code> si <code>note</code> vaut 14 ou plus</li></ul>",
       "startCode": "def mention(note):\n    # Utilise if / elif / else, chacun avec son return\n    pass\n",
@@ -86,6 +91,7 @@
     },
     {
       "id": "1-6",
+      "solution": "def somme_jusqua(n):\n    total = 0\n    for i in range(1, n + 1):\n        total = total + i\n    return total\n",
       "title": "La collecte des pièces",
       "statement": "<p>Écris <code>somme_jusqua(n)</code> qui renvoie la somme des entiers de <code>1</code> à <code>n</code> inclus, à l'aide d'une <strong>boucle for</strong>.</p><p>Exemple : <code>somme_jusqua(5)</code> vaut <code>15</code> (1+2+3+4+5).</p>",
       "startCode": "def somme_jusqua(n):\n    total = 0\n    # Ajoute une boucle for ici\n    return total\n",
@@ -102,6 +108,7 @@
     },
     {
       "id": "1-7",
+      "solution": "def nb_chiffres(n):\n    compte = 0\n    while n > 0:\n        n = n // 10\n        compte = compte + 1\n    return compte\n",
       "title": "Le prix mystère",
       "statement": "<p>Écris <code>nb_chiffres(n)</code> qui renvoie le nombre de chiffres d'un entier positif, à l'aide d'une <strong>boucle while</strong>.</p><p>Exemple : <code>nb_chiffres(705)</code> vaut <code>3</code>.</p>",
       "startCode": "def nb_chiffres(n):\n    compte = 0\n    # Utilise une boucle while pour retirer les chiffres un à un\n    return compte\n",
@@ -118,6 +125,7 @@
     },
     {
       "id": "1-8",
+      "solution": "n = int(input())\nprint(\"Le double est\", n * 2)\n",
       "title": "L'écho du crieur",
       "statement": "<p>Le crieur répète le double d'un nombre. Lis un entier avec <code>input()</code>, puis affiche <strong>exactement</strong> :</p><pre>Le double est 14</pre><p>(ici pour l'entrée <code>7</code>). N'affiche rien d'autre, et ne mets aucun message dans <code>input()</code>.</p>",
       "startCode": "# Lis un entier avec input(), puis affiche son double.\n# Exemple : entrée 7  ->  Le double est 14\n",
@@ -134,6 +142,7 @@
     },
     {
       "id": "1-9",
+      "solution": "n = int(input())\nfor i in range(1, n + 1):\n    if i % 2 == 0:\n        print(f\"{i}: pair\")\n    else:\n        print(f\"{i}: impair\")\n",
       "title": "Le pont du gardien (BOSS)",
       "statement": "<p><strong>BOSS.</strong> Le gardien du pont te teste. Lis un entier <code>n</code> avec <code>input()</code>. Pour chaque nombre de <code>1</code> à <code>n</code>, affiche s'il est pair ou impair, une ligne par nombre :</p><pre>1: impair\n2: pair\n3: impair</pre><p>(ici pour l'entrée <code>3</code>). Respecte le format exact <code>i: pair</code> ou <code>i: impair</code>, sans message dans <code>input()</code>.</p>",
       "startCode": "# Lis un entier n avec input().\n# Pour chaque nombre de 1 à n, affiche \"i: pair\" ou \"i: impair\".\n",
