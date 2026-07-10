@@ -1,0 +1,160 @@
+{
+  "id": "monde-4",
+  "title": "Arène des Algorithmes",
+  "description": "Dans l'arène, les combattants se rangent par taille et le crieur retrouve n'importe qui en dix questions. Tris manuels, recherches, et l'art de choisir le bon algorithme.",
+  "theme": "arene",
+  "levels": [
+    {
+      "id": "4-1",
+      "solution": "def echanger(liste, i, j):\n    liste[i], liste[j] = liste[j], liste[i]\n    return liste\n",
+      "title": "L'échange des lutteurs",
+      "statement": "<p>Tout tri repose sur un seul geste : <strong>l'échange</strong>. Deux lutteurs troquent leur place, le reste ne bouge pas.</p><p>Écris <code>echanger(liste, i, j)</code> qui échange les éléments d'index <code>i</code> et <code>j</code>, puis renvoie la liste.</p><p>Souvenir du Marché : le dépaquetage de tuple permet de le faire <em>en une ligne</em>, sans variable temporaire.</p>",
+      "startCode": "def echanger(liste, i, j):\n    # échange liste[i] et liste[j], puis renvoie liste\n    pass\n\nprint(echanger([\"A\", \"B\", \"C\"], 0, 2))   # attendu : ['C', 'B', 'A']\n",
+      "xp": 35,
+      "hints": [
+        "En Python on échange sans variable temporaire : <code>x, y = y, x</code>. Applique la même idée aux deux cases de la liste.",
+        "<code>liste[i], liste[j] = liste[j], liste[i]</code> puis <code>return liste</code>."
+      ],
+      "tests": [
+        { "type": "function", "description": "echanger([3, 1, 2], 0, 1) renvoie [1, 3, 2]", "name": "echanger", "args": [[3, 1, 2], 0, 1], "expected": [1, 3, 2] },
+        { "type": "function", "description": "echanger([\"A\", \"B\", \"C\"], 0, 2) renvoie [C, B, A]", "name": "echanger", "args": [["A", "B", "C"], 0, 2], "expected": ["C", "B", "A"] },
+        { "type": "function", "description": "échanger une case avec elle-même ne change rien", "name": "echanger", "args": [[7, 8], 1, 1], "expected": [7, 8] }
+      ]
+    },
+    {
+      "id": "4-2",
+      "solution": "liste = [4, 2, 5, 1]\n\nfor i in range(len(liste) - 1):\n    if liste[i] > liste[i + 1]:\n        liste[i], liste[i + 1] = liste[i + 1], liste[i]\n        print(liste)\n",
+      "title": "La première passe",
+      "statement": "<p>Le maître d'armes fait défiler les combattants <code>[4, 2, 5, 1]</code> : il compare chaque paire de <strong>voisins</strong> et les échange s'ils sont dans le désordre. C'est une <strong>passe</strong> de tri à bulles.</p><p>Écris cette passe, et pour <em>voir</em> l'algorithme travailler : <code>print(liste)</code> <strong>après chaque échange</strong>.</p><p>Sortie attendue :</p><pre>[2, 4, 5, 1]\n[2, 4, 1, 5]</pre>",
+      "startCode": "liste = [4, 2, 5, 1]\n\n# Une passe : pour chaque i, compare liste[i] et liste[i+1].\n# S'ils sont dans le désordre : échange-les, puis print(liste)\n",
+      "xp": 45,
+      "hints": [
+        "Boucle avec <code>for i in range(len(liste) - 1)</code> (le -1 évite de sortir de la liste). Le désordre, c'est <code>liste[i] &gt; liste[i + 1]</code>.",
+        "Dans le if : <code>liste[i], liste[i + 1] = liste[i + 1], liste[i]</code> puis <code>print(liste)</code>, tous deux indentés."
+      ],
+      "tests": [
+        { "type": "stdout", "description": "affiche l'état de la liste après chaque échange", "expected": "[2, 4, 5, 1]\n[2, 4, 1, 5]" },
+        { "type": "variable", "description": "après la passe, le 5 a « remonté » tout au bout", "name": "liste", "expected": [2, 4, 1, 5] }
+      ]
+    },
+    {
+      "id": "4-3",
+      "solution": "def tri_bulles(liste):\n    n = len(liste)\n    for tour in range(n - 1):\n        for i in range(n - 1 - tour):\n            if liste[i] > liste[i + 1]:\n                liste[i], liste[i + 1] = liste[i + 1], liste[i]\n    return liste\n",
+      "title": "Le tri à bulles",
+      "statement": "<p>Une passe fait remonter le plus grand tout au bout — comme une bulle. Il suffit donc de <strong>répéter la passe</strong> pour tout trier !</p><p>Écris <code>tri_bulles(liste)</code> : une boucle de passes autour de ta passe du niveau précédent, puis <code>return liste</code>.</p><p><strong>Interdit</strong> : <code>sort()</code> et <code>sorted()</code> — ici on forge le tri à la main (et un test le vérifie !).</p>",
+      "startCode": "def tri_bulles(liste):\n    # répète la passe du niveau précédent (une boucle autour de la boucle)\n    # puis renvoie liste\n    pass\n\nprint(tri_bulles([5, 3, 1, 4]))   # attendu : [1, 3, 4, 5]\n",
+      "xp": 55,
+      "hints": [
+        "Deux boucles imbriquées : <code>for tour in range(n - 1):</code> autour de ta passe. Après chaque passe, le plus grand est en place — la passe peut donc raccourcir (<code>n - 1 - tour</code>), mais ce n'est pas obligatoire.",
+        "<code>n = len(liste)</code> ; <code>for tour in range(n - 1):</code> ; <code>for i in range(n - 1 - tour):</code> ; le if d'échange ; puis <code>return liste</code>."
+      ],
+      "tests": [
+        { "type": "function", "description": "tri_bulles([5, 3, 1, 4]) renvoie [1, 3, 4, 5]", "name": "tri_bulles", "args": [[5, 3, 1, 4]], "expected": [1, 3, 4, 5] },
+        { "type": "function", "description": "pire cas : liste à l'envers", "name": "tri_bulles", "args": [[9, 7, 5, 3, 1]], "expected": [1, 3, 5, 7, 9] },
+        { "type": "expression", "description": "tri manuel exigé : sort()/sorted() interdits", "expression": "tri_bulles([2, 1]) == [1, 2] and 'sort' not in tri_bulles.__code__.co_names and 'sorted' not in tri_bulles.__code__.co_names", "expected": true }
+      ]
+    },
+    {
+      "id": "4-4",
+      "solution": "def tri_insertion(liste):\n    for i in range(1, len(liste)):\n        valeur = liste[i]\n        j = i - 1\n        while j >= 0 and liste[j] > valeur:\n            liste[j + 1] = liste[j]\n            j = j - 1\n        liste[j + 1] = valeur\n    return liste\n",
+      "title": "Le tri par insertion",
+      "statement": "<p>C'est le tri du joueur de cartes : la main gauche est <strong>déjà triée</strong>, et chaque nouvelle carte s'<strong>insère à sa place</strong> en décalant les plus grandes vers la droite.</p><p>Écris <code>tri_insertion(liste)</code> : pour chaque <code>i</code> à partir de 1, mémorise <code>valeur = liste[i]</code>, décale vers la droite tous les éléments plus grands à sa gauche, puis pose <code>valeur</code> dans le trou.</p><p>Toujours sans <code>sort()</code> / <code>sorted()</code>.</p>",
+      "startCode": "def tri_insertion(liste):\n    for i in range(1, len(liste)):\n        valeur = liste[i]\n        j = i - 1\n        # tant que j >= 0 ET que liste[j] > valeur :\n        #   décale liste[j] vers la droite (dans liste[j + 1]), puis j -= 1\n        # enfin, pose valeur dans liste[j + 1]\n    return liste\n\nprint(tri_insertion([4, 2, 7, 1]))   # attendu : [1, 2, 4, 7]\n",
+      "xp": 60,
+      "hints": [
+        "Le décalage s'écrit <code>liste[j + 1] = liste[j]</code> dans un <code>while j &gt;= 0 and liste[j] &gt; valeur</code>. À la sortie du while, le trou est en <code>j + 1</code>.",
+        "<code>while j &gt;= 0 and liste[j] &gt; valeur: liste[j + 1] = liste[j] ; j = j - 1</code> puis, après le while : <code>liste[j + 1] = valeur</code>."
+      ],
+      "tests": [
+        { "type": "function", "description": "tri_insertion([4, 2, 7, 1]) renvoie [1, 2, 4, 7]", "name": "tri_insertion", "args": [[4, 2, 7, 1]], "expected": [1, 2, 4, 7] },
+        { "type": "function", "description": "une liste vide reste vide", "name": "tri_insertion", "args": [[]], "expected": [] },
+        { "type": "expression", "description": "déjà triée : rien ne bouge — et tri manuel exigé", "expression": "tri_insertion([1, 2, 3]) == [1, 2, 3] and 'sort' not in tri_insertion.__code__.co_names and 'sorted' not in tri_insertion.__code__.co_names", "expected": true }
+      ]
+    },
+    {
+      "id": "4-5",
+      "solution": "def tri_selection(liste):\n    n = len(liste)\n    for i in range(n - 1):\n        i_min = i\n        for j in range(i + 1, n):\n            if liste[j] < liste[i_min]:\n                i_min = j\n        liste[i], liste[i_min] = liste[i_min], liste[i]\n    return liste\n",
+      "title": "Le tri par sélection",
+      "statement": "<p>Le sélectionneur, lui, cherche le <strong>plus petit</strong> combattant de toute la ligne… et l'envoie directement en position <code>i</code>. Puis il recommence à partir de <code>i + 1</code>.</p><p>Écris <code>tri_selection(liste)</code> : pour chaque position <code>i</code>, trouve l'index <code>i_min</code> du minimum entre <code>i</code> et la fin, puis <strong>échange</strong> <code>liste[i]</code> et <code>liste[i_min]</code> (ton geste du niveau 1 !).</p>",
+      "startCode": "def tri_selection(liste):\n    n = len(liste)\n    for i in range(n - 1):\n        i_min = i\n        # cherche, entre i+1 et la fin, l'index du plus petit élément\n        # puis échange liste[i] et liste[i_min]\n    return liste\n\nprint(tri_selection([6, 2, 8, 1, 4]))   # attendu : [1, 2, 4, 6, 8]\n",
+      "xp": 65,
+      "hints": [
+        "Une boucle <code>for j in range(i + 1, n)</code> : si <code>liste[j] &lt; liste[i_min]</code>, alors <code>i_min = j</code>. L'échange vient APRÈS cette boucle.",
+        "<code>for j in range(i + 1, n): if liste[j] &lt; liste[i_min]: i_min = j</code> puis <code>liste[i], liste[i_min] = liste[i_min], liste[i]</code>."
+      ],
+      "tests": [
+        { "type": "function", "description": "tri_selection([6, 2, 8, 1, 4]) renvoie [1, 2, 4, 6, 8]", "name": "tri_selection", "args": [[6, 2, 8, 1, 4]], "expected": [1, 2, 4, 6, 8] },
+        { "type": "function", "description": "un seul élément : déjà trié", "name": "tri_selection", "args": [[3]], "expected": [3] },
+        { "type": "expression", "description": "gère les doublons — et tri manuel exigé", "expression": "tri_selection([2, 2, 1]) == [1, 2, 2] and 'sort' not in tri_selection.__code__.co_names and 'sorted' not in tri_selection.__code__.co_names", "expected": true }
+      ]
+    },
+    {
+      "id": "4-6",
+      "solution": "def recherche_lineaire(liste, cible):\n    for i in range(len(liste)):\n        if liste[i] == cible:\n            return i\n    return -1\n",
+      "title": "La recherche du champion",
+      "statement": "<p>Le crieur cherche un nom dans la liste des inscrits : il la parcourt <strong>du début à la fin</strong>, un par un. C'est la <strong>recherche linéaire</strong>.</p><p>Écris <code>recherche_lineaire(liste, cible)</code> qui renvoie l'<strong>index</strong> de la <em>première</em> occurrence de <code>cible</code>, ou <code>-1</code> si elle n'y est pas.</p><p>À la main : sans <code>index()</code> ni <code>in</code> — c'est toi le crieur.</p>",
+      "startCode": "def recherche_lineaire(liste, cible):\n    # parcours les index ; si liste[i] est la cible, renvoie i\n    # si la boucle se termine sans trouver : renvoie -1\n    pass\n\nprint(recherche_lineaire([\"riri\", \"fifi\", \"loulou\"], \"fifi\"))   # attendu : 1\n",
+      "xp": 70,
+      "hints": [
+        "<code>for i in range(len(liste))</code> avec un <code>if</code> qui <code>return i</code>. Le <code>return -1</code> se place APRÈS la boucle (il ne s'exécute que si rien n'a été trouvé).",
+        "<code>for i in range(len(liste)): if liste[i] == cible: return i</code> puis, hors de la boucle, <code>return -1</code>."
+      ],
+      "tests": [
+        { "type": "function", "description": "trouve « fifi » à l'index 1", "name": "recherche_lineaire", "args": [["riri", "fifi", "loulou"], "fifi"], "expected": 1 },
+        { "type": "function", "description": "absent → -1", "name": "recherche_lineaire", "args": [[5, 8, 2], 9], "expected": -1 },
+        { "type": "expression", "description": "renvoie la PREMIÈRE occurrence — et sans index()", "expression": "recherche_lineaire([4, 7, 4], 4) == 0 and 'index' not in recherche_lineaire.__code__.co_names", "expected": true }
+      ]
+    },
+    {
+      "id": "4-7",
+      "solution": "def recherche_dichotomique(liste, cible):\n    gauche = 0\n    droite = len(liste) - 1\n    while gauche <= droite:\n        milieu = (gauche + droite) // 2\n        if liste[milieu] == cible:\n            return milieu\n        if liste[milieu] < cible:\n            gauche = milieu + 1\n        else:\n            droite = milieu - 1\n    return -1\n",
+      "title": "Le coup du milieu",
+      "statement": "<p>Le maître de l'arène, lui, ouvre la liste <strong>au milieu</strong> : trop petit ? il jette toute la moitié gauche. Trop grand ? toute la droite. C'est la <strong>recherche dichotomique</strong>.</p><p>⚠ <strong>Prérequis absolu : la liste doit être TRIÉE.</strong> Sur une liste en désordre, jeter une moitié peut jeter la cible avec — l'algorithme ment.</p><p>Écris <code>recherche_dichotomique(liste, cible)</code> (index ou <code>-1</code>) avec deux bornes <code>gauche</code> et <code>droite</code> qui se resserrent.</p>",
+      "startCode": "def recherche_dichotomique(liste, cible):\n    gauche = 0\n    droite = len(liste) - 1\n    # tant que gauche <= droite :\n    #   milieu = (gauche + droite) // 2\n    #   cible trouvée en milieu ? renvoie milieu\n    #   liste[milieu] trop petit ? gauche = milieu + 1\n    #   sinon                    : droite = milieu - 1\n    # plus de zone à fouiller : renvoie -1\n    pass\n\nprint(recherche_dichotomique([1, 3, 5, 7, 9, 11], 7))   # attendu : 3\n",
+      "xp": 80,
+      "hints": [
+        "Trois cas dans le while : égal (return), trop petit (on avance <code>gauche</code>), trop grand (on recule <code>droite</code>). Le <code>// 2</code> garantit un index entier.",
+        "<code>while gauche &lt;= droite: milieu = (gauche + droite) // 2</code> ; <code>if liste[milieu] == cible: return milieu</code> ; <code>if liste[milieu] &lt; cible: gauche = milieu + 1</code> ; <code>else: droite = milieu - 1</code> ; et après le while : <code>return -1</code>."
+      ],
+      "tests": [
+        { "type": "function", "description": "trouve 7 à l'index 3 dans [1,3,5,7,9,11]", "name": "recherche_dichotomique", "args": [[1, 3, 5, 7, 9, 11], 7], "expected": 3 },
+        { "type": "function", "description": "5 absent de [2,4,6,8] → -1", "name": "recherche_dichotomique", "args": [[2, 4, 6, 8], 5], "expected": -1 },
+        { "type": "expression", "description": "grande liste triée de 100 pairs : 100 est à l'index 50", "expression": "recherche_dichotomique(list(range(0, 200, 2)), 100) == 50 and 'index' not in recherche_dichotomique.__code__.co_names", "expected": true }
+      ]
+    },
+    {
+      "id": "4-8",
+      "solution": "def etapes_lineaire(liste, cible):\n    etapes = 0\n    for element in liste:\n        etapes = etapes + 1\n        if element == cible:\n            return etapes\n    return etapes\n\ndef etapes_dicho(liste, cible):\n    etapes = 0\n    gauche = 0\n    droite = len(liste) - 1\n    while gauche <= droite:\n        etapes = etapes + 1\n        milieu = (gauche + droite) // 2\n        if liste[milieu] == cible:\n            return etapes\n        if liste[milieu] < cible:\n            gauche = milieu + 1\n        else:\n            droite = milieu - 1\n    return etapes\n",
+      "title": "Le duel des vitesses",
+      "statement": "<p><strong>Duel !</strong> Même liste de 1000 inscrits, même cible : le crieur (linéaire) contre le maître (dichotomie). Qui fait le moins d'<strong>étapes</strong> ?</p><p>Reprends tes deux recherches, mais fais-leur renvoyer le <strong>nombre d'étapes</strong> (1 étape = 1 élément regardé pour le crieur, 1 tour de boucle pour le maître) :</p><ul><li><code>etapes_lineaire(liste, cible)</code></li><li><code>etapes_dicho(liste, cible)</code></li></ul><p>Clique <strong>Exécuter</strong> pour voir le duel : ~1000 étapes contre ~10. Et retiens le secret : à chaque étape, la dichotomie <strong>élimine la moitié</strong> des candidats — doubler la liste ne lui coûte qu'<em>une</em> étape de plus.</p>",
+      "startCode": "def etapes_lineaire(liste, cible):\n    # comme ta recherche linéaire, mais renvoie le NOMBRE d'éléments regardés\n    pass\n\ndef etapes_dicho(liste, cible):\n    # comme ta dichotomie, mais renvoie le NOMBRE de tours de boucle\n    pass\n\ngrande = list(range(1000))\nprint(\"crieur (linéaire) :\", etapes_lineaire(grande, 999), \"étapes\")\nprint(\"maître (dicho)    :\", etapes_dicho(grande, 999), \"étapes\")\n",
+      "xp": 85,
+      "hints": [
+        "Ajoute un compteur <code>etapes = 0</code>, incrémente-le au début de chaque tour, et renvoie-le à la place de l'index (au moment du <code>return</code> et à la fin).",
+        "Linéaire : <code>etapes += 1</code> dans le for, <code>return etapes</code> quand tu trouves (et après la boucle). Dicho : <code>etapes += 1</code> juste après le <code>while</code>, mêmes <code>return etapes</code>."
+      ],
+      "tests": [
+        { "type": "expression", "description": "le crieur regarde les 1000 inscrits pour trouver le dernier", "expression": "etapes_lineaire(list(range(1000)), 999) == 1000", "expected": true },
+        { "type": "expression", "description": "le maître trouve le même en une dizaine d'étapes", "expression": "etapes_dicho(list(range(1000)), 999) <= 12", "expected": true },
+        { "type": "expression", "description": "premier élément : 1 étape pour le crieur ; cible centrale : toujours ≤ 12 pour le maître", "expression": "etapes_lineaire(list(range(1000)), 0) == 1 and etapes_dicho(list(range(1000)), 500) <= 12", "expected": true }
+      ]
+    },
+    {
+      "id": "4-9",
+      "solution": "def chercher_joueur(classement, pseudo):\n    gauche = 0\n    droite = len(classement) - 1\n    while gauche <= droite:\n        milieu = (gauche + droite) // 2\n        if classement[milieu] == pseudo:\n            return True\n        if classement[milieu] < pseudo:\n            gauche = milieu + 1\n        else:\n            droite = milieu - 1\n    return False\n\ndef meilleur_score(scores):\n    meilleur = scores[0]\n    for s in scores:\n        if s > meilleur:\n            meilleur = s\n    return meilleur\n",
+      "title": "Le Grand Tournoi (BOSS)",
+      "statement": "<p><strong>BOSS.</strong> L'organisateur du tournoi a deux problèmes — à toi de choisir le <strong>bon algorithme</strong> pour chacun :</p><ul><li><code>chercher_joueur(classement, pseudo)</code> : le classement est une liste de pseudos <strong>déjà triée alphabétiquement</strong> et immense → renvoie <code>True</code>/<code>False</code>… par <strong>dichotomie</strong> (la comparaison <code>&lt;</code> marche aussi sur les textes !)</li><li><code>meilleur_score(scores)</code> : les scores arrivent <strong>en vrac</strong> (pas triés, pas le temps de trier) → un simple <strong>parcours</strong> qui retient le plus grand. Sans <code>max()</code> ni <code>sorted()</code> !</li></ul><p>Morale du tournoi : liste triée → dichotomie ; données en vrac → parcours linéaire.</p>",
+      "startCode": "def chercher_joueur(classement, pseudo):\n    # classement est TRIÉ : quel algorithme s'impose ?\n    pass\n\ndef meilleur_score(scores):\n    # en vrac : retiens le plus grand en un seul passage\n    pass\n\nprint(chercher_joueur([\"alex\", \"bob\", \"chloe\", \"dan\", \"eva\"], \"chloe\"))  # True\nprint(meilleur_score([12, 45, 3, 78, 6]))                                # 78\n",
+      "xp": 100,
+      "hints": [
+        "Pour les pseudos : ta dichotomie du « coup du milieu », qui renvoie True/False au lieu d'un index. Pour les scores : pars de <code>meilleur = scores[0]</code> et compare chaque score.",
+        "<code>chercher_joueur</code> = copie de <code>recherche_dichotomique</code> avec <code>return True</code>/<code>return False</code>. <code>meilleur_score</code> : <code>for s in scores: if s &gt; meilleur: meilleur = s</code> puis <code>return meilleur</code>."
+      ],
+      "tests": [
+        { "type": "function", "description": "chloe est bien inscrite (dichotomie sur textes)", "name": "chercher_joueur", "args": [["alex", "bob", "chloe", "dan", "eva"], "chloe"], "expected": true },
+        { "type": "function", "description": "le meilleur score en vrac est 78", "name": "meilleur_score", "args": [[12, 45, 3, 78, 6]], "expected": 78 },
+        { "type": "expression", "description": "zoe est absente — et meilleur_score sans max()/sorted()", "expression": "chercher_joueur([\"alex\", \"bob\", \"chloe\", \"dan\", \"eva\"], \"zoe\") == False and 'max' not in meilleur_score.__code__.co_names and 'sorted' not in meilleur_score.__code__.co_names", "expected": true }
+      ]
+    }
+  ]
+}

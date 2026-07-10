@@ -35,20 +35,24 @@
     },
     {
       "id": "monde-3",
-      "title": "Marais des Boucles",
-      "description": "Bientôt disponible.",
-      "file": null,
+      "title": "Tour de la Récursion",
+      "description": "Fonctions, portée des variables, et le vertige de la récursivité : cas de base, cas récursif.",
+      "file": "monde-3-fonctions-recursivite.json",
       "requires": "monde-2",
-      "color": "#257179",
+      "color": "#5d275d",
+      "theme": "tour",
+      "banner": "assets/sprites/tour/banner.svg",
       "node": { "x": 61, "y": 46 }
     },
     {
       "id": "monde-4",
-      "title": "Pics des Fonctions",
-      "description": "Bientôt disponible.",
-      "file": null,
+      "title": "Arène des Algorithmes",
+      "description": "Tris manuels, recherche linéaire et dichotomique, et l'intuition de la complexité.",
+      "file": "monde-4-algorithmique.json",
       "requires": "monde-3",
       "color": "#ef7d57",
+      "theme": "arene",
+      "banner": "assets/sprites/arene/banner.svg",
       "node": { "x": 76, "y": 60 }
     },
     {

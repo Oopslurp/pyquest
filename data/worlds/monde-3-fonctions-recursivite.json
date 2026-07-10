@@ -1,0 +1,161 @@
+{
+  "id": "monde-3",
+  "title": "Tour de la Récursion",
+  "description": "Une tour en spirale où chaque étage ressemble au précédent, en plus petit. Fonctions, portée des variables, puis le grand vertige : la récursivité.",
+  "theme": "tour",
+  "levels": [
+    {
+      "id": "3-1",
+      "solution": "def saluer(nom):\n    return \"Bienvenue, \" + nom + \" !\"\n\ndef double(n):\n    return n * 2\n",
+      "title": "Le portier de la tour",
+      "statement": "<p>Le portier vérifie que tu maîtrises les bases avant de monter. Écris deux fonctions :</p><ul><li><code>saluer(nom)</code> <strong>renvoie</strong> le texte <code>Bienvenue, X !</code> (où X est le nom) — attention aux espaces !</li><li><code>double(n)</code> renvoie le double de <code>n</code></li></ul><p>Exemple : <code>saluer(\"Léo\")</code> renvoie <code>\"Bienvenue, Léo !\"</code></p>",
+      "startCode": "def saluer(nom):\n    # renvoie \"Bienvenue, \" suivi du nom, suivi de \" !\"\n    pass\n\ndef double(n):\n    # renvoie le double de n\n    pass\n",
+      "xp": 30,
+      "hints": [
+        "On colle des textes bout à bout avec <code>+</code> : <code>\"a\" + variable + \"b\"</code>. Et <code>return</code> renvoie le résultat.",
+        "<code>return \"Bienvenue, \" + nom + \" !\"</code> et <code>return n * 2</code>."
+      ],
+      "tests": [
+        { "type": "function", "description": "saluer(\"Léo\") renvoie \"Bienvenue, Léo !\"", "name": "saluer", "args": ["Léo"], "expected": "Bienvenue, Léo !" },
+        { "type": "function", "description": "saluer(\"Zoé\") renvoie \"Bienvenue, Zoé !\"", "name": "saluer", "args": ["Zoé"], "expected": "Bienvenue, Zoé !" },
+        { "type": "function", "description": "double(21) renvoie 42", "name": "double", "args": [21], "expected": 42 }
+      ]
+    },
+    {
+      "id": "3-2",
+      "solution": "def puissance(base, exposant=2):\n    return base ** exposant\n",
+      "title": "Le sort par défaut",
+      "statement": "<p>Le mage lance ses sorts au carré… sauf indication contraire. Écris <code>puissance(base, exposant)</code> qui renvoie <code>base</code> élevé à la puissance <code>exposant</code> (opérateur <code>**</code>).</p><p>Donne à <code>exposant</code> la <strong>valeur par défaut</strong> <code>2</code> : ainsi <code>puissance(5)</code> vaut <code>25</code>, mais <code>puissance(2, 10)</code> vaut <code>1024</code>.</p>",
+      "startCode": "def puissance(base, exposant):\n    # 1. donne à exposant la valeur par défaut 2 (dans la parenthèse !)\n    # 2. renvoie base élevé à la puissance exposant\n    pass\n",
+      "xp": 35,
+      "hints": [
+        "Une valeur par défaut s'écrit directement dans la signature : <code>def f(x, y=2):</code>. Si on n'envoie pas <code>y</code>, il vaut 2.",
+        "<code>def puissance(base, exposant=2):</code> puis <code>return base ** exposant</code>."
+      ],
+      "tests": [
+        { "type": "function", "description": "puissance(5) renvoie 25 (défaut = 2)", "name": "puissance", "args": [5], "expected": 25 },
+        { "type": "function", "description": "puissance(2, 10) renvoie 1024", "name": "puissance", "args": [2, 10], "expected": 1024 },
+        { "type": "expression", "description": "puissance(3) = 9 et puissance(3, 3) = 27", "expression": "puissance(3) == 9 and puissance(3, 3) == 27", "expected": true }
+      ]
+    },
+    {
+      "id": "3-3",
+      "solution": "tresor = 100\n\ndef depenser(montant):\n    return tresor - montant\n",
+      "title": "Le coffre et la portée",
+      "statement": "<p>Le trésor de la tour est une variable <strong>globale</strong> : <code>tresor = 100</code>.</p><p>Règle de la tour : une fonction peut <strong>lire</strong> une variable globale, mais une variable <strong>créée</strong> dans une fonction reste <strong>locale</strong> (elle disparaît à la sortie).</p><p>Écris <code>depenser(montant)</code> qui renvoie ce qu'il resterait du trésor, <strong>sans jamais modifier</strong> <code>tresor</code>. Appeler deux fois <code>depenser(10)</code> doit donner deux fois <code>90</code>.</p>",
+      "startCode": "tresor = 100\n\ndef depenser(montant):\n    # renvoie le trésor restant, SANS modifier la variable globale\n    pass\n",
+      "xp": 40,
+      "hints": [
+        "Lire <code>tresor</code> dans la fonction est permis. Il suffit de renvoyer un calcul — ne fais aucune affectation à <code>tresor</code>.",
+        "<code>return tresor - montant</code> — c'est tout ! Si tu écris <code>tresor = tresor - montant</code>, Python crée une locale et lève une erreur (UnboundLocalError)."
+      ],
+      "tests": [
+        { "type": "expression", "description": "depenser(30) renvoie 70 et le trésor global reste 100", "expression": "depenser(30) == 70 and tresor == 100", "expected": true },
+        { "type": "expression", "description": "deux appels identiques donnent le même résultat", "expression": "depenser(10) == 90 and depenser(10) == 90", "expected": true },
+        { "type": "function", "description": "depenser(100) renvoie 0", "name": "depenser", "args": [100], "expected": 0 }
+      ]
+    },
+    {
+      "id": "3-4",
+      "solution": "def compte_a_rebours(n):\n    if n == 0:\n        print(\"Partez !\")\n    else:\n        print(n)\n        compte_a_rebours(n - 1)\n\nn = int(input())\ncompte_a_rebours(n)\n",
+      "title": "L'écho de l'escalier",
+      "statement": "<p>Voici la magie de la tour : une fonction qui <strong>s'appelle elle-même</strong>. C'est la <strong>récursivité</strong>. Pour ne pas tomber sans fin, il lui faut TOUJOURS deux choses :</p><pre>cas de base    : quand s'ARRÊTER (ici : n == 0)\ncas récursif   : se rappeler en PLUS PETIT (ici : n - 1)</pre><p>Complète <code>compte_a_rebours(n)</code> : il affiche <code>n</code>, puis descend d'une marche… jusqu'à crier <code>Partez !</code> en bas. Il ne manque qu'une ligne : l'appel récursif.</p><p>Exemple pour l'entrée <code>3</code> :</p><pre>3\n2\n1\nPartez !</pre>",
+      "startCode": "def compte_a_rebours(n):\n    if n == 0:\n        print(\"Partez !\")      # cas de base : on s'arrête\n    else:\n        print(n)\n        # cas récursif : rappelle compte_a_rebours avec une marche de moins\n\nn = int(input())\ncompte_a_rebours(n)\n",
+      "xp": 45,
+      "hints": [
+        "Dans le <code>else</code>, après le <code>print(n)</code>, la fonction doit se rappeler elle-même — avec quoi de plus petit que <code>n</code> ?",
+        "La ligne manquante est : <code>compte_a_rebours(n - 1)</code> (indentée dans le else, sous le print)."
+      ],
+      "tests": [
+        { "type": "stdout", "description": "entrée 3 → 3, 2, 1, Partez !", "stdin": "3\n", "expected": "3\n2\n1\nPartez !" },
+        { "type": "stdout", "description": "entrée 1 → 1, Partez !", "stdin": "1\n", "expected": "1\nPartez !" },
+        { "type": "stdout", "description": "entrée 0 → Partez ! direct", "stdin": "0\n", "expected": "Partez !" }
+      ]
+    },
+    {
+      "id": "3-5",
+      "solution": "def somme_recursive(n):\n    if n == 0:\n        return 0\n    return n + somme_recursive(n - 1)\n",
+      "title": "La somme des marches",
+      "statement": "<p>Tu te souviens de la collecte des pièces au Village (somme de 1 à n avec une boucle <code>for</code>) ? Même mission — mais <strong>sans boucle</strong>, en récursif !</p><p>L'idée : la somme jusqu'à <code>n</code>, c'est <code>n</code> + la somme jusqu'à <code>n - 1</code>. Et la somme jusqu'à <code>0</code>, c'est… <code>0</code> (cas de base).</p><p>Écris <code>somme_recursive(n)</code>. Exemple : <code>somme_recursive(5)</code> vaut <code>15</code>.</p>",
+      "startCode": "def somme_recursive(n):\n    # 1. cas de base : si n vaut 0, renvoie 0\n    # 2. cas récursif : n + la somme jusqu'à (n - 1)\n    pass\n",
+      "xp": 50,
+      "hints": [
+        "Deux lignes suffisent : un <code>if</code> qui <code>return 0</code>, puis un <code>return</code> qui additionne <code>n</code> et l'appel récursif.",
+        "<code>if n == 0: return 0</code> puis <code>return n + somme_recursive(n - 1)</code>."
+      ],
+      "tests": [
+        { "type": "function", "description": "somme_recursive(5) renvoie 15", "name": "somme_recursive", "args": [5], "expected": 15 },
+        { "type": "function", "description": "somme_recursive(1) renvoie 1", "name": "somme_recursive", "args": [1], "expected": 1 },
+        { "type": "function", "description": "somme_recursive(0) renvoie 0 (cas de base)", "name": "somme_recursive", "args": [0], "expected": 0 }
+      ]
+    },
+    {
+      "id": "3-6",
+      "solution": "def factorielle(n):\n    if n == 0:\n        return 1\n    return n * factorielle(n - 1)\n",
+      "title": "La factorielle du mage",
+      "statement": "<p>Le mage calcule <code>n!</code> (factorielle) : <code>5! = 5 × 4 × 3 × 2 × 1 = 120</code>.</p><p>Le schéma récursif que tu connais… avec un <strong>piège</strong> : comme on <em>multiplie</em>, le cas de base doit renvoyer <code>1</code> (et pas 0 — sinon tout le produit vaudrait 0 !). Par convention, <code>0! = 1</code>.</p><p>Écris <code>factorielle(n)</code>.</p>",
+      "startCode": "def factorielle(n):\n    # cas de base : 0! vaut 1 (pas 0 !)\n    # cas récursif : n x factorielle de (n - 1)\n    pass\n",
+      "xp": 55,
+      "hints": [
+        "Copie le schéma de la somme récursive, mais remplace l'addition par une multiplication — et réfléchis à ce que doit renvoyer le cas de base.",
+        "<code>if n == 0: return 1</code> puis <code>return n * factorielle(n - 1)</code>."
+      ],
+      "tests": [
+        { "type": "function", "description": "factorielle(5) renvoie 120", "name": "factorielle", "args": [5], "expected": 120 },
+        { "type": "function", "description": "factorielle(0) renvoie 1 (le piège !)", "name": "factorielle", "args": [0], "expected": 1 },
+        { "type": "function", "description": "factorielle(7) renvoie 5040", "name": "factorielle", "args": [7], "expected": 5040 }
+      ]
+    },
+    {
+      "id": "3-7",
+      "solution": "def fibonacci(n):\n    if n == 0:\n        return 0\n    if n == 1:\n        return 1\n    return fibonacci(n - 1) + fibonacci(n - 2)\n",
+      "title": "L'escalier de Fibonacci",
+      "statement": "<p>L'escalier de la tour suit la suite de Fibonacci : chaque nombre est la somme des <strong>deux</strong> précédents.</p><pre>0, 1, 1, 2, 3, 5, 8, 13, 21, 34, 55…</pre><p>Nouveauté : comme la fonction se rappelle <strong>deux fois</strong> (<code>n - 1</code> et <code>n - 2</code>), il faut <strong>DEUX cas de base</strong> : <code>fibonacci(0)</code> vaut <code>0</code> et <code>fibonacci(1)</code> vaut <code>1</code>.</p><p>Écris <code>fibonacci(n)</code>.</p>",
+      "startCode": "def fibonacci(n):\n    # DEUX cas de base : n == 0 -> 0, et n == 1 -> 1\n    # cas récursif : la somme des deux appels précédents\n    pass\n",
+      "xp": 60,
+      "hints": [
+        "Deux <code>if</code> pour les deux cas de base, puis un <code>return</code> qui additionne les appels sur <code>n - 1</code> et <code>n - 2</code>.",
+        "<code>if n == 0: return 0</code>, <code>if n == 1: return 1</code>, puis <code>return fibonacci(n - 1) + fibonacci(n - 2)</code>."
+      ],
+      "tests": [
+        { "type": "function", "description": "fibonacci(0) renvoie 0", "name": "fibonacci", "args": [0], "expected": 0 },
+        { "type": "function", "description": "fibonacci(1) renvoie 1", "name": "fibonacci", "args": [1], "expected": 1 },
+        { "type": "function", "description": "fibonacci(10) renvoie 55", "name": "fibonacci", "args": [10], "expected": 55 }
+      ]
+    },
+    {
+      "id": "3-8",
+      "solution": "def contient(liste, cible):\n    if liste == []:\n        return False\n    if liste[0] == cible:\n        return True\n    return contient(liste[1:], cible)\n",
+      "title": "La bibliothèque sans fin",
+      "statement": "<p>La bibliothécaire cherche un livre récursivement : elle regarde le <strong>premier</strong> de la pile ; si ce n'est pas le bon, elle recommence avec <strong>le reste de la pile</strong>.</p><p>Écris <code>contient(liste, cible)</code> qui renvoie <code>True</code> si <code>cible</code> est dans la liste, <code>False</code> sinon — <strong>sans</strong> <code>in</code>, sans boucle :</p><ul><li>cas de base 1 : liste vide → <code>False</code></li><li>cas de base 2 : le premier élément est la cible → <code>True</code></li><li>cas récursif : chercher dans <strong>le reste</strong> (souvenir du Marché : <code>liste[1:]</code>)</li></ul>",
+      "startCode": "def contient(liste, cible):\n    # cas de base 1 : liste vide -> False\n    # cas de base 2 : liste[0] est la cible -> True\n    # cas récursif : cherche dans liste[1:]\n    pass\n",
+      "xp": 65,
+      "hints": [
+        "Une liste vide se teste avec <code>liste == []</code>. Le « reste » de la pile, c'est le slicing du Monde 2 : <code>liste[1:]</code>.",
+        "<code>if liste == []: return False</code>, <code>if liste[0] == cible: return True</code>, puis <code>return contient(liste[1:], cible)</code>."
+      ],
+      "tests": [
+        { "type": "function", "description": "trouve « clé » dans la pile", "name": "contient", "args": [["épée", "carte", "clé"], "clé"], "expected": true },
+        { "type": "function", "description": "« potion » est absente → False", "name": "contient", "args": [["épée", "carte", "clé"], "potion"], "expected": false },
+        { "type": "function", "description": "une pile vide ne contient rien", "name": "contient", "args": [[], "rien"], "expected": false }
+      ]
+    },
+    {
+      "id": "3-9",
+      "solution": "def nb_deplacements(n):\n    if n == 0:\n        return 0\n    return 2 * nb_deplacements(n - 1) + 1\n\ndef temps_total(n, secondes=5):\n    return nb_deplacements(n) * secondes\n",
+      "title": "Les Tours de Hanoï (BOSS)",
+      "statement": "<p><strong>BOSS.</strong> Au sommet, le Mage garde les Tours de Hanoï : déplacer <code>n</code> disques demande de déplacer <code>n-1</code> disques, puis <code>1</code>, puis encore <code>n-1</code>. D'où la formule récursive :</p><pre>nb(0) = 0\nnb(n) = 2 × nb(n - 1) + 1</pre><ul><li><code>nb_deplacements(n)</code> : applique cette formule (récursif !)</li><li><code>temps_total(n, secondes)</code> : fonction <em>classique</em> qui renvoie <code>nb_deplacements(n) × secondes</code>, avec <code>secondes</code> à <code>5</code> <strong>par défaut</strong></li></ul><p>Vérification : 3 disques = 7 déplacements = 35 secondes.</p>",
+      "startCode": "def nb_deplacements(n):\n    # cas de base ? cas récursif ? (formule dans l'énoncé)\n    pass\n\ndef temps_total(n, secondes):\n    # ajoute la valeur par défaut, puis combine les deux fonctions\n    pass\n",
+      "xp": 90,
+      "hints": [
+        "<code>nb_deplacements</code> suit exactement le schéma de la factorielle (cas de base 0 → 0). Et pour <code>temps_total</code>, souviens-toi du sort par défaut : <code>secondes=5</code> dans la signature.",
+        "<code>if n == 0: return 0</code> puis <code>return 2 * nb_deplacements(n - 1) + 1</code> ; et <code>def temps_total(n, secondes=5): return nb_deplacements(n) * secondes</code>."
+      ],
+      "tests": [
+        { "type": "function", "description": "3 disques → 7 déplacements", "name": "nb_deplacements", "args": [3], "expected": 7 },
+        { "type": "function", "description": "10 disques → 1023 déplacements", "name": "nb_deplacements", "args": [10], "expected": 1023 },
+        { "type": "expression", "description": "temps_total(3) = 35 (défaut) et temps_total(2, 10) = 30", "expression": "temps_total(3) == 35 and temps_total(2, 10) == 30", "expected": true }
+      ]
+    }
+  ]
+}

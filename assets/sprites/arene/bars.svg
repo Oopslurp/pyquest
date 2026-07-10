@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" shape-rendering="crispEdges">
+  <!-- Barres en cours de tri (l'échange en pleine action) -->
+  <rect x="1" y="13" width="14" height="1" fill="#566c86"/>            <!-- sol -->
+  <rect x="2" y="9" width="2" height="4" fill="#38b764"/>              <!-- 4 -->
+  <rect x="5" y="11" width="2" height="2" fill="#a7f070"/>             <!-- 2 -->
+  <rect x="8" y="7" width="2" height="6" fill="#b13e53"/>              <!-- 6 : en échange -->
+  <rect x="11" y="10" width="2" height="3" fill="#ffcd75"/>            <!-- 3 : en échange -->
+  <rect x="9" y="4" width="3" height="1" fill="#f4f4f4"/>              <!-- flèche d'échange -->
+  <rect x="8" y="5" width="1" height="1" fill="#f4f4f4"/>
+  <rect x="12" y="5" width="1" height="1" fill="#f4f4f4"/>
+</svg>

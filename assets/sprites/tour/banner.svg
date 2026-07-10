@@ -1,0 +1,76 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="128" height="40" viewBox="0 0 128 40" shape-rendering="crispEdges" preserveAspectRatio="xMidYMid slice">
+  <!-- Nuit étoilée sur la Tour de la Récursion -->
+  <rect x="0" y="0" width="128" height="40" fill="#1a1c2c"/>
+  <rect x="0" y="8" width="128" height="8" fill="#29366f"/>
+  <rect x="0" y="16" width="128" height="8" fill="#3b5dc9"/>
+  <rect x="0" y="24" width="128" height="4" fill="#5d275d"/>
+
+  <!-- Lune -->
+  <rect x="14" y="4" width="6" height="6" fill="#f4f4f4"/>
+  <rect x="15" y="5" width="4" height="4" fill="#fff2c8"/>
+  <rect x="17" y="6" width="2" height="2" fill="#94b0c2"/>
+
+  <!-- Étoiles -->
+  <rect x="30" y="3" width="1" height="1" fill="#f4f4f4"/>
+  <rect x="44" y="7" width="1" height="1" fill="#73eff7"/>
+  <rect x="56" y="2" width="1" height="1" fill="#f4f4f4"/>
+  <rect x="88" y="5" width="1" height="1" fill="#73eff7"/>
+  <rect x="100" y="3" width="1" height="1" fill="#f4f4f4"/>
+  <rect x="116" y="8" width="1" height="1" fill="#f4f4f4"/>
+  <rect x="38" y="12" width="1" height="1" fill="#94b0c2"/>
+  <rect x="108" y="14" width="1" height="1" fill="#94b0c2"/>
+
+  <!-- Sol rocheux -->
+  <rect x="0" y="28" width="128" height="12" fill="#333c57"/>
+  <rect x="0" y="28" width="128" height="1" fill="#566c86"/>
+
+  <!-- La grande tour (centre) avec fenêtres en spirale -->
+  <rect x="56" y="2" width="3" height="2" fill="#333c57"/>
+  <rect x="61" y="2" width="2" height="2" fill="#333c57"/>
+  <rect x="65" y="2" width="3" height="2" fill="#333c57"/>
+  <rect x="56" y="4" width="12" height="26" fill="#566c86"/>
+  <rect x="56" y="4" width="2" height="26" fill="#94b0c2"/>
+  <rect x="66" y="4" width="2" height="26" fill="#333c57"/>
+  <rect x="60" y="6" width="2" height="2" fill="#ffcd75"/>
+  <rect x="63" y="10" width="2" height="2" fill="#ffcd75"/>
+  <rect x="59" y="14" width="2" height="2" fill="#ffcd75"/>
+  <rect x="63" y="18" width="2" height="2" fill="#ffcd75"/>
+  <rect x="60" y="22" width="2" height="2" fill="#ffcd75"/>
+  <rect x="60" y="26" width="3" height="4" fill="#5d275d"/>
+
+  <!-- Tourelle secondaire (récursion : la même, en plus petit !) -->
+  <rect x="80" y="14" width="2" height="1" fill="#333c57"/>
+  <rect x="83" y="14" width="2" height="1" fill="#333c57"/>
+  <rect x="80" y="15" width="6" height="15" fill="#566c86"/>
+  <rect x="80" y="15" width="1" height="15" fill="#94b0c2"/>
+  <rect x="82" y="17" width="1" height="1" fill="#ffcd75"/>
+  <rect x="84" y="21" width="1" height="1" fill="#ffcd75"/>
+  <rect x="82" y="25" width="1" height="1" fill="#ffcd75"/>
+
+  <!-- Troisième, encore plus petite (cas de base en vue…) -->
+  <rect x="94" y="22" width="4" height="8" fill="#566c86"/>
+  <rect x="94" y="22" width="1" height="8" fill="#94b0c2"/>
+  <rect x="95" y="24" width="1" height="1" fill="#ffcd75"/>
+  <rect x="93" y="21" width="1" height="1" fill="#333c57"/>
+  <rect x="96" y="21" width="1" height="1" fill="#333c57"/>
+
+  <!-- Tours de Hanoï au premier plan (gauche) -->
+  <rect x="10" y="33" width="30" height="1" fill="#566c86"/>
+  <rect x="14" y="28" width="1" height="5" fill="#94b0c2"/>
+  <rect x="24" y="28" width="1" height="5" fill="#94b0c2"/>
+  <rect x="34" y="28" width="1" height="5" fill="#94b0c2"/>
+  <rect x="11" y="32" width="7" height="1" fill="#b13e53"/>
+  <rect x="12" y="31" width="5" height="1" fill="#ef7d57"/>
+  <rect x="13" y="30" width="3" height="1" fill="#ffcd75"/>
+  <rect x="32" y="32" width="5" height="1" fill="#38b764"/>
+
+  <!-- Le mage en chemin vers la tour -->
+  <rect x="46" y="26" width="3" height="2" fill="#5d275d"/>
+  <rect x="46" y="28" width="3" height="2" fill="#ffcd75"/>
+  <rect x="45" y="30" width="5" height="5" fill="#5d275d"/>
+  <rect x="50" y="27" width="1" height="8" fill="#ef7d57"/>
+  <rect x="50" y="26" width="1" height="1" fill="#73eff7"/>
+
+  <!-- Lueur au pied de la tour -->
+  <rect x="58" y="30" width="8" height="1" fill="#5d275d"/>
+</svg>

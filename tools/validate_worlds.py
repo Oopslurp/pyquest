@@ -1,7 +1,7 @@
 # Validateur des mondes PyQuest.
 # Usage : py tools/validate_worlds.py   (depuis la racine du projet)
 # Sortie : rapport + code retour 0 (OK) / 1 (echecs).
-import sys, io, json, os, traceback
+import sys, io, json, os, copy, traceback
 
 # Console Windows : forcer UTF-8 pour les accents.
 try:
@@ -47,6 +47,10 @@ def _eq(got, expected, tol):
     return got == expected
 
 def run_test(source, test):
+    # Copie profonde : les fonctions testées peuvent muter les args en place
+    # (ex. tris) ; sans copie, une exécution polluerait la suivante et un
+    # startCode « identité » passerait sur des args déjà triés (faux positif).
+    test = copy.deepcopy(test)
     ttype = test.get('type', 'stdout')
     ns = {'__name__': '__main__'}
     old_in, old_out = sys.stdin, sys.stdout

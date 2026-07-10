@@ -111,7 +111,44 @@ PyQuest.Overworld = (function () {
       drawHouseMini(ctx, cx, cy - 1);
     } else if (entry && entry.theme === 'marche') {
       drawStallMini(ctx, cx, cy - 1);
+    } else if (entry && entry.theme === 'tour') {
+      drawTowerMini(ctx, cx, cy - 1);
+    } else if (entry && entry.theme === 'arene') {
+      drawPodiumMini(ctx, cx, cy - 1);
     }
+  }
+
+  // Mini-podium de l'arène (décor de carte, cohérent avec assets/sprites/arene).
+  function drawPodiumMini(ctx, cx, cy) {
+    cx = Math.round(cx); cy = Math.round(cy);
+    // socle
+    ctx.fillStyle = P.named.deep; ctx.fillRect(cx - 5, cy - 3, 10, 1);
+    // marches : 2e, 1re, 3e place (des barres triées !)
+    ctx.fillStyle = P.named.silver; ctx.fillRect(cx - 5, cy - 6, 3, 3);
+    ctx.fillStyle = P.named.gold;   ctx.fillRect(cx - 2, cy - 8, 4, 5);
+    ctx.fillStyle = P.named.orange; ctx.fillRect(cx + 2, cy - 5, 3, 2);
+    // coupe au sommet
+    ctx.fillStyle = P.named.white;  ctx.fillRect(cx - 1, cy - 10, 2, 2);
+  }
+
+  // Mini-tour de la Récursion (décor de carte, cohérent avec assets/sprites/tour).
+  function drawTowerMini(ctx, cx, cy) {
+    cx = Math.round(cx); cy = Math.round(cy);
+    // créneaux
+    ctx.fillStyle = P.named.deep;
+    ctx.fillRect(cx - 3, cy - 16, 2, 2);
+    ctx.fillRect(cx, cy - 16, 1, 2);
+    ctx.fillRect(cx + 2, cy - 16, 2, 2);
+    // corps + lumière
+    ctx.fillStyle = P.named.slate;  ctx.fillRect(cx - 3, cy - 14, 7, 12);
+    ctx.fillStyle = P.named.silver; ctx.fillRect(cx - 3, cy - 14, 1, 12);
+    // fenêtres dorées en spirale
+    ctx.fillStyle = P.named.gold;
+    ctx.fillRect(cx - 1, cy - 12, 1, 1);
+    ctx.fillRect(cx + 1, cy - 9, 1, 1);
+    ctx.fillRect(cx - 1, cy - 6, 1, 1);
+    // porte
+    ctx.fillStyle = P.named.purple; ctx.fillRect(cx - 1, cy - 4, 2, 2);
   }
 
   // Mini-étal du marché (décor de carte, cohérent avec assets/sprites/marche).

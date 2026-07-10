@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" shape-rendering="crispEdges">
+  <!-- Tour de la Récursion (fenêtres en spirale) -->
+  <rect x="5" y="1" width="2" height="2" fill="#333c57"/>             <!-- créneaux -->
+  <rect x="8" y="1" width="1" height="2" fill="#333c57"/>
+  <rect x="10" y="1" width="2" height="2" fill="#333c57"/>
+  <rect x="5" y="3" width="7" height="11" fill="#566c86"/>            <!-- corps -->
+  <rect x="5" y="3" width="1" height="11" fill="#94b0c2"/>            <!-- lumière -->
+  <rect x="11" y="3" width="1" height="11" fill="#333c57"/>           <!-- ombre -->
+  <rect x="7" y="4" width="1" height="1" fill="#ffcd75"/>             <!-- fenêtres en spirale -->
+  <rect x="9" y="6" width="1" height="1" fill="#ffcd75"/>
+  <rect x="7" y="8" width="1" height="1" fill="#ffcd75"/>
+  <rect x="9" y="10" width="1" height="1" fill="#ffcd75"/>
+  <rect x="7" y="12" width="2" height="2" fill="#5d275d"/>            <!-- porte -->
+  <rect x="4" y="14" width="9" height="1" fill="#333c57"/>            <!-- base -->
+</svg>
