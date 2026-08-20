@@ -19,8 +19,8 @@ PyQuest.ErrHints = (function () {
     AttributeError:   "Cette méthode/attribut n'existe pas pour ce type. Faute de frappe ? Ou la variable n'est pas du type que tu crois (ex: .append sur autre chose qu'une liste).",
     UnboundLocalError:"Tu utilises une variable dans une fonction avant de lui donner une valeur (dans cette fonction).",
     RecursionError:   "La fonction s'appelle elle-même sans fin. Il manque un cas d'arrêt.",
-    ModuleNotFoundError: "Ce module n'est pas disponible ici. Les exercices se résolvent sans import.",
-    ImportError:      "Cet import ne fonctionne pas ici. Les exercices se résolvent sans import.",
+    ModuleNotFoundError: "Ce module n'est pas disponible ici. Seuls random et math sont utilisables (import random, import math).",
+    ImportError:      "Vérifie l'orthographe du module. Seuls random et math sont disponibles ici : écris import random tout en haut du programme.",
     EOFError:         "Ton programme lit avec input() mais aucune entrée n'est fournie. Déplie « ⌨ Entrées pour input() » au-dessus de la console et écris une ligne par input(). (Le bouton Valider, lui, fournit les entrées automatiquement.)",
   };
 

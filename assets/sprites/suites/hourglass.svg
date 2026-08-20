@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" shape-rendering="crispEdges">
+  <!-- Le sablier des rangs : n qui s'écoule, terme après terme -->
+  <rect x="3" y="1" width="10" height="2" fill="#ffcd75"/>
+  <rect x="3" y="1" width="10" height="1" fill="#fff2c8"/>
+  <rect x="3" y="13" width="10" height="2" fill="#ffcd75"/>
+  <rect x="3" y="14" width="10" height="1" fill="#ef7d57"/>
+
+  <!-- verre du haut -->
+  <rect x="4" y="3" width="8" height="1" fill="#94b0c2"/>
+  <rect x="5" y="4" width="6" height="1" fill="#94b0c2"/>
+  <rect x="6" y="5" width="4" height="1" fill="#94b0c2"/>
+  <!-- sable restant -->
+  <rect x="5" y="3" width="6" height="1" fill="#73eff7"/>
+  <rect x="6" y="4" width="4" height="1" fill="#73eff7"/>
+
+  <!-- col + filet qui tombe -->
+  <rect x="7" y="6" width="2" height="4" fill="#94b0c2"/>
+  <rect x="7" y="7" width="1" height="3" fill="#73eff7"/>
+
+  <!-- verre du bas + tas de sable -->
+  <rect x="6" y="10" width="4" height="1" fill="#94b0c2"/>
+  <rect x="5" y="11" width="6" height="1" fill="#94b0c2"/>
+  <rect x="4" y="12" width="8" height="1" fill="#94b0c2"/>
+  <rect x="6" y="11" width="4" height="1" fill="#73eff7"/>
+  <rect x="5" y="12" width="6" height="1" fill="#73eff7"/>
+</svg>

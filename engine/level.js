@@ -36,8 +36,15 @@ PyQuest.Level = (function () {
     // ---------- Colonne gauche : briefing ----------
     const hintsBox = el('div', { class: 'hints hidden' });
     const brief = el('div', { class: 'brief' }, [
-      el('div', { class: 'brief-tag' }, `${worldEntry.title} · Niveau ${index + 1}/${world.levels.length}`),
-      el('div', { class: 'brief-title' }, level.title || 'Sans titre'),
+      // Le PNJ du monde (champ `npc` du manifest) : l'écran de niveau était
+      // strictement identique dans tous les mondes.
+      el('div', { class: 'brief-head' }, [
+        worldEntry.npc ? el('img', { class: 'brief-npc', src: worldEntry.npc, alt: '' }) : null,
+        el('div', { class: 'brief-head-text' }, [
+          el('div', { class: 'brief-tag' }, `${worldEntry.title} · Niveau ${index + 1}/${world.levels.length}`),
+          el('div', { class: 'brief-title' }, level.title || 'Sans titre'),
+        ]),
+      ]),
       el('div', { class: 'brief-statement', html: level.statement || '' }),
       el('div', { class: 'brief-xp' }, `Récompense : ${level.xp || 0} XP`),
       hintsBox,
@@ -241,6 +248,10 @@ PyQuest.Level = (function () {
           ? 'Pas encore… pense au bouton 💡 Indice.'
           : 'Pas encore… regarde les tests en rouge.');
         Audio.fail();
+        // Secousse : l'échec n'avait aucun retour visuel, seulement du texte gris.
+        results.classList.remove('shake');
+        void results.offsetWidth;   // force le navigateur à rejouer l'animation
+        results.classList.add('shake');
         // Seul le PREMIER indice se révèle automatiquement, au 2e échec.
         if (tries === 2 && hintsShown === 0 && hints.length > 0) revealHint(true);
       }
@@ -285,7 +296,13 @@ PyQuest.Level = (function () {
     function onSuccess() {
       const info = game.completeLevel(worldEntry.id, level);
       game.updateHUD();
-      if (info.xpGained > 0) Audio.success(); else Audio.click();
+      if (info.xpGained > 0) {
+        Audio.success();
+        game.floatXP(info.xpGained);
+        setTimeout(() => Audio.xp(), 560);
+      } else {
+        Audio.click();
+      }
       PyQuest.Level.successFx(info, ctx);
     }
   }
@@ -295,6 +312,10 @@ PyQuest.Level = (function () {
     const { world, index, worldEntry, game } = ctx;
     const fx = document.getElementById('fx-layer');
     fx.innerHTML = '';
+
+    // Dernier niveau du dernier monde : le jeu se terminait sur la même
+    // bannière que les six mondes précédents.
+    if (info.gameCompleted) { finalFx(ctx); return; }
 
     const dim = el('div', { class: 'fx-dim' });
     const hasNext = index + 1 < world.levels.length;
@@ -312,6 +333,7 @@ PyQuest.Level = (function () {
     const banner = el('div', { class: 'success-banner' }, [
       el('div', { class: 'big' }, 'NIVEAU RÉUSSI !'),
       info.xpGained > 0 ? el('div', { class: 'xp-pop' }, `+${info.xpGained} XP`) : null,
+      info.levelUp ? el('div', { class: 'levelup' }, `⬆ NIVEAU ${info.levelUp} ATTEINT`) : null,
       info.worldCompleted ? el('div', { class: 'unlock' }, `★ Monde terminé : ${worldEntry.title} ★`) : null,
       info.newlyUnlocked && info.newlyUnlocked.length
         ? el('div', { class: 'unlock' }, `Nouveau monde débloqué : ${info.newlyUnlocked.join(', ')}`)
@@ -322,16 +344,50 @@ PyQuest.Level = (function () {
     fx.appendChild(dim);
     fx.appendChild(banner);
     confetti(fx);
+    if (info.levelUp) setTimeout(() => PyQuest.Audio.xp(), 900);
     if (info.newlyUnlocked && info.newlyUnlocked.length) {
-      setTimeout(() => PyQuest.Audio.worldUnlock(), 500);
+      // 900 ms et non 500 : la fanfare de succès dure ~490 ms, les deux
+      // jingles se chevauchaient.
+      setTimeout(() => PyQuest.Audio.worldUnlock(), 1200);
     }
 
     function clearFx() { fx.innerHTML = ''; }
   }
 
-  function confetti(fx) {
-    const cols = PyQuest.Palette.colors;
-    for (let i = 0; i < 60; i++) {
+  /* ---------- Écran de fin de jeu ---------- */
+  function finalFx(ctx) {
+    const { worldEntry, game } = ctx;
+    const fx = document.getElementById('fx-layer');
+    const t = game.gameTotals();
+    const xp = game.state.xp || 0;
+
+    const banner = el('div', { class: 'success-banner final-banner' }, [
+      el('div', { class: 'crown' }, '★'),
+      el('div', { class: 'big' }, 'AVENTURE TERMINÉE'),
+      el('div', { class: 'xp-pop' }, `${t.done} / ${t.total} niveaux`),
+      el('div', { class: 'unlock' },
+        `${xp} XP sur ${t.xpMax} · Niveau ${game.playerLevel(xp)}`),
+      el('div', { class: 'unlock' },
+        'Tous les mondes sont à toi — des variables du Village aux simulations de la Taverne.'),
+      el('div', { class: 'actions' }, [
+        el('button', { class: 'btn btn-primary', onClick: () => {
+          fx.innerHTML = ''; game.backToWorld(worldEntry.id);
+        } }, '🗺 Retour à la carte'),
+      ]),
+    ]);
+
+    fx.appendChild(el('div', { class: 'fx-dim' }));
+    fx.appendChild(banner);
+    confetti(fx, 160);
+    PyQuest.Audio.worldUnlock();
+    setTimeout(() => PyQuest.Audio.worldUnlock(), 800);
+  }
+
+  function confetti(fx, nombre) {
+    // On écarte les deux couleurs les plus sombres : invisibles sur le fond nuit.
+    const sombres = [PyQuest.Palette.named.night, PyQuest.Palette.named.deep];
+    const cols = PyQuest.Palette.colors.filter((c) => sombres.indexOf(c) === -1);
+    for (let i = 0; i < (nombre || 60); i++) {
       const c = el('div', { class: 'confetti' });
       c.style.left = Math.random() * 100 + '%';
       c.style.background = cols[Math.floor(Math.random() * cols.length)];

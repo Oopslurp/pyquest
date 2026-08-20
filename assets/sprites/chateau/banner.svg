@@ -1,0 +1,74 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="128" height="40" viewBox="0 0 128 40" shape-rendering="crispEdges" preserveAspectRatio="xMidYMid slice">
+  <!-- Aube sur le Château des Données : archives à gauche, histogramme à droite -->
+  <rect x="0" y="0" width="128" height="40" fill="#29366f"/>
+  <rect x="0" y="6" width="128" height="6" fill="#3b5dc9"/>
+  <rect x="0" y="12" width="128" height="6" fill="#41a6f6"/>
+  <rect x="0" y="18" width="128" height="4" fill="#ffcd75"/>
+
+  <!-- soleil levant -->
+  <rect x="110" y="4" width="8" height="8" fill="#ffcd75"/>
+  <rect x="111" y="5" width="6" height="6" fill="#fff2c8"/>
+
+  <!-- sol -->
+  <rect x="0" y="26" width="128" height="14" fill="#333c57"/>
+  <rect x="0" y="26" width="128" height="2" fill="#566c86"/>
+
+  <!-- château : donjon central -->
+  <rect x="64" y="0" width="1" height="6" fill="#94b0c2"/>
+  <rect x="65" y="0" width="6" height="3" fill="#ffcd75"/>
+  <rect x="65" y="2" width="6" height="1" fill="#ef7d57"/>
+  <rect x="58" y="6" width="2" height="2" fill="#566c86"/>
+  <rect x="62" y="6" width="2" height="2" fill="#566c86"/>
+  <rect x="66" y="6" width="2" height="2" fill="#566c86"/>
+  <rect x="70" y="6" width="2" height="2" fill="#566c86"/>
+  <rect x="58" y="8" width="14" height="18" fill="#566c86"/>
+  <rect x="58" y="8" width="2" height="18" fill="#94b0c2"/>
+  <rect x="61" y="12" width="2" height="2" fill="#ffcd75"/>
+  <rect x="67" y="12" width="2" height="2" fill="#ffcd75"/>
+  <rect x="62" y="17" width="6" height="1" fill="#5d275d"/>
+  <rect x="62" y="18" width="6" height="8" fill="#1a1c2c"/>
+
+  <!-- château : tour gauche -->
+  <rect x="48" y="10" width="2" height="2" fill="#566c86"/>
+  <rect x="52" y="10" width="2" height="2" fill="#566c86"/>
+  <rect x="48" y="12" width="8" height="14" fill="#566c86"/>
+  <rect x="48" y="12" width="2" height="14" fill="#94b0c2"/>
+  <rect x="51" y="16" width="2" height="2" fill="#ffcd75"/>
+
+  <!-- château : tour droite -->
+  <rect x="74" y="10" width="2" height="2" fill="#566c86"/>
+  <rect x="78" y="10" width="2" height="2" fill="#566c86"/>
+  <rect x="74" y="12" width="8" height="14" fill="#566c86"/>
+  <rect x="74" y="12" width="2" height="14" fill="#94b0c2"/>
+  <rect x="77" y="16" width="2" height="2" fill="#ffcd75"/>
+
+  <!-- rayonnage des archives (parchemins debout) -->
+  <rect x="8" y="22" width="28" height="4" fill="#566c86"/>
+  <rect x="8" y="22" width="28" height="1" fill="#94b0c2"/>
+  <rect x="10" y="13" width="4" height="9" fill="#fff2c8"/>
+  <rect x="10" y="13" width="4" height="1" fill="#ffcd75"/>
+  <rect x="11" y="16" width="2" height="1" fill="#566c86"/>
+  <rect x="15" y="16" width="4" height="6" fill="#ffcd75"/>
+  <rect x="20" y="12" width="4" height="10" fill="#fff2c8"/>
+  <rect x="21" y="15" width="2" height="1" fill="#566c86"/>
+  <rect x="21" y="18" width="2" height="1" fill="#566c86"/>
+  <rect x="25" y="15" width="4" height="7" fill="#ffcd75"/>
+  <rect x="30" y="14" width="4" height="8" fill="#fff2c8"/>
+  <rect x="31" y="17" width="2" height="1" fill="#566c86"/>
+
+  <!-- histogramme du royaume -->
+  <rect x="92" y="13" width="1" height="13" fill="#94b0c2"/>
+  <rect x="96" y="18" width="5" height="8" fill="#38b764"/>
+  <rect x="96" y="18" width="5" height="1" fill="#a7f070"/>
+  <rect x="103" y="14" width="5" height="12" fill="#3b5dc9"/>
+  <rect x="103" y="14" width="5" height="1" fill="#41a6f6"/>
+  <rect x="110" y="20" width="5" height="6" fill="#ef7d57"/>
+  <rect x="110" y="20" width="5" height="1" fill="#ffcd75"/>
+  <!-- la moyenne -->
+  <rect x="94" y="17" width="2" height="1" fill="#b13e53"/>
+  <rect x="98" y="17" width="2" height="1" fill="#b13e53"/>
+  <rect x="102" y="17" width="2" height="1" fill="#b13e53"/>
+  <rect x="106" y="17" width="2" height="1" fill="#b13e53"/>
+  <rect x="110" y="17" width="2" height="1" fill="#b13e53"/>
+  <rect x="114" y="17" width="2" height="1" fill="#b13e53"/>
+</svg>

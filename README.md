@@ -41,10 +41,30 @@ engine/                # logique GÉNÉRIQUE, réutilisable
   level.js             # moteur de niveau (Monaco + exécution + feedback)
   game.js              # orchestrateur (boot, navigation, HUD, déverrouillage)
 data/worlds/
-  manifest.json        # liste des 6 mondes + placement sur la carte
-  monde-0-test.json    # monde de test (2 niveaux factices)
+  manifest.json        # liste des mondes, prérequis et placement sur la carte
+  monde-*.json         # le contenu : 8 mondes, 68 niveaux
   README.md            # schéma JSON complet (pour créer de nouveaux mondes)
+tools/
+  validate_worlds.py   # les bonnes solutions passent, les codes de départ non
+  check_cheats.py      # les mauvaises solutions doivent ÉCHOUER
 ```
+
+## Les deux chemins de la carte
+
+Après le **Village des Fondamentaux**, la carte se sépare en deux branches, et
+les deux sont jouables en parallèle :
+
+- **Chemin des Suites** → **Taverne du Hasard** : le programme d'algorithmique
+  de la **spécialité mathématiques** de terminale — termes d'une suite,
+  recherche de seuil, somme, dichotomie, méthode d'Euler, puis simulation,
+  loi binomiale et loi des grands nombres.
+- **Marché des Structures** → **Tour de la Récursion** → **Arène des
+  Algorithmes** → **Château des Données** : la culture informatique générale —
+  structures de données, récursivité, tris et recherches, traitement de données.
+
+Le tracé de la carte se déduit automatiquement du champ `requires` de chaque
+monde : pour ajouter une branche, il suffit de faire pointer deux mondes vers le
+même prérequis.
 
 ## Ajouter un monde
 

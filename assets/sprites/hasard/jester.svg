@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" shape-rendering="crispEdges">
+  <!-- Le bouffon de la taverne : celui qui parie contre le roi -->
+  <rect x="4" y="1" width="2" height="2" fill="#b13e53"/>   <!-- corne G -->
+  <rect x="10" y="1" width="2" height="2" fill="#a7f070"/>  <!-- corne D -->
+  <rect x="3" y="2" width="1" height="1" fill="#ffcd75"/>   <!-- grelots -->
+  <rect x="12" y="2" width="1" height="1" fill="#ffcd75"/>
+  <rect x="5" y="3" width="3" height="1" fill="#b13e53"/>
+  <rect x="8" y="3" width="3" height="1" fill="#a7f070"/>
+
+  <rect x="6" y="4" width="4" height="3" fill="#ffcd75"/>   <!-- visage -->
+  <rect x="7" y="5" width="1" height="1" fill="#1a1c2c"/>
+  <rect x="9" y="5" width="1" height="1" fill="#1a1c2c"/>
+  <rect x="7" y="6" width="2" height="1" fill="#b13e53"/>   <!-- sourire -->
+
+  <rect x="5" y="7" width="3" height="5" fill="#b13e53"/>   <!-- costume mi-parti -->
+  <rect x="8" y="7" width="3" height="5" fill="#a7f070"/>
+  <rect x="4" y="7" width="1" height="3" fill="#b13e53"/>
+  <rect x="11" y="7" width="1" height="3" fill="#a7f070"/>
+  <rect x="2" y="9" width="2" height="2" fill="#f4f4f4"/>   <!-- dé lancé -->
+  <rect x="3" y="10" width="1" height="1" fill="#1a1c2c"/>
+
+  <rect x="6" y="12" width="1" height="2" fill="#a7f070"/>
+  <rect x="9" y="12" width="1" height="2" fill="#b13e53"/>
+</svg>

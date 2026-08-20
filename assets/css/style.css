@@ -273,6 +273,13 @@ img, canvas { image-rendering: pixelated; }
   background: var(--panel-bg); border: 4px solid var(--panel-border);
   padding: 20px; align-self: start;
 }
+/* En-tête du briefing : le PNJ du monde (champ `npc` du manifest) à gauche */
+.brief-head { display: flex; align-items: flex-start; gap: 14px; }
+.brief-head-text { flex: 1; min-width: 0; }
+.brief-npc {
+  width: 48px; height: 48px; flex: none; image-rendering: pixelated;
+  background: var(--c-night); border: 2px solid var(--c-deep); padding: 2px;
+}
 .brief-tag { font-size: 8px; color: var(--c-cyan); letter-spacing: 2px; }
 .brief-title { font-size: 14px; color: var(--c-gold); margin: 8px 0 16px; line-height: 1.6; }
 .brief-statement { font-size: 10px; color: var(--c-white); line-height: 2.1; }
@@ -294,6 +301,11 @@ img, canvas { image-rendering: pixelated; }
   padding: 10px 12px; margin-bottom: 10px;
 }
 .hint-num { color: var(--c-gold); }
+.hint pre {
+  font-family: var(--font-mono); background: var(--c-deep);
+  color: var(--c-cyan); padding: 8px 10px; margin: 8px 0;
+  overflow-x: auto; font-size: 11px; line-height: 1.5;
+}
 
 .workspace { display: flex; flex-direction: column; gap: 12px; }
 .editor-toolbar { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
@@ -334,6 +346,16 @@ img, canvas { image-rendering: pixelated; }
 .console .err { color: var(--c-orange); }
 
 .results { display: flex; flex-direction: column; gap: 8px; margin-top: 6px; }
+/* Secousse à l'échec : le seul retour était deux lignes de texte gris. */
+.results.shake { animation: shake .4s ease; }
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  15% { transform: translateX(-6px); }
+  30% { transform: translateX(5px); }
+  45% { transform: translateX(-4px); }
+  60% { transform: translateX(3px); }
+  80% { transform: translateX(-2px); }
+}
 .result {
   display: flex; gap: 10px; align-items: flex-start;
   font-family: var(--font-mono); font-size: 13px;
@@ -360,7 +382,20 @@ img, canvas { image-rendering: pixelated; }
   animation: pop .4s ease;
 }
 .success-banner .xp-pop { font-size: 18px; color: var(--c-lime); margin-top: 16px; animation: pop .5s ease; }
+.success-banner .levelup {
+  font-size: 12px; color: var(--c-gold); margin-top: 14px;
+  text-shadow: 2px 2px 0 var(--c-night); animation: pop .6s ease;
+}
 .success-banner .unlock { font-size: 10px; color: var(--c-cyan); margin-top: 18px; line-height: 2; }
+
+/* Écran de fin de jeu : les 7 mondes terminés */
+.final-banner { max-width: 90vw; }
+.final-banner .crown {
+  font-size: 34px; color: var(--c-gold); margin-bottom: 10px;
+  text-shadow: 0 0 0 var(--c-night); animation: pop .5s ease;
+}
+.final-banner .big { font-size: 22px; }
+.final-banner .unlock { max-width: 520px; margin-left: auto; margin-right: auto; }
 .success-banner .actions { margin-top: 26px; display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
 
 @keyframes pop {

@@ -16,9 +16,111 @@
         "<code>panier = [\"pain\", \"lait\", \"miel\"]</code>, <code>premier = fruits[0]</code>, <code>dernier = fruits[-1]</code>."
       ],
       "tests": [
-        { "type": "variable", "description": "panier contient pain, lait, miel", "name": "panier", "expected": ["pain", "lait", "miel"] },
-        { "type": "variable", "description": "premier vaut \"pomme\"", "name": "premier", "expected": "pomme" },
-        { "type": "variable", "description": "dernier vaut \"fraise\"", "name": "dernier", "expected": "fraise" }
+        {
+          "type": "variable",
+          "description": "panier contient pain, lait, miel",
+          "name": "panier",
+          "expected": [
+            "pain",
+            "lait",
+            "miel"
+          ]
+        },
+        {
+          "type": "variable",
+          "description": "premier vaut \"pomme\"",
+          "name": "premier",
+          "expected": "pomme"
+        },
+        {
+          "type": "variable",
+          "description": "dernier vaut \"fraise\"",
+          "name": "dernier",
+          "expected": "fraise"
+        }
+      ]
+    },
+    {
+      "id": "2-1b",
+      "solution": "def total(prix):\n    somme = 0\n    for p in prix:\n        somme = somme + p\n    return somme\n\ndef remplacer(liste, i, valeur):\n    liste[i] = valeur\n    return liste\n",
+      "title": "Le parcours de l'étal",
+      "statement": "<p>Au Village, tes boucles comptaient : <code>for i in range(1, 6)</code> parcourait des <em>nombres</em>. Face à une liste, Python offre bien plus direct — parcourir les <strong>éléments eux-mêmes</strong> :</p><pre>for fruit in fruits:\n    print(fruit)      # pomme, puis poire, puis fraise…</pre><p>Plus besoin d'index, plus besoin de <code>range</code> : la variable de boucle prend tour à tour chaque valeur de la liste. C'est la forme que tu emploieras le plus souvent.</p><p>L'autre nouveauté est l'inverse : <strong>modifier</strong> une case précise. Tu sais déjà lire <code>liste[0]</code> ; on peut aussi lui affecter une valeur, exactement comme à une variable :</p><pre>liste[0] = \"coing\"   # remplace le premier element</pre><p>Écris les <strong>deux</strong> fonctions :</p><ul><li><code>total(prix)</code> — la somme de tous les nombres de la liste, avec une boucle et un accumulateur (sans <code>sum()</code>, que tu croiseras plus loin) ;</li><li><code>remplacer(liste, i, valeur)</code> — remplace l'élément d'index <code>i</code> par <code>valeur</code>, puis renvoie la liste.</li></ul>",
+      "startCode": "def total(prix):\n    somme = 0\n    # parcours chaque prix et ajoute-le a somme\n    pass\n\ndef remplacer(liste, i, valeur):\n    # met valeur dans la case i, puis renvoie la liste\n    pass\n\nprint(total([2, 3, 5]))                    # attendu : 10\nprint(remplacer([\"a\", \"b\", \"c\"], 1, \"X\"))  # attendu : ['a', 'X', 'c']\n",
+      "xp": 30,
+      "hints": [
+        "Pour <code>total</code> : <code>for p in prix:</code> puis <code>somme = somme + p</code>, et <code>return somme</code> <strong>après</strong> la boucle. Pour <code>remplacer</code> : une seule ligne d'affectation, puis <code>return liste</code>.",
+        "<pre>for p in prix:\n    somme = somme + p\nreturn somme</pre><pre>liste[i] = valeur\nreturn liste</pre>"
+      ],
+      "tests": [
+        {
+          "type": "function",
+          "description": "total([2, 3, 5]) renvoie 10",
+          "name": "total",
+          "args": [
+            [
+              2,
+              3,
+              5
+            ]
+          ],
+          "expected": 10
+        },
+        {
+          "type": "function",
+          "description": "total([]) renvoie 0 : une liste vide totalise zéro",
+          "name": "total",
+          "args": [
+            []
+          ],
+          "expected": 0
+        },
+        {
+          "type": "function",
+          "description": "total([7]) renvoie 7",
+          "name": "total",
+          "args": [
+            [
+              7
+            ]
+          ],
+          "expected": 7
+        },
+        {
+          "type": "function",
+          "description": "remplacer([a, b, c], 1, X) renvoie [a, X, c]",
+          "name": "remplacer",
+          "args": [
+            [
+              "a",
+              "b",
+              "c"
+            ],
+            1,
+            "X"
+          ],
+          "expected": [
+            "a",
+            "X",
+            "c"
+          ]
+        },
+        {
+          "type": "function",
+          "description": "remplacer([1, 2], 0, 9) renvoie [9, 2]",
+          "name": "remplacer",
+          "args": [
+            [
+              1,
+              2
+            ],
+            0,
+            9
+          ],
+          "expected": [
+            9,
+            2
+          ]
+        }
       ]
     },
     {
@@ -33,9 +135,28 @@
         "<code>stock.append(\"kiwi\")</code> puis <code>stock.remove(\"banane\")</code> puis <code>stock.sort()</code>."
       ],
       "tests": [
-        { "type": "variable", "description": "stock final trié : kiwi, poire, pomme", "name": "stock", "expected": ["kiwi", "poire", "pomme"] },
-        { "type": "expression", "description": "la banane a bien disparu", "expression": "\"banane\" not in stock", "expected": true },
-        { "type": "expression", "description": "le stock compte 3 articles", "expression": "len(stock) == 3", "expected": true }
+        {
+          "type": "variable",
+          "description": "stock final trié : kiwi, poire, pomme",
+          "name": "stock",
+          "expected": [
+            "kiwi",
+            "poire",
+            "pomme"
+          ]
+        },
+        {
+          "type": "expression",
+          "description": "la banane a bien disparu",
+          "expression": "\"banane\" not in stock",
+          "expected": true
+        },
+        {
+          "type": "expression",
+          "description": "le stock compte 3 articles",
+          "expression": "len(stock) == 3",
+          "expected": true
+        }
       ]
     },
     {
@@ -50,9 +171,35 @@
         "<code>trois_premiers = file_attente[:3]</code>, <code>deux_derniers = file_attente[-2:]</code>, <code>un_sur_deux = file_attente[::2]</code>."
       ],
       "tests": [
-        { "type": "variable", "description": "trois_premiers : Ana, Bob, Chloé", "name": "trois_premiers", "expected": ["Ana", "Bob", "Chloé"] },
-        { "type": "variable", "description": "deux_derniers : Eva, Fred", "name": "deux_derniers", "expected": ["Eva", "Fred"] },
-        { "type": "variable", "description": "un_sur_deux : Ana, Chloé, Eva", "name": "un_sur_deux", "expected": ["Ana", "Chloé", "Eva"] }
+        {
+          "type": "variable",
+          "description": "trois_premiers : Ana, Bob, Chloé",
+          "name": "trois_premiers",
+          "expected": [
+            "Ana",
+            "Bob",
+            "Chloé"
+          ]
+        },
+        {
+          "type": "variable",
+          "description": "deux_derniers : Eva, Fred",
+          "name": "deux_derniers",
+          "expected": [
+            "Eva",
+            "Fred"
+          ]
+        },
+        {
+          "type": "variable",
+          "description": "un_sur_deux : Ana, Chloé, Eva",
+          "name": "un_sur_deux",
+          "expected": [
+            "Ana",
+            "Chloé",
+            "Eva"
+          ]
+        }
       ]
     },
     {
@@ -67,9 +214,24 @@
         "<code>stand = (\"Fruits\", 12)</code>, <code>nom, allee = stand</code>, et dans la fonction : <code>return (b, a)</code>."
       ],
       "tests": [
-        { "type": "expression", "description": "stand est le tuple (\"Fruits\", 12)", "expression": "stand == (\"Fruits\", 12) and type(stand) == tuple", "expected": true },
-        { "type": "expression", "description": "nom et allee sont bien dépaquetés", "expression": "nom == \"Fruits\" and allee == 12", "expected": true },
-        { "type": "expression", "description": "echange(1, 2) renvoie (2, 1)", "expression": "echange(1, 2) == (2, 1) and echange(\"a\", \"b\") == (\"b\", \"a\")", "expected": true }
+        {
+          "type": "expression",
+          "description": "stand est le tuple (\"Fruits\", 12)",
+          "expression": "stand == (\"Fruits\", 12) and type(stand) == tuple",
+          "expected": true
+        },
+        {
+          "type": "expression",
+          "description": "nom et allee sont bien dépaquetés",
+          "expression": "nom == \"Fruits\" and allee == 12",
+          "expected": true
+        },
+        {
+          "type": "expression",
+          "description": "echange(1, 2) renvoie (2, 1)",
+          "expression": "echange(1, 2) == (2, 1) and echange(\"a\", \"b\") == (\"b\", \"a\")",
+          "expected": true
+        }
       ]
     },
     {
@@ -84,9 +246,34 @@
         "<code>prix = {\"pomme\": 2, \"poire\": 3, \"cerise\": 8}</code> et <code>return prix[article]</code>."
       ],
       "tests": [
-        { "type": "variable", "description": "le dictionnaire prix est correct", "name": "prix", "expected": { "pomme": 2, "poire": 3, "cerise": 8 } },
-        { "type": "function", "description": "prix_de(\"poire\") renvoie 3", "name": "prix_de", "args": ["poire"], "expected": 3 },
-        { "type": "function", "description": "prix_de(\"cerise\") renvoie 8", "name": "prix_de", "args": ["cerise"], "expected": 8 }
+        {
+          "type": "variable",
+          "description": "le dictionnaire prix est correct",
+          "name": "prix",
+          "expected": {
+            "pomme": 2,
+            "poire": 3,
+            "cerise": 8
+          }
+        },
+        {
+          "type": "function",
+          "description": "prix_de(\"poire\") renvoie 3",
+          "name": "prix_de",
+          "args": [
+            "poire"
+          ],
+          "expected": 3
+        },
+        {
+          "type": "function",
+          "description": "prix_de(\"cerise\") renvoie 8",
+          "name": "prix_de",
+          "args": [
+            "cerise"
+          ],
+          "expected": 8
+        }
       ]
     },
     {
@@ -101,9 +288,44 @@
         "<code>return sum(ventes.values())</code> ; pour l'autre : boucle sur <code>prix.items()</code>, garde les clés qui conviennent dans une liste, puis <code>return sorted(resultat)</code>."
       ],
       "tests": [
-        { "type": "function", "description": "total_caisse({pomme: 10, poire: 5}) renvoie 15", "name": "total_caisse", "args": [{ "pomme": 10, "poire": 5 }], "expected": 15 },
-        { "type": "function", "description": "total_caisse({}) renvoie 0", "name": "total_caisse", "args": [{}], "expected": 0 },
-        { "type": "function", "description": "articles_chers trie les articles à 5 ou plus", "name": "articles_chers", "args": [{ "pomme": 2, "cerise": 8, "melon": 6 }, 5], "expected": ["cerise", "melon"] }
+        {
+          "type": "function",
+          "description": "total_caisse({pomme: 10, poire: 5}) renvoie 15",
+          "name": "total_caisse",
+          "args": [
+            {
+              "pomme": 10,
+              "poire": 5
+            }
+          ],
+          "expected": 15
+        },
+        {
+          "type": "function",
+          "description": "total_caisse({}) renvoie 0",
+          "name": "total_caisse",
+          "args": [
+            {}
+          ],
+          "expected": 0
+        },
+        {
+          "type": "function",
+          "description": "articles_chers renvoie la liste TRIÉE (melon inséré avant cerise)",
+          "name": "articles_chers",
+          "args": [
+            {
+              "melon": 6,
+              "cerise": 8,
+              "pomme": 2
+            },
+            5
+          ],
+          "expected": [
+            "cerise",
+            "melon"
+          ]
+        }
       ]
     },
     {
@@ -118,9 +340,24 @@
         "<code>fideles = clients_lundi &amp; clients_mardi</code>, <code>tous = clients_lundi | clients_mardi</code>, <code>uniquement_lundi = clients_lundi - clients_mardi</code>."
       ],
       "tests": [
-        { "type": "expression", "description": "fideles = {Bob}", "expression": "fideles == {\"Bob\"}", "expected": true },
-        { "type": "expression", "description": "tous = {Ana, Bob, Chloé, Dan}", "expression": "tous == {\"Ana\", \"Bob\", \"Chloé\", \"Dan\"}", "expected": true },
-        { "type": "expression", "description": "uniquement_lundi = {Ana, Chloé}", "expression": "uniquement_lundi == {\"Ana\", \"Chloé\"}", "expected": true }
+        {
+          "type": "expression",
+          "description": "fideles = {Bob}",
+          "expression": "fideles == {\"Bob\"}",
+          "expected": true
+        },
+        {
+          "type": "expression",
+          "description": "tous = {Ana, Bob, Chloé, Dan}",
+          "expression": "tous == {\"Ana\", \"Bob\", \"Chloé\", \"Dan\"}",
+          "expected": true
+        },
+        {
+          "type": "expression",
+          "description": "uniquement_lundi = {Ana, Chloé}",
+          "expression": "uniquement_lundi == {\"Ana\", \"Chloé\"}",
+          "expected": true
+        }
       ]
     },
     {
@@ -135,9 +372,55 @@
         "<code>return [x * 2 for x in nombres]</code> et <code>return [x for x in nombres if x % 2 == 0]</code>."
       ],
       "tests": [
-        { "type": "function", "description": "doubles([1, 2, 3]) renvoie [2, 4, 6]", "name": "doubles", "args": [[1, 2, 3]], "expected": [2, 4, 6] },
-        { "type": "function", "description": "pairs([1, 2, 3, 4, 5, 6]) renvoie [2, 4, 6]", "name": "pairs", "args": [[1, 2, 3, 4, 5, 6]], "expected": [2, 4, 6] },
-        { "type": "function", "description": "pairs([7, 9]) renvoie []", "name": "pairs", "args": [[7, 9]], "expected": [] }
+        {
+          "type": "function",
+          "description": "doubles([1, 2, 3]) renvoie [2, 4, 6]",
+          "name": "doubles",
+          "args": [
+            [
+              1,
+              2,
+              3
+            ]
+          ],
+          "expected": [
+            2,
+            4,
+            6
+          ]
+        },
+        {
+          "type": "function",
+          "description": "pairs([1, 2, 3, 4, 5, 6]) renvoie [2, 4, 6]",
+          "name": "pairs",
+          "args": [
+            [
+              1,
+              2,
+              3,
+              4,
+              5,
+              6
+            ]
+          ],
+          "expected": [
+            2,
+            4,
+            6
+          ]
+        },
+        {
+          "type": "function",
+          "description": "pairs([7, 9]) renvoie []",
+          "name": "pairs",
+          "args": [
+            [
+              7,
+              9
+            ]
+          ],
+          "expected": []
+        }
       ]
     },
     {
@@ -152,9 +435,73 @@
         "<code>return sum(e[\"vendu\"] for e in etals)</code> et <code>return sorted([e[\"nom\"] for e in etals if e[\"vendu\"] &gt;= seuil])</code>."
       ],
       "tests": [
-        { "type": "function", "description": "bilan renvoie 40 sur l'exemple", "name": "bilan", "args": [[{ "nom": "pomme", "vendu": 12 }, { "nom": "poire", "vendu": 3 }, { "nom": "miel", "vendu": 25 }]], "expected": 40 },
-        { "type": "function", "description": "stars(etals, 10) renvoie [miel, pomme] (trié)", "name": "stars", "args": [[{ "nom": "pomme", "vendu": 12 }, { "nom": "poire", "vendu": 3 }, { "nom": "miel", "vendu": 25 }], 10], "expected": ["miel", "pomme"] },
-        { "type": "function", "description": "stars(etals, 100) renvoie []", "name": "stars", "args": [[{ "nom": "pomme", "vendu": 12 }, { "nom": "poire", "vendu": 3 }], 100], "expected": [] }
+        {
+          "type": "function",
+          "description": "bilan renvoie 40 sur l'exemple",
+          "name": "bilan",
+          "args": [
+            [
+              {
+                "nom": "pomme",
+                "vendu": 12
+              },
+              {
+                "nom": "poire",
+                "vendu": 3
+              },
+              {
+                "nom": "miel",
+                "vendu": 25
+              }
+            ]
+          ],
+          "expected": 40
+        },
+        {
+          "type": "function",
+          "description": "stars(etals, 10) renvoie [miel, pomme] (trié)",
+          "name": "stars",
+          "args": [
+            [
+              {
+                "nom": "pomme",
+                "vendu": 12
+              },
+              {
+                "nom": "poire",
+                "vendu": 3
+              },
+              {
+                "nom": "miel",
+                "vendu": 25
+              }
+            ],
+            10
+          ],
+          "expected": [
+            "miel",
+            "pomme"
+          ]
+        },
+        {
+          "type": "function",
+          "description": "stars(etals, 100) renvoie []",
+          "name": "stars",
+          "args": [
+            [
+              {
+                "nom": "pomme",
+                "vendu": 12
+              },
+              {
+                "nom": "poire",
+                "vendu": 3
+              }
+            ],
+            100
+          ],
+          "expected": []
+        }
       ]
     }
   ]

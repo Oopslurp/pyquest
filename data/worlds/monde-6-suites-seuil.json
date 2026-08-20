@@ -1,0 +1,429 @@
+{
+  "id": "monde-6",
+  "title": "Chemin des Suites",
+  "description": "Termes d'une suite, récurrence, recherche de seuil, somme, dichotomie et méthode d'Euler : les algorithmes que l'épreuve de spécialité mathématiques demande vraiment.",
+  "theme": "suites",
+  "levels": [
+    {
+      "id": "6-1",
+      "solution": "def u(n):\n    return 3 * n + 2\n",
+      "title": "Le premier terme",
+      "statement": "<p>Bienvenue sur le <strong>Chemin des Suites</strong>. Une <strong>suite</strong>, c'est une liste infinie de nombres : un premier terme, un deuxième, un troisième… On note <code>u(n)</code> le terme de rang <code>n</code>.</p><p>La plus simple est la suite <strong>explicite</strong> : une formule donne directement <code>u(n)</code> à partir de <code>n</code>, sans avoir besoin des termes précédents.</p><pre>u(n) = 3n + 2</pre><p>Écris la fonction <code>u(n)</code> qui renvoie ce terme.</p><p><strong>Le piège du débutant</strong> : en mathématiques on écrit <code>3n</code>, mais en Python la multiplication ne se devine jamais — il faut écrire <code>3 * n</code>. Sans l'étoile, Python ne comprend pas.</p>",
+      "startCode": "def u(n):\n    # renvoie 3n + 2\n    pass\n\nprint(u(0))    # attendu : 2\nprint(u(10))   # attendu : 32\n",
+      "xp": 30,
+      "hints": [
+        "Le paramètre <code>n</code> est le rang demandé. Il n'y a qu'une ligne à écrire, commençant par <code>return</code>, et la formule s'écrit presque comme en maths — à l'étoile près.",
+        "<code>return 3 * n + 2</code>"
+      ],
+      "tests": [
+        {
+          "type": "function",
+          "description": "u(0) vaut 2 (le tout premier terme)",
+          "name": "u",
+          "args": [
+            0
+          ],
+          "expected": 2
+        },
+        {
+          "type": "function",
+          "description": "u(1) vaut 5",
+          "name": "u",
+          "args": [
+            1
+          ],
+          "expected": 5
+        },
+        {
+          "type": "function",
+          "description": "u(10) vaut 32",
+          "name": "u",
+          "args": [
+            10
+          ],
+          "expected": 32
+        }
+      ]
+    },
+    {
+      "id": "6-2",
+      "solution": "def u(n):\n    terme = 5\n    for k in range(n):\n        terme = 2 * terme - 3\n    return terme\n",
+      "title": "De proche en proche",
+      "statement": "<p>La plupart des suites ne se donnent pas par une formule directe, mais par <strong>récurrence</strong> : on connaît le premier terme, et une règle pour passer d'un terme au suivant.</p><pre>u(0) = 5\nu(n+1) = 2 × u(n) − 3</pre><p>Impossible de calculer <code>u(4)</code> d'un coup : il faut passer par <code>u(1)</code>, <code>u(2)</code>, <code>u(3)</code>. C'est exactement ce que fait une boucle.</p><p>Écris <code>u(n)</code> qui part de 5 et applique la règle <code>n</code> fois.</p><p>L'idée clé : <strong>une seule variable</strong> qui se transforme. <code>terme = 2 * terme - 3</code> se lit « le nouveau terme devient le double de l'ancien, moins trois ».</p>",
+      "startCode": "def u(n):\n    terme = 5          # u(0)\n    # applique n fois : terme devient 2 * terme - 3\n    pass\n\nprint(u(0))   # attendu : 5\nprint(u(1))   # attendu : 7\nprint(u(4))   # attendu : 35\n",
+      "xp": 35,
+      "hints": [
+        "<code>for k in range(n):</code> répète exactement <code>n</code> fois. Si <code>n</code> vaut 0, la boucle ne tourne pas du tout et tu renvoies 5 : c'est bien ce qu'on veut pour <code>u(0)</code>.",
+        "<pre>terme = 5\nfor k in range(n):\n    terme = 2 * terme - 3\nreturn terme</pre>Le <code>return</code> est <strong>après</strong> la boucle, pas dedans."
+      ],
+      "tests": [
+        {
+          "type": "function",
+          "description": "u(0) vaut 5 : la boucle ne tourne pas",
+          "name": "u",
+          "args": [
+            0
+          ],
+          "expected": 5
+        },
+        {
+          "type": "function",
+          "description": "u(1) vaut 7",
+          "name": "u",
+          "args": [
+            1
+          ],
+          "expected": 7
+        },
+        {
+          "type": "function",
+          "description": "u(4) vaut 35",
+          "name": "u",
+          "args": [
+            4
+          ],
+          "expected": 35
+        },
+        {
+          "type": "function",
+          "description": "u(10) vaut 2051",
+          "name": "u",
+          "args": [
+            10
+          ],
+          "expected": 2051
+        }
+      ]
+    },
+    {
+      "id": "6-3",
+      "solution": "def afficher_termes(n):\n    v = 100.0\n    for k in range(n + 1):\n        print(round(v, 2))\n        v = 0.8 * v\n\nafficher_termes(3)\nprint(\"---\")\nafficher_termes(0)\n",
+      "title": "Le tableau du royaume",
+      "statement": "<p>L'astronome du royaume mesure chaque soir la lueur d'une comète qui s'éloigne. Elle perd 20 % de son éclat par nuit :</p><pre>v(0) = 100\nv(n+1) = 0,8 × v(n)</pre><p>Un terme isolé n'apprend rien. Ce qui parle, c'est la <strong>suite des valeurs</strong> affichées les unes sous les autres — on y <em>voit</em> la décroissance, et on devine vers quoi elle tend.</p><p>Écris <code>afficher_termes(n)</code> qui affiche les termes de <code>v(0)</code> jusqu'à <code>v(n)</code> <strong>inclus</strong>, un par ligne, arrondis à 2 décimales avec <code>round(v, 2)</code>.</p><p>Cette fonction n'a rien à renvoyer : elle <strong>affiche</strong>. Pour <code>afficher_termes(3)</code> :</p><pre>100.0\n80.0\n64.0\n51.2</pre><p>Attention au <code>+ 1</code> : de 0 à n inclus, cela fait n+1 valeurs. Et l'arrondi ne sert qu'à l'<strong>affichage</strong> — le calcul, lui, continue avec la valeur exacte, sinon les erreurs s'accumuleraient.</p><p><strong>Garde les trois dernières lignes du programme telles quelles</strong> : c'est ce qu'elles affichent que le test observe.</p>",
+      "startCode": "def afficher_termes(n):\n    v = 100.0\n    # affiche v(0), v(1), ... jusqu a v(n) inclus\n    pass\n\nafficher_termes(3)\nprint(\"---\")\nafficher_termes(0)\n",
+      "xp": 40,
+      "hints": [
+        "Pour aller de 0 à <code>n</code> <strong>inclus</strong>, la boucle est <code>for k in range(n + 1):</code>. Dans la boucle, fais deux choses dans cet ordre : afficher le terme courant, <em>puis</em> calculer le suivant.",
+        "<pre>for k in range(n + 1):\n    print(round(v, 2))\n    v = 0.8 * v</pre>Si tu inverses les deux lignes, tu affiches v(1) en premier et le tout premier terme est perdu."
+      ],
+      "tests": [
+        {
+          "type": "stdout",
+          "description": "les 4 premiers termes, puis le seul terme de afficher_termes(0)",
+          "expected": "100.0\n80.0\n64.0\n51.2\n---\n100.0\n",
+          "match": "smart"
+        }
+      ]
+    },
+    {
+      "id": "6-4",
+      "solution": "def u(n):\n    return 3 * n + 2\n\ndef somme(n):\n    total = 0\n    for k in range(n + 1):\n        total = total + u(k)\n    return total\n",
+      "title": "La somme des tributs",
+      "statement": "<p>Chaque village verse un tribut qui suit la suite du premier niveau : <code>u(n) = 3n + 2</code>. Le trésorier ne veut pas un terme, il veut le <strong>total</strong> :</p><pre>somme(n) = u(0) + u(1) + … + u(n)</pre><p>Écris les <strong>deux</strong> fonctions : <code>u(n)</code>, puis <code>somme(n)</code> qui additionne tous les termes de rang 0 à <code>n</code> inclus.</p><p>La technique s'appelle l'<strong>accumulateur</strong> : une variable qui part de <code>0</code> et à laquelle on ajoute un terme à chaque tour. C'est le motif le plus réutilisé de toute la programmation — tu le retrouveras dans chaque niveau qui suit.</p><p>Une fonction a parfaitement le droit d'en appeler une autre : <code>somme</code> se sert de <code>u</code>.</p>",
+      "startCode": "def u(n):\n    return 3 * n + 2\n\ndef somme(n):\n    total = 0\n    # ajoute u(0), u(1), ... jusqu a u(n)\n    pass\n\nprint(somme(3))   # attendu : 26\n",
+      "xp": 45,
+      "hints": [
+        "Même boucle qu'au niveau précédent (<code>range(n + 1)</code> pour aller jusqu'à <code>n</code> inclus), mais au lieu d'afficher, tu accumules : <code>total = total + u(k)</code>.",
+        "<pre>total = 0\nfor k in range(n + 1):\n    total = total + u(k)\nreturn total</pre>"
+      ],
+      "tests": [
+        {
+          "type": "function",
+          "description": "somme(0) vaut 2 : un seul terme",
+          "name": "somme",
+          "args": [
+            0
+          ],
+          "expected": 2
+        },
+        {
+          "type": "function",
+          "description": "somme(3) vaut 26 (2 + 5 + 8 + 11)",
+          "name": "somme",
+          "args": [
+            3
+          ],
+          "expected": 26
+        },
+        {
+          "type": "function",
+          "description": "somme(10) vaut 187",
+          "name": "somme",
+          "args": [
+            10
+          ],
+          "expected": 187
+        },
+        {
+          "type": "function",
+          "description": "u(4) vaut toujours 14 : les deux fonctions coexistent",
+          "name": "u",
+          "args": [
+            4
+          ],
+          "expected": 14
+        }
+      ]
+    },
+    {
+      "id": "6-5",
+      "solution": "def seuil(S):\n    terme = 5\n    n = 0\n    while terme <= S:\n        terme = 1.5 * terme\n        n = n + 1\n    return n\n",
+      "title": "Le seuil",
+      "statement": "<p><strong>C'est LE grand classique de l'épreuve.</strong> Une population de lucioles grandit de moitié chaque nuit :</p><pre>u(0) = 5\nu(n+1) = 1,5 × u(n)</pre><p>La question n'est plus « combien après 10 nuits ? » mais l'inverse : <strong>« à partir de quelle nuit dépasse-t-on 1 000 ? »</strong> On ne connaît pas le nombre de tours à l'avance — donc <code>for</code> est inutilisable. C'est le moment du <code>while</code> : « tant que je n'ai pas dépassé, je continue ».</p><p>Écris <code>seuil(S)</code> qui renvoie le plus petit rang <code>n</code> tel que <code>u(n)</code> soit <strong>strictement supérieur</strong> à <code>S</code>.</p><p>Deux pièges à éviter :</p><ul><li>Le compteur <code>n</code> doit avancer <strong>en même temps</strong> que le terme, sinon tu ne sauras pas où tu es arrivé.</li><li>Si le premier terme dépasse déjà <code>S</code>, la réponse est <code>0</code> et la boucle ne doit pas tourner une seule fois.</li></ul><p><em>Si ta boucle tourne sans fin, le jeu l'arrête au bout de 6 secondes : vérifie que la valeur testée change vraiment à chaque tour.</em></p>",
+      "startCode": "def seuil(S):\n    terme = 5\n    n = 0\n    # tant que terme n a pas depasse S : calcule le suivant et compte\n    pass\n\nprint(seuil(1000))   # attendu : 14\nprint(seuil(4))      # attendu : 0\n",
+      "xp": 50,
+      "hints": [
+        "La condition s'écrit à l'envers de la question : on continue <strong>tant qu'on n'a pas dépassé</strong>, donc <code>while terme &lt;= S:</code>. Dans la boucle, deux lignes : le terme suivant, et <code>n = n + 1</code>.",
+        "<pre>while terme &lt;= S:\n    terme = 1.5 * terme\n    n = n + 1\nreturn n</pre>"
+      ],
+      "tests": [
+        {
+          "type": "function",
+          "description": "seuil(1000) vaut 14",
+          "name": "seuil",
+          "args": [
+            1000
+          ],
+          "expected": 14
+        },
+        {
+          "type": "function",
+          "description": "seuil(4) vaut 0 : 5 dépasse déjà 4",
+          "name": "seuil",
+          "args": [
+            4
+          ],
+          "expected": 0
+        },
+        {
+          "type": "function",
+          "description": "seuil(5) vaut 1 : « strictement supérieur » à 5",
+          "name": "seuil",
+          "args": [
+            5
+          ],
+          "expected": 1
+        },
+        {
+          "type": "function",
+          "description": "seuil(100000) vaut 25",
+          "name": "seuil",
+          "args": [
+            100000
+          ],
+          "expected": 25
+        }
+      ]
+    },
+    {
+      "id": "6-6",
+      "solution": "def rang(eps):\n    w = 10\n    n = 0\n    while abs(w - 3) >= eps:\n        w = 0.5 * w + 1.5\n        n = n + 1\n    return n\n",
+      "title": "Le seuil à l'envers",
+      "statement": "<p>La température d'une forge en refroidissement suit :</p><pre>w(0) = 10\nw(n+1) = 0,5 × w(n) + 1,5</pre><p>Calcule quelques termes : 10 ; 6,5 ; 4,75 ; 3,875 ; 3,4375… La suite ne descend pas vers zéro, elle se rapproche indéfiniment de <strong>3</strong> sans jamais l'atteindre. On dit qu'elle <strong>converge vers 3</strong>.</p><p>La bonne question devient : <em>à partir de quel rang la suite est-elle à moins de <code>eps</code> de sa limite ?</em> Cette distance s'écrit avec la valeur absolue : <code>abs(w - 3)</code> — <code>abs</code> rend le signe positif, ce qui permet de mesurer un écart sans se soucier de savoir si on est au-dessus ou en dessous.</p><p>Écris <code>rang(eps)</code> : le plus petit <code>n</code> tel que <code>abs(w(n) - 3)</code> soit <strong>strictement inférieur</strong> à <code>eps</code>.</p>",
+      "startCode": "def rang(eps):\n    w = 10\n    n = 0\n    # tant que w est encore a plus de eps de 3 : on avance\n    pass\n\nprint(rang(1))      # attendu : 3\nprint(rang(0.01))   # attendu : 10\n",
+      "xp": 55,
+      "hints": [
+        "Même structure qu'au niveau du seuil, seule la condition change : on continue <strong>tant que l'écart est encore trop grand</strong>, donc <code>while abs(w - 3) &gt;= eps:</code>.",
+        "<pre>while abs(w - 3) &gt;= eps:\n    w = 0.5 * w + 1.5\n    n = n + 1\nreturn n</pre>"
+      ],
+      "tests": [
+        {
+          "type": "function",
+          "description": "rang(1) vaut 3",
+          "name": "rang",
+          "args": [
+            1
+          ],
+          "expected": 3
+        },
+        {
+          "type": "function",
+          "description": "rang(0.01) vaut 10",
+          "name": "rang",
+          "args": [
+            0.01
+          ],
+          "expected": 10
+        },
+        {
+          "type": "function",
+          "description": "rang(7) vaut 1 : l'écart de départ vaut exactement 7",
+          "name": "rang",
+          "args": [
+            7
+          ],
+          "expected": 1
+        },
+        {
+          "type": "function",
+          "description": "rang(0.0001) vaut 17",
+          "name": "rang",
+          "args": [
+            0.0001
+          ],
+          "expected": 17
+        }
+      ]
+    },
+    {
+      "id": "6-7",
+      "solution": "def f(x):\n    return x * x - 2\n\ndef racine(eps):\n    a = 1\n    b = 2\n    while b - a > eps:\n        m = (a + b) / 2\n        if f(m) < 0:\n            a = m\n        else:\n            b = m\n    return (a + b) / 2\n",
+      "title": "La dichotomie",
+      "statement": "<p>On cherche la solution de <code>f(x) = 0</code> pour <code>f(x) = x² − 2</code> — autrement dit la racine carrée de 2, que l'on va calculer <strong>sans jamais utiliser de racine carrée</strong>.</p><p>On sait que <code>f(1) = −1</code> (négatif) et <code>f(2) = 2</code> (positif) : la solution est donc quelque part entre 1 et 2. L'idée de la <strong>dichotomie</strong> est de couper l'intervalle en deux, encore et encore, en gardant à chaque fois la moitié qui contient la solution :</p><pre>m = (a + b) / 2\nsi f(m) est negatif  ->  la solution est apres m  ->  a = m\nsinon                ->  la solution est avant m  ->  b = m</pre><p>À chaque tour la largeur de l'intervalle est divisée par deux. On s'arrête quand elle devient plus petite que la précision <code>eps</code> demandée.</p><p>Écris <code>f(x)</code>, puis <code>racine(eps)</code> qui renvoie le milieu du dernier intervalle. Utilise <code>/</code> (division décimale) et surtout pas <code>//</code> : ici on travaille avec des nombres à virgule.</p>",
+      "startCode": "def f(x):\n    return x * x - 2\n\ndef racine(eps):\n    a = 1\n    b = 2\n    # tant que l intervalle est plus large que eps : on le coupe en deux\n    pass\n\nprint(racine(0.01))     # attendu : environ 1.414\n",
+      "xp": 65,
+      "hints": [
+        "La boucle est <code>while b - a &gt; eps:</code>. À l'intérieur, calcule le milieu <code>m = (a + b) / 2</code>, puis déplace <strong>une seule</strong> des deux bornes : <code>a</code> si <code>f(m)</code> est négatif, <code>b</code> sinon.",
+        "<pre>while b - a &gt; eps:\n    m = (a + b) / 2\n    if f(m) &lt; 0:\n        a = m\n    else:\n        b = m\nreturn (a + b) / 2</pre>Le <code>return</code> est après la boucle : on renvoie le milieu du dernier encadrement."
+      ],
+      "tests": [
+        {
+          "type": "expression",
+          "description": "f est bien définie : f(3) vaut 7 et f(1) vaut -1",
+          "expression": "f(3) == 7 and f(1) == -1",
+          "expected": true
+        },
+        {
+          "type": "expression",
+          "description": "racine(0.01) approche 1.4142 à 0.01 près",
+          "expression": "abs(racine(0.01) - 1.4142135623730951) <= 0.01",
+          "expected": true
+        },
+        {
+          "type": "expression",
+          "description": "racine(0.0001) approche 1.4142 à 0.0001 près",
+          "expression": "abs(racine(0.0001) - 1.4142135623730951) <= 0.0001",
+          "expected": true
+        },
+        {
+          "type": "expression",
+          "description": "plus eps est petit, plus le résultat est précis",
+          "expression": "abs(racine(0.000001) - 1.4142135623730951) < abs(racine(0.01) - 1.4142135623730951)",
+          "expected": true
+        }
+      ]
+    },
+    {
+      "id": "6-8",
+      "solution": "def euler(n):\n    h = 1 / n\n    y = 1\n    for k in range(n):\n        y = y + h * y\n    return y\n",
+      "title": "La méthode d'Euler",
+      "statement": "<p>Une population de champignons croît d'autant plus vite qu'elle est déjà nombreuse. En langage mathématique : <code>y' = y</code>, avec <code>y(0) = 1</code>. On veut <code>y(1)</code>, mais on ne sait pas résoudre l'équation.</p><p>La <strong>méthode d'Euler</strong> contourne le problème : on avance par très petits pas <code>h</code> en faisant <em>comme si</em> la vitesse restait constante pendant chaque pas.</p><pre>h = 1 / n\ny(suivant) = y + h * y</pre><p>Écris <code>euler(n)</code> qui découpe l'intervalle [0 ; 1] en <code>n</code> pas et renvoie la valeur approchée de <code>y(1)</code>.</p><p>Teste avec <code>n = 10</code>, puis <code>100</code>, puis <code>1000</code> : tu verras le résultat se rapprocher de <strong>2,718…</strong> — le nombre <code>e</code>. Plus les pas sont petits, meilleure est l'approximation : c'est toute l'idée de la méthode.</p>",
+      "startCode": "def euler(n):\n    h = 1 / n\n    y = 1\n    # avance n fois d un pas h\n    pass\n\nprint(euler(10))     # attendu : environ 2.5937\nprint(euler(1000))   # attendu : environ 2.7169\n",
+      "xp": 70,
+      "hints": [
+        "Une boucle <code>for k in range(n):</code> qui, à chaque tour, remplace <code>y</code> par <code>y + h * y</code>. Le <code>return y</code> vient après la boucle.",
+        "<pre>h = 1 / n\ny = 1\nfor k in range(n):\n    y = y + h * y\nreturn y</pre>"
+      ],
+      "tests": [
+        {
+          "type": "function",
+          "description": "euler(1) vaut 2.0 : un seul pas, très grossier",
+          "name": "euler",
+          "args": [
+            1
+          ],
+          "expected": 2.0,
+          "tol": 1e-09
+        },
+        {
+          "type": "function",
+          "description": "euler(10) vaut environ 2.5937",
+          "name": "euler",
+          "args": [
+            10
+          ],
+          "expected": 2.5937424601,
+          "tol": 1e-06
+        },
+        {
+          "type": "function",
+          "description": "euler(100) vaut environ 2.7048",
+          "name": "euler",
+          "args": [
+            100
+          ],
+          "expected": 2.704813829421526,
+          "tol": 1e-06
+        },
+        {
+          "type": "expression",
+          "description": "1000 pas approchent e mieux que 10 pas",
+          "expression": "abs(euler(1000) - 2.718281828459045) < abs(euler(10) - 2.718281828459045)",
+          "expected": true
+        }
+      ]
+    },
+    {
+      "id": "6-9",
+      "solution": "def population(n):\n    p = 200\n    for k in range(n):\n        p = 1.05 * p - 4\n    return p\n\ndef annee_seuil(S):\n    p = 200\n    n = 0\n    while p <= S:\n        p = 1.05 * p - 4\n        n = n + 1\n    return n\n\ndef total_cumule(n):\n    total = 0\n    for k in range(n + 1):\n        total = total + population(k)\n    return total\n",
+      "title": "Le rapport de l'astronome (BOSS)",
+      "statement": "<p>Le roi veut un rapport sur la colonie du Val Doré. Chaque année, la population <strong>augmente de 5 %</strong>, mais <strong>4 habitants</strong> partent s'installer ailleurs. Au départ, ils sont 200.</p><pre>p(0) = 200\np(n+1) = 1,05 × p(n) − 4</pre><p>Un vrai sujet d'annale pose trois questions d'affilée. Écris les trois fonctions :</p><ul><li><code>population(n)</code> — la population après <code>n</code> années ;</li><li><code>annee_seuil(S)</code> — la première année où la population dépasse <strong>strictement</strong> <code>S</code> ;</li><li><code>total_cumule(n)</code> — la somme des populations de l'année 0 à l'année <code>n</code> incluse.</li></ul><p>Tu as déjà tout écrit séparément : la suite récurrente, le seuil, l'accumulateur. Il ne reste qu'à les assembler — et <code>total_cumule</code> a le droit d'appeler <code>population</code>.</p><p><em>Augmenter de 5 %, c'est multiplier par 1,05 — pas ajouter 5.</em></p>",
+      "startCode": "def population(n):\n    p = 200\n    # applique n fois : p devient 1.05 * p - 4\n    pass\n\ndef annee_seuil(S):\n    # premiere annee ou la population depasse S\n    pass\n\ndef total_cumule(n):\n    # somme des populations de l annee 0 a l annee n\n    pass\n\nprint(population(3))     # attendu : environ 218.9\nprint(annee_seuil(300))  # attendu : 13\n",
+      "xp": 95,
+      "hints": [
+        "Les trois fonctions sont indépendantes : traite-les une par une. <code>population</code> est le niveau « De proche en proche », <code>annee_seuil</code> est le niveau « Le seuil », <code>total_cumule</code> est le niveau « La somme des tributs ». Aucun n'est nouveau.",
+        "<pre>def annee_seuil(S):\n    p = 200\n    n = 0\n    while p &lt;= S:\n        p = 1.05 * p - 4\n        n = n + 1\n    return n</pre>Et <code>total_cumule</code> accumule <code>population(k)</code> pour <code>k</code> allant de 0 à <code>n</code> inclus."
+      ],
+      "tests": [
+        {
+          "type": "function",
+          "description": "population(0) vaut 200",
+          "name": "population",
+          "args": [
+            0
+          ],
+          "expected": 200,
+          "tol": 1e-09
+        },
+        {
+          "type": "function",
+          "description": "population(3) vaut environ 218.915",
+          "name": "population",
+          "args": [
+            3
+          ],
+          "expected": 218.91500000000002,
+          "tol": 1e-06
+        },
+        {
+          "type": "function",
+          "description": "annee_seuil(300) vaut 13",
+          "name": "annee_seuil",
+          "args": [
+            300
+          ],
+          "expected": 13
+        },
+        {
+          "type": "function",
+          "description": "annee_seuil(199) vaut 0 : 200 dépasse déjà 199",
+          "name": "annee_seuil",
+          "args": [
+            199
+          ],
+          "expected": 0
+        },
+        {
+          "type": "function",
+          "description": "total_cumule(0) vaut 200 : une seule année",
+          "name": "total_cumule",
+          "args": [
+            0
+          ],
+          "expected": 200,
+          "tol": 1e-09
+        },
+        {
+          "type": "function",
+          "description": "total_cumule(3) vaut environ 837.2",
+          "name": "total_cumule",
+          "args": [
+            3
+          ],
+          "expected": 837.2149999999999,
+          "tol": 1e-06
+        }
+      ]
+    }
+  ]
+}

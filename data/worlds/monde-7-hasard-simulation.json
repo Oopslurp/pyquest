@@ -1,0 +1,332 @@
+{
+  "id": "monde-7",
+  "title": "Taverne du Hasard",
+  "description": "import random, épreuve de Bernoulli, loi binomiale, fluctuation d'échantillonnage et loi des grands nombres : simuler pour comprendre les probabilités.",
+  "theme": "hasard",
+  "levels": [
+    {
+      "id": "7-1",
+      "solution": "import random\n\ndef de():\n    return random.randint(1, 6)\n",
+      "title": "Le dé du destin",
+      "statement": "<p>Bienvenue à la <strong>Taverne du Hasard</strong>. Jusqu'ici, tes programmes donnaient toujours le même résultat. Ici, plus jamais.</p><p>Python ne sait pas tirer au sort tout seul : il faut d'abord aller chercher la boîte à outils du hasard. C'est le rôle d'un <strong>import</strong>, à écrire une seule fois, tout en haut du programme :</p><pre>import random\n\nrandom.randint(1, 6)   # un entier au hasard entre 1 et 6 INCLUS</pre><p>Écris la fonction <code>de()</code> — sans paramètre, les parenthèses restent vides — qui renvoie le résultat d'un lancer de dé à six faces.</p><p><strong>Le piège</strong> : <code>randint(1, 6)</code> peut renvoyer 6. C'est une exception en Python, où les bornes de fin sont presque toujours exclues (<code>range(1, 6)</code> s'arrête à 5, lui). Ici, les deux bornes sont incluses.</p><p><em>Deux boîtes à outils sont disponibles dans le jeu : <code>random</code> et <code>math</code>.</em></p>",
+      "startCode": "import random\n\ndef de():\n    # renvoie un entier au hasard entre 1 et 6 inclus\n    pass\n\nprint(de(), de(), de())   # trois lancers : relance pour voir changer\n",
+      "xp": 35,
+      "hints": [
+        "Une seule ligne dans la fonction, commençant par <code>return</code>. La fonction <code>randint</code> ne s'appelle pas toute seule : elle appartient à la boîte <code>random</code>, donc on écrit <code>random.randint(...)</code>.",
+        "<code>return random.randint(1, 6)</code>"
+      ],
+      "tests": [
+        {
+          "type": "expression",
+          "description": "de() renvoie toujours un entier de 1 à 6",
+          "expression": "all(type(de()) == int and 1 <= de() <= 6 for _ in range(200))",
+          "expected": true
+        },
+        {
+          "type": "expression",
+          "description": "les six faces sortent toutes sur 400 lancers",
+          "expression": "len({de() for _ in range(400)}) == 6",
+          "expected": true
+        },
+        {
+          "type": "expression",
+          "description": "deux séries de lancers ne se ressemblent pas",
+          "expression": "sum(de() for _ in range(300)) != sum(de() for _ in range(300)) or len({de() for _ in range(60)}) == 6",
+          "expected": true
+        }
+      ]
+    },
+    {
+      "id": "7-2",
+      "solution": "import random\n\ndef compter_six(n):\n    compte = 0\n    for k in range(n):\n        if random.randint(1, 6) == 6:\n            compte = compte + 1\n    return compte\n",
+      "title": "Cent lancers",
+      "statement": "<p>Un seul lancer n'apprend rien. Ce qui a un sens, c'est de <strong>répéter</strong> l'expérience un grand nombre de fois et de compter.</p><p>Écris <code>compter_six(n)</code> qui lance le dé <code>n</code> fois et renvoie <strong>combien de fois</strong> le 6 est sorti.</p><p>Tu connais déjà les deux ingrédients : la boucle <code>for k in range(n)</code> qui répète, et l'accumulateur <code>compte</code> qui part de 0 et grandit. La nouveauté est qu'on n'ajoute <strong>que si</strong> la condition est remplie — l'accumulateur et le <code>if</code> travaillent ensemble.</p><p>Lance le programme plusieurs fois : le résultat change à chaque exécution, et il tourne autour de <code>n / 6</code> sans jamais tomber juste. C'est normal — c'est même tout le sujet de ce monde.</p>",
+      "startCode": "import random\n\ndef compter_six(n):\n    compte = 0\n    # lance le de n fois et compte les 6\n    pass\n\nprint(compter_six(60))   # environ 10, mais jamais exactement\n",
+      "xp": 40,
+      "hints": [
+        "Dans la boucle : lance le dé, et <strong>si</strong> le résultat vaut 6, ajoute 1 à <code>compte</code>. Le <code>return</code> est après la boucle.",
+        "<pre>for k in range(n):\n    if random.randint(1, 6) == 6:\n        compte = compte + 1\nreturn compte</pre>"
+      ],
+      "tests": [
+        {
+          "type": "expression",
+          "description": "compter_six(0) vaut 0 : aucun lancer",
+          "expression": "compter_six(0) == 0",
+          "expected": true
+        },
+        {
+          "type": "expression",
+          "description": "le résultat reste toujours entre 0 et n",
+          "expression": "all(0 <= compter_six(50) <= 50 for _ in range(20))",
+          "expected": true
+        },
+        {
+          "type": "expression",
+          "description": "sur 3 000 lancers, on tourne autour de 500",
+          "expression": "350 < compter_six(3000) < 650",
+          "expected": true
+        }
+      ]
+    },
+    {
+      "id": "7-3",
+      "solution": "import random\n\ndef frequence(n):\n    compte = 0\n    for k in range(n):\n        if random.randint(1, 6) == 6:\n            compte = compte + 1\n    return compte / n\n",
+      "title": "La fréquence",
+      "statement": "<p>« 480 fois sur 3 000 » ne se compare à rien. « 0,16 » se compare à tout. On passe d'un <strong>effectif</strong> à une <strong>fréquence</strong> en divisant par le nombre d'essais :</p><pre>frequence = nombre de succes / nombre d'essais</pre><p>Écris <code>frequence(n)</code> qui lance le dé <code>n</code> fois et renvoie la <strong>proportion</strong> de 6 obtenus — un nombre entre 0 et 1.</p><p>Utilise <code>/</code> et surtout pas <code>//</code> : la division entière renverrait 0 dans presque tous les cas, puisque le résultat est plus petit que 1.</p><p>La probabilité théorique d'obtenir un 6 est <code>1/6 ≈ 0,1667</code>. Compare ce que tu obtiens avec <code>n = 10</code>, puis <code>n = 10000</code> : c'est la question du reste de ce monde.</p>",
+      "startCode": "import random\n\ndef frequence(n):\n    compte = 0\n    # proportion de 6 sur n lancers\n    pass\n\nprint(frequence(10))      # tres variable\nprint(frequence(10000))   # proche de 0.1667\n",
+      "xp": 45,
+      "hints": [
+        "C'est le niveau précédent, avec une seule différence : au lieu de renvoyer <code>compte</code>, renvoie <code>compte / n</code>.",
+        "<pre>for k in range(n):\n    if random.randint(1, 6) == 6:\n        compte = compte + 1\nreturn compte / n</pre>"
+      ],
+      "tests": [
+        {
+          "type": "expression",
+          "description": "la fréquence est toujours entre 0 et 1",
+          "expression": "all(0 <= frequence(20) <= 1 for _ in range(30))",
+          "expected": true
+        },
+        {
+          "type": "expression",
+          "description": "sur un seul lancer, la fréquence vaut 0 ou 1",
+          "expression": "all(frequence(1) in (0.0, 1.0) for _ in range(30))",
+          "expected": true
+        },
+        {
+          "type": "expression",
+          "description": "sur 5 000 lancers, on approche 0.1667",
+          "expression": "0.10 < frequence(5000) < 0.24",
+          "expected": true
+        }
+      ]
+    },
+    {
+      "id": "7-4",
+      "solution": "import random\n\ndef succes(p):\n    return random.random() < p\n",
+      "title": "L'épreuve de Bernoulli",
+      "statement": "<p>Le dé ne sait faire que des sixièmes. Pour simuler un événement de probabilité <strong>quelconque</strong> — une pièce truquée, une graine qui germe à 30 % — il faut un autre outil :</p><pre>random.random()   # un nombre a virgule au hasard entre 0 et 1</pre><p>L'astuce est jolie : ce tirage a exactement <code>p</code> chances sur 1 de tomber <strong>en dessous</strong> de <code>p</code>. Donc <code>random.random() &lt; p</code> est vrai avec la probabilité <code>p</code>. Une expérience à deux issues comme celle-ci s'appelle une <strong>épreuve de Bernoulli</strong>.</p><p>Écris <code>succes(p)</code> qui renvoie <code>True</code> avec la probabilité <code>p</code>, et <code>False</code> sinon.</p><p>Pas besoin de <code>if</code> : une comparaison <em>est déjà</em> un booléen. <code>return random.random() &lt; p</code> renvoie directement <code>True</code> ou <code>False</code> — comme au Village, où tu écrivais <code>egal = 5 == 5</code>.</p>",
+      "startCode": "import random\n\ndef succes(p):\n    # True avec la probabilite p, False sinon\n    pass\n\nprint(succes(0.3))   # True environ 3 fois sur 10\nprint(succes(1))     # toujours True\n",
+      "xp": 50,
+      "hints": [
+        "Une seule ligne. Compare le tirage <code>random.random()</code> au paramètre <code>p</code> et renvoie le résultat de la comparaison, sans <code>if</code>.",
+        "<code>return random.random() &lt; p</code>"
+      ],
+      "tests": [
+        {
+          "type": "expression",
+          "description": "succes(1) est toujours True",
+          "expression": "all(succes(1) is True for _ in range(100))",
+          "expected": true
+        },
+        {
+          "type": "expression",
+          "description": "succes(0) est toujours False",
+          "expression": "all(succes(0) is False for _ in range(100))",
+          "expected": true
+        },
+        {
+          "type": "expression",
+          "description": "avec p = 0.3, on obtient environ 30 % de succès",
+          "expression": "0.24 < sum(succes(0.3) for _ in range(5000)) / 5000 < 0.36",
+          "expected": true
+        }
+      ]
+    },
+    {
+      "id": "7-5",
+      "solution": "import random\n\ndef binomiale(n, p):\n    compte = 0\n    for k in range(n):\n        if random.random() < p:\n            compte = compte + 1\n    return compte\n",
+      "title": "La loi binomiale",
+      "statement": "<p>Répète <code>n</code> fois la même épreuve de Bernoulli, indépendamment, et compte les succès. Le nombre obtenu suit ce qu'on appelle une <strong>loi binomiale</strong> de paramètres <code>n</code> et <code>p</code> — l'une des lois centrales du programme.</p><p>Écris <code>binomiale(n, p)</code> qui renvoie le nombre de succès obtenus sur <code>n</code> épreuves de probabilité <code>p</code>.</p><p>C'est <code>compter_six</code>, en remplaçant le dé par l'épreuve de Bernoulli — et d'un coup la fonction marche pour <strong>n'importe quelle</strong> probabilité, pas seulement un sixième.</p><p>Lance <code>binomiale(10, 0.5)</code> plusieurs fois : tu obtiendras souvent 4, 5 ou 6, rarement 0 ou 10. La valeur moyenne est <code>n × p</code>, mais on tombe presque jamais dessus exactement.</p>",
+      "startCode": "import random\n\ndef binomiale(n, p):\n    compte = 0\n    # nombre de succes sur n epreuves de probabilite p\n    pass\n\nprint(binomiale(10, 0.5))   # souvent 4, 5 ou 6\nprint(binomiale(10, 1))     # toujours 10\n",
+      "xp": 60,
+      "hints": [
+        "Même structure que <code>compter_six</code>. La condition du <code>if</code> devient <code>random.random() &lt; p</code>.",
+        "<pre>for k in range(n):\n    if random.random() &lt; p:\n        compte = compte + 1\nreturn compte</pre>"
+      ],
+      "tests": [
+        {
+          "type": "expression",
+          "description": "binomiale(10, 1) vaut 10 : que des succès",
+          "expression": "all(binomiale(10, 1) == 10 for _ in range(50))",
+          "expected": true
+        },
+        {
+          "type": "expression",
+          "description": "binomiale(10, 0) vaut 0 : aucun succès",
+          "expression": "all(binomiale(10, 0) == 0 for _ in range(50))",
+          "expected": true
+        },
+        {
+          "type": "expression",
+          "description": "le résultat reste entre 0 et n",
+          "expression": "all(0 <= binomiale(20, 0.5) <= 20 for _ in range(50))",
+          "expected": true
+        },
+        {
+          "type": "expression",
+          "description": "binomiale(1000, 0.4) tourne autour de 400",
+          "expression": "300 < binomiale(1000, 0.4) < 500",
+          "expected": true
+        }
+      ]
+    },
+    {
+      "id": "7-6",
+      "solution": "import random\n\ndef frequence(n, p):\n    compte = 0\n    for i in range(n):\n        if random.random() < p:\n            compte = compte + 1\n    return compte / n\n\ndef etendue(k, n, p):\n    mini = 1\n    maxi = 0\n    for j in range(k):\n        f = frequence(n, p)\n        if f < mini:\n            mini = f\n        if f > maxi:\n            maxi = f\n    return maxi - mini\n",
+      "title": "La fluctuation",
+      "statement": "<p>Prends dix échantillons de 50 lancers chacun, sur la même expérience. Les dix fréquences seront <strong>toutes différentes</strong>. Ce phénomène porte un nom au programme : la <strong>fluctuation d'échantillonnage</strong>. Ce n'est pas une erreur de mesure — c'est le hasard lui-même.</p><p>Pour la mesurer, on regarde l'<strong>étendue</strong> : l'écart entre la plus grande et la plus petite des fréquences observées.</p><p>Écris les <strong>deux</strong> fonctions :</p><ul><li><code>frequence(n, p)</code> — la proportion de succès sur <code>n</code> épreuves de probabilité <code>p</code> ;</li><li><code>etendue(k, n, p)</code> — sur <code>k</code> échantillons de taille <code>n</code>, la plus grande fréquence moins la plus petite.</li></ul><p>Pour trouver un minimum et un maximum sans les connaître à l'avance, on garde deux variables témoins que l'on met à jour dès qu'on rencontre mieux. Une fréquence étant toujours entre 0 et 1, on peut partir de <code>mini = 1</code> et <code>maxi = 0</code> — volontairement à l'envers, pour que la première valeur rencontrée les remplace tous les deux.</p><p>Essaie <code>etendue(10, 20, 0.5)</code> puis <code>etendue(10, 5000, 0.5)</code> : les grands échantillons fluctuent beaucoup moins.</p>",
+      "startCode": "import random\n\ndef frequence(n, p):\n    # proportion de succes sur n epreuves\n    pass\n\ndef etendue(k, n, p):\n    mini = 1\n    maxi = 0\n    # k echantillons : garde la plus grande et la plus petite frequence\n    pass\n\nprint(etendue(10, 20, 0.5))     # assez grand\nprint(etendue(10, 5000, 0.5))   # beaucoup plus petit\n",
+      "xp": 65,
+      "hints": [
+        "Dans <code>etendue</code>, une boucle <code>for j in range(k):</code> qui calcule une fréquence <code>f</code>, puis deux <code>if</code> indépendants : <code>if f &lt; mini:</code> et <code>if f &gt; maxi:</code>. On renvoie <code>maxi - mini</code> à la fin.",
+        "<pre>for j in range(k):\n    f = frequence(n, p)\n    if f &lt; mini:\n        mini = f\n    if f &gt; maxi:\n        maxi = f\nreturn maxi - mini</pre>"
+      ],
+      "tests": [
+        {
+          "type": "expression",
+          "description": "frequence(10, 1) vaut 1.0",
+          "expression": "all(frequence(10, 1) == 1.0 for _ in range(30))",
+          "expected": true
+        },
+        {
+          "type": "expression",
+          "description": "avec p = 1, toutes les fréquences valent 1 : étendue nulle",
+          "expression": "all(etendue(5, 100, 1) == 0 for _ in range(20))",
+          "expected": true
+        },
+        {
+          "type": "expression",
+          "description": "avec p = 0, étendue nulle également",
+          "expression": "all(etendue(5, 100, 0) == 0 for _ in range(20))",
+          "expected": true
+        },
+        {
+          "type": "expression",
+          "description": "30 échantillons de 50 lancers fluctuent, sans excès",
+          "expression": "0 < etendue(30, 50, 0.5) < 0.7",
+          "expected": true
+        }
+      ]
+    },
+    {
+      "id": "7-7",
+      "solution": "import random\n\ndef ecart(n, p):\n    compte = 0\n    for k in range(n):\n        if random.random() < p:\n            compte = compte + 1\n    return abs(compte / n - p)\n",
+      "title": "La loi des grands nombres",
+      "statement": "<p>Voici le résultat le plus important du chapitre, et il tient en une phrase : <strong>plus l'échantillon est grand, plus la fréquence observée se rapproche de la probabilité théorique.</strong> C'est la <strong>loi des grands nombres</strong>.</p><p>Pour la vérifier, il faut mesurer la distance entre les deux — et une distance ne doit pas dépendre du sens de l'écart, d'où la valeur absolue rencontrée au Chemin des Suites :</p><pre>ecart = abs(frequence observee - p)</pre><p>Écris <code>ecart(n, p)</code> qui simule <code>n</code> épreuves de probabilité <code>p</code> et renvoie cet écart.</p><p>Puis exécute le programme plusieurs fois en comparant <code>ecart(100, 0.5)</code> et <code>ecart(100000, 0.5)</code>. Le premier saute dans tous les sens, le second reste collé à zéro. Attention : ce n'est pas une garantie — un grand échantillon <em>peut</em> mal tomber, c'est seulement de moins en moins probable.</p>",
+      "startCode": "import random\n\ndef ecart(n, p):\n    compte = 0\n    # ecart entre la frequence observee et p\n    pass\n\nprint(ecart(100, 0.5))      # saute beaucoup\nprint(ecart(100000, 0.5))   # tout petit\n",
+      "xp": 75,
+      "hints": [
+        "C'est <code>binomiale</code> avec une ligne de retour différente : on divise par <code>n</code> pour obtenir la fréquence, on retranche <code>p</code>, et on enveloppe le tout dans <code>abs(...)</code>.",
+        "<code>return abs(compte / n - p)</code>, après la boucle de comptage."
+      ],
+      "tests": [
+        {
+          "type": "expression",
+          "description": "avec p = 1, l'écart est nul",
+          "expression": "all(ecart(200, 1) == 0 for _ in range(30))",
+          "expected": true
+        },
+        {
+          "type": "expression",
+          "description": "avec p = 0, l'écart est nul",
+          "expression": "all(ecart(200, 0) == 0 for _ in range(30))",
+          "expected": true
+        },
+        {
+          "type": "expression",
+          "description": "sur 2 000 épreuves, l'écart reste sous 0.1",
+          "expression": "ecart(2000, 0.5) < 0.1",
+          "expected": true
+        },
+        {
+          "type": "expression",
+          "description": "sur 20 000 épreuves, il descend sous 0.03 : la loi des grands nombres",
+          "expression": "ecart(20000, 0.5) < 0.03",
+          "expected": true
+        }
+      ]
+    },
+    {
+      "id": "7-8",
+      "solution": "import random\n\ndef position(n):\n    p = 0\n    for k in range(n):\n        if random.random() < 0.5:\n            p = p + 1\n        else:\n            p = p - 1\n    return p\n",
+      "title": "La marche du promeneur",
+      "statement": "<p>Un promeneur sort de la taverne, la tete ailleurs. À chaque pas, il part à droite ou à gauche, à pile ou face. Où sera-t-il après <code>n</code> pas ?</p><p>Écris <code>position(n)</code> qui simule <code>n</code> pas et renvoie la position finale : on part de <code>0</code>, un pas à droite ajoute <code>1</code>, un pas à gauche retranche <code>1</code>.</p><p>C'est la première fois que ton accumulateur peut <strong>descendre</strong> : le <code>if</code> a besoin d'un <code>else</code>, puisqu'il se passe quelque chose dans les deux cas.</p><p>Une curiosité à vérifier : après un nombre <strong>impair</strong> de pas, la position est toujours impaire, et jamais zéro. Le promeneur ne peut pas être revenu à son point de départ après 7 pas — essaie, tu ne trouveras jamais de contre-exemple.</p>",
+      "startCode": "import random\n\ndef position(n):\n    p = 0\n    # n pas : +1 a droite, -1 a gauche, une chance sur deux\n    pass\n\nprint(position(10))   # souvent proche de 0\nprint(position(7))    # toujours impair\n",
+      "xp": 80,
+      "hints": [
+        "Dans la boucle, tire au sort avec <code>random.random() &lt; 0.5</code> : <code>if</code> vrai → <code>p = p + 1</code>, <code>else</code> → <code>p = p - 1</code>. Le <code>else</code> est indispensable.",
+        "<pre>for k in range(n):\n    if random.random() &lt; 0.5:\n        p = p + 1\n    else:\n        p = p - 1\nreturn p</pre>"
+      ],
+      "tests": [
+        {
+          "type": "expression",
+          "description": "position(0) vaut 0 : aucun pas",
+          "expression": "position(0) == 0",
+          "expected": true
+        },
+        {
+          "type": "expression",
+          "description": "après 50 pas, on ne peut pas être plus loin que 50",
+          "expression": "all(abs(position(50)) <= 50 for _ in range(30))",
+          "expected": true
+        },
+        {
+          "type": "expression",
+          "description": "après 7 pas (impair), la position est impaire",
+          "expression": "all(position(7) % 2 == 1 for _ in range(50))",
+          "expected": true
+        },
+        {
+          "type": "expression",
+          "description": "après 10 pas (pair), la position est paire",
+          "expression": "all(position(10) % 2 == 0 for _ in range(50))",
+          "expected": true
+        }
+      ]
+    },
+    {
+      "id": "7-9",
+      "solution": "import random\n\ndef somme_deux_des():\n    return random.randint(1, 6) + random.randint(1, 6)\n\ndef simuler(n):\n    compte = 0\n    for k in range(n):\n        if somme_deux_des() == 7:\n            compte = compte + 1\n    return compte / n\n\ndef verdict(n, marge):\n    return abs(simuler(n) - 1 / 6) < marge\n",
+      "title": "Le pari du roi (BOSS)",
+      "statement": "<p>Le roi parie qu'en lançant <strong>deux</strong> dés, la somme 7 sort plus souvent que n'importe quelle autre. Le bouffon prétend le contraire. Personne ne sait calculer — alors on va <strong>simuler</strong>.</p><p>La théorie, pour vérifier après coup : sur les 36 tirages possibles de deux dés, six donnent 7 (1+6, 2+5, 3+4, 4+3, 5+2, 6+1). La probabilité est donc <code>6/36 = 1/6 ≈ 0,1667</code>.</p><p>Écris les <strong>trois</strong> fonctions :</p><ul><li><code>somme_deux_des()</code> — la somme de deux lancers (entre 2 et 12) ;</li><li><code>simuler(n)</code> — la fréquence de la somme 7 sur <code>n</code> lancers de deux dés ;</li><li><code>verdict(n, marge)</code> — <code>True</code> si la fréquence simulée est à moins de <code>marge</code> de la valeur théorique <code>1/6</code>.</li></ul><p><strong>Attention au piège classique</strong> : deux dés ne se simulent pas avec <code>2 * random.randint(1, 6)</code>, qui ne donnerait que des nombres pairs et jamais 7. Il faut deux tirages <strong>séparés</strong> — c'est justement ce qui rend le 7 plus fréquent que le 2 ou le 12.</p><p>Tout ce que tu as appris dans ce monde sert ici d'un seul coup : le tirage, l'accumulateur conditionnel, la fréquence, l'écart en valeur absolue.</p>",
+      "startCode": "import random\n\ndef somme_deux_des():\n    # somme de DEUX lancers separes\n    pass\n\ndef simuler(n):\n    # frequence de la somme 7 sur n lancers de deux des\n    pass\n\ndef verdict(n, marge):\n    # True si la simulation est a moins de marge de 1/6\n    pass\n\nprint(simuler(10000))          # attendu : environ 0.1667\nprint(verdict(10000, 0.02))    # presque toujours True\n",
+      "xp": 110,
+      "hints": [
+        "Traite les trois fonctions l'une après l'autre. <code>somme_deux_des</code> tient en une ligne avec <strong>deux</strong> appels à <code>randint</code>. <code>simuler</code> est <code>frequence</code> avec une autre condition. <code>verdict</code> tient en une ligne et utilise <code>abs</code>.",
+        "<pre>def somme_deux_des():\n    return random.randint(1, 6) + random.randint(1, 6)\n\ndef verdict(n, marge):\n    return abs(simuler(n) - 1 / 6) &lt; marge</pre>Écris <code>1 / 6</code> et non <code>1 // 6</code>, qui vaudrait 0."
+      ],
+      "tests": [
+        {
+          "type": "expression",
+          "description": "la somme de deux dés est toujours entre 2 et 12",
+          "expression": "all(2 <= somme_deux_des() <= 12 for _ in range(300))",
+          "expected": true
+        },
+        {
+          "type": "expression",
+          "description": "les 11 sommes possibles sortent toutes (donc deux tirages séparés)",
+          "expression": "len({somme_deux_des() for _ in range(2000)}) == 11",
+          "expected": true
+        },
+        {
+          "type": "expression",
+          "description": "simuler(5000) approche 0.1667",
+          "expression": "0.10 < simuler(5000) < 0.24",
+          "expected": true
+        },
+        {
+          "type": "expression",
+          "description": "avec une marge nulle, le verdict est forcément False",
+          "expression": "verdict(500, 0) is False",
+          "expected": true
+        },
+        {
+          "type": "expression",
+          "description": "sur 20 000 lancers, la simulation tombe à moins de 0.05 du théorique",
+          "expression": "verdict(20000, 0.05) is True",
+          "expected": true
+        }
+      ]
+    }
+  ]
+}

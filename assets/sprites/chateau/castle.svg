@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" shape-rendering="crispEdges">
+  <!-- Château des Données : donjon, deux tours, porte des archives -->
+  <rect x="8" y="0" width="1" height="5" fill="#94b0c2"/>  <!-- hampe -->
+  <rect x="9" y="0" width="3" height="1" fill="#ffcd75"/>  <!-- drapeau -->
+  <rect x="9" y="1" width="3" height="1" fill="#ef7d57"/>
+
+  <!-- créneaux du donjon -->
+  <rect x="5" y="4" width="1" height="1" fill="#566c86"/>
+  <rect x="7" y="4" width="2" height="1" fill="#566c86"/>
+  <rect x="10" y="4" width="1" height="1" fill="#566c86"/>
+  <!-- donjon -->
+  <rect x="5" y="5" width="6" height="9" fill="#566c86"/>
+  <rect x="5" y="5" width="1" height="9" fill="#94b0c2"/>  <!-- lumière -->
+  <rect x="6" y="7" width="1" height="1" fill="#ffcd75"/>  <!-- fenêtres -->
+  <rect x="9" y="7" width="1" height="1" fill="#ffcd75"/>
+  <rect x="7" y="9" width="2" height="1" fill="#5d275d"/>  <!-- linteau -->
+  <rect x="7" y="10" width="2" height="4" fill="#1a1c2c"/> <!-- porte -->
+
+  <!-- tour gauche -->
+  <rect x="1" y="6" width="1" height="1" fill="#566c86"/>
+  <rect x="3" y="6" width="1" height="1" fill="#566c86"/>
+  <rect x="1" y="7" width="3" height="7" fill="#566c86"/>
+  <rect x="1" y="7" width="1" height="7" fill="#94b0c2"/>
+  <rect x="2" y="9" width="1" height="1" fill="#ffcd75"/>
+
+  <!-- tour droite -->
+  <rect x="12" y="6" width="1" height="1" fill="#566c86"/>
+  <rect x="14" y="6" width="1" height="1" fill="#566c86"/>
+  <rect x="12" y="7" width="3" height="7" fill="#566c86"/>
+  <rect x="12" y="7" width="1" height="7" fill="#94b0c2"/>
+  <rect x="13" y="9" width="1" height="1" fill="#ffcd75"/>
+
+  <rect x="0" y="14" width="16" height="2" fill="#333c57"/> <!-- sol -->
+</svg>

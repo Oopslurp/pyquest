@@ -185,6 +185,30 @@ PyQuest.Game = (function () {
       return this.isWorldComplete(worldEntry.requires);
     },
 
+    /** Niveau du joueur (le « Niv. N » du HUD) déduit de l'XP. */
+    playerLevel(xp) { return Math.floor((xp || 0) / 100) + 1; },
+
+    /** Le jeu entier est terminé quand tous les mondes qui ont du contenu le sont. */
+    isGameComplete() {
+      const jouables = this.manifest.worlds.filter((w) => this.worlds[w.id]);
+      return jouables.length > 0 && jouables.every((w) => this.isWorldComplete(w.id));
+    },
+
+    /** Totaux affichés sur l'écran de fin. */
+    gameTotals() {
+      let total = 0, done = 0, xpMax = 0;
+      this.manifest.worlds.forEach((w) => {
+        const world = this.worlds[w.id];
+        if (!world) return;
+        world.levels.forEach((lv) => {
+          total += 1;
+          xpMax += lv.xp || 0;
+          if (this.isLevelDone(w.id, lv.id)) done += 1;
+        });
+      });
+      return { total, done, xpMax };
+    },
+
     unlockedSet() {
       const s = new Set();
       this.manifest.worlds.forEach((w) => { if (this.isWorldUnlocked(w)) s.add(w.id); });
@@ -252,7 +276,11 @@ PyQuest.Game = (function () {
         const icon = done ? '✔' : unlocked ? '▶' : '🔒';
 
         const item = el('div', { class: cls, onClick: () => {
-          if (!unlocked) { Audio.fail(); return; }
+          if (!unlocked) {
+            Audio.fail();
+            this.flash('Termine le niveau précédent pour ouvrir celui-ci.');
+            return;
+          }
           Audio.click();
           $('#world-panel').classList.add('hidden');
           this.openLevel(worldId, i);
@@ -294,6 +322,7 @@ PyQuest.Game = (function () {
     /* ---------------- Complétion ---------------- */
     completeLevel(worldId, level) {
       const before = this.unlockedSet();
+      const nivAvant = this.playerLevel(this.state.xp);
       const key = this.levelKey(worldId, level.id);
       let xpGained = 0;
       if (!this.state.completed[key]) {
@@ -311,7 +340,26 @@ PyQuest.Game = (function () {
         .filter(Boolean)
         .map((e) => e.title);
 
-      return { xpGained, worldCompleted, newlyUnlocked };
+      // Passage de niveau : jusqu'ici la barre dorée se vidait en silence.
+      const nivApres = this.playerLevel(this.state.xp);
+      const levelUp = nivApres > nivAvant ? nivApres : 0;
+
+      return { xpGained, worldCompleted, newlyUnlocked, levelUp,
+               gameCompleted: this.isGameComplete() };
+    },
+
+    /** Petit « +N XP » qui s'envole depuis la barre d'XP du HUD. */
+    floatXP(amount) {
+      if (!amount) return;
+      const anchor = $('#hud-xp-text');
+      const fx = document.getElementById('fx-layer');
+      if (!anchor || !fx) return;
+      const r = anchor.getBoundingClientRect();
+      const n = el('div', { class: 'xp-float' }, `+${amount} XP`);
+      n.style.left = Math.round(r.left + r.width / 2) + 'px';
+      n.style.top = Math.round(r.top) + 'px';
+      fx.appendChild(n);
+      setTimeout(() => n.remove(), 1400);
     },
 
     /* ---------------- Petit message flash ---------------- */

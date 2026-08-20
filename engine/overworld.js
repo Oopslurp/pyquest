@@ -115,7 +115,77 @@ PyQuest.Overworld = (function () {
       drawTowerMini(ctx, cx, cy - 1);
     } else if (entry && entry.theme === 'arene') {
       drawPodiumMini(ctx, cx, cy - 1);
+    } else if (entry && entry.theme === 'chateau') {
+      drawCastleMini(ctx, cx, cy - 1);
+    } else if (entry && entry.theme === 'suites') {
+      drawStairsMini(ctx, cx, cy - 1);
+    } else if (entry && entry.theme === 'hasard') {
+      drawDiceMini(ctx, cx, cy - 1);
     }
+  }
+
+  // Mini-escalier des suites : les marches montent, la dernière franchit le
+  // seuil doré (décor de carte, cohérent avec assets/sprites/suites).
+  function drawStairsMini(ctx, cx, cy) {
+    cx = Math.round(cx); cy = Math.round(cy);
+    ctx.fillStyle = P.named.slate;
+    ctx.fillRect(cx - 5, cy - 4, 3, 4);
+    ctx.fillRect(cx - 2, cy - 7, 3, 7);
+    ctx.fillStyle = P.named.silver;
+    ctx.fillRect(cx - 5, cy - 4, 3, 1);
+    ctx.fillRect(cx - 2, cy - 7, 3, 1);
+    // la ligne de seuil
+    ctx.fillStyle = P.named.gold;
+    ctx.fillRect(cx - 6, cy - 9, 2, 1);
+    ctx.fillRect(cx - 3, cy - 9, 2, 1);
+    ctx.fillRect(cx, cy - 9, 1, 1);
+    // la marche qui le franchit
+    ctx.fillStyle = P.named.cyan;  ctx.fillRect(cx + 1, cy - 12, 3, 12);
+    ctx.fillStyle = P.named.white; ctx.fillRect(cx + 1, cy - 12, 3, 1);
+  }
+
+  // Mini-dé de la taverne (décor de carte, cohérent avec assets/sprites/hasard).
+  function drawDiceMini(ctx, cx, cy) {
+    cx = Math.round(cx); cy = Math.round(cy);
+    ctx.fillStyle = P.named.white;  ctx.fillRect(cx - 5, cy - 10, 10, 10);
+    ctx.fillStyle = P.named.gold;   ctx.fillRect(cx - 5, cy - 10, 10, 1);
+    ctx.fillStyle = P.named.silver; ctx.fillRect(cx + 4, cy - 9, 1, 9);
+    ctx.fillStyle = P.named.red;
+    ctx.fillRect(cx - 3, cy - 8, 2, 2);
+    ctx.fillRect(cx + 1, cy - 8, 2, 2);
+    ctx.fillRect(cx - 3, cy - 4, 2, 2);
+    ctx.fillRect(cx + 1, cy - 4, 2, 2);
+    ctx.fillStyle = P.named.night;  ctx.fillRect(cx - 1, cy - 6, 2, 2);
+  }
+
+  // Mini-château des données (décor de carte, cohérent avec assets/sprites/chateau).
+  function drawCastleMini(ctx, cx, cy) {
+    cx = Math.round(cx); cy = Math.round(cy);
+    // drapeau
+    ctx.fillStyle = P.named.silver; ctx.fillRect(cx, cy - 16, 1, 3);
+    ctx.fillStyle = P.named.gold;   ctx.fillRect(cx + 1, cy - 16, 3, 2);
+    // créneaux du donjon
+    ctx.fillStyle = P.named.slate;
+    ctx.fillRect(cx - 2, cy - 13, 1, 1);
+    ctx.fillRect(cx, cy - 13, 1, 1);
+    ctx.fillRect(cx + 2, cy - 13, 1, 1);
+    // donjon + lumière
+    ctx.fillStyle = P.named.slate;  ctx.fillRect(cx - 2, cy - 12, 5, 10);
+    ctx.fillStyle = P.named.silver; ctx.fillRect(cx - 2, cy - 12, 1, 10);
+    // tours latérales
+    ctx.fillStyle = P.named.slate;
+    ctx.fillRect(cx - 5, cy - 9, 3, 7);
+    ctx.fillRect(cx + 3, cy - 9, 3, 7);
+    ctx.fillStyle = P.named.silver;
+    ctx.fillRect(cx - 5, cy - 9, 1, 7);
+    ctx.fillRect(cx + 3, cy - 9, 1, 7);
+    // fenêtres des archives
+    ctx.fillStyle = P.named.gold;
+    ctx.fillRect(cx - 4, cy - 7, 1, 1);
+    ctx.fillRect(cx + 4, cy - 7, 1, 1);
+    ctx.fillRect(cx + 1, cy - 10, 1, 1);
+    // porte
+    ctx.fillStyle = P.named.night; ctx.fillRect(cx, cy - 5, 2, 3);
   }
 
   // Mini-podium de l'arène (décor de carte, cohérent avec assets/sprites/arene).
@@ -205,18 +275,29 @@ PyQuest.Overworld = (function () {
 
     drawScene(canvas, states.map((s) => s.entry));
 
-    // Chemin en pointillés reliant les mondes dans l'ordre.
+    // Chemins en pointillés : UN SEGMENT PAR RELATION `requires`, et non une
+    // polyline suivant l'ordre du manifeste. C'est ce qui permet à la carte de
+    // montrer des embranchements (ici : branche maths / branche informatique).
+    // Un monde sans `requires` est un départ : aucun trait n'y entre.
     const SVGNS = 'http://www.w3.org/2000/svg';
-    const pts = states.map((s) => `${s.entry.node.x},${s.entry.node.y}`).join(' ');
-    const poly = document.createElementNS(SVGNS, 'polyline');
-    poly.setAttribute('points', pts);
-    poly.setAttribute('fill', 'none');
-    poly.setAttribute('stroke', PyQuest.Palette.named.gold);
-    poly.setAttribute('stroke-width', '1.2');
-    poly.setAttribute('stroke-dasharray', '2 2.5');
-    poly.setAttribute('stroke-linecap', 'round');
-    poly.setAttribute('opacity', '0.7');
-    svg.appendChild(poly);
+    const nodeById = {};
+    states.forEach((s) => { nodeById[s.entry.id] = s.entry.node; });
+    states.forEach((s) => {
+      const from = nodeById[s.entry.requires];
+      if (!from) return;
+      const line = document.createElementNS(SVGNS, 'line');
+      line.setAttribute('x1', from.x);
+      line.setAttribute('y1', from.y);
+      line.setAttribute('x2', s.entry.node.x);
+      line.setAttribute('y2', s.entry.node.y);
+      line.setAttribute('stroke', PyQuest.Palette.named.gold);
+      line.setAttribute('stroke-width', '1.2');
+      line.setAttribute('stroke-dasharray', '2 2.5');
+      line.setAttribute('stroke-linecap', 'round');
+      // le chemin vers un monde encore verrouillé reste en retrait
+      line.setAttribute('opacity', s.unlocked ? '0.85' : '0.3');
+      svg.appendChild(line);
+    });
 
     // Nœuds mondes.
     states.forEach((s, i) => {

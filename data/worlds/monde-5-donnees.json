@@ -1,0 +1,732 @@
+{
+  "id": "monde-5",
+  "title": "Château des Données",
+  "description": "Dans la salle des archives, chaque village a sa fiche. Filtrer, moyenner, classer, compter, charger des archives abîmées : le traitement de données, du premier dictionnaire au rapport du roi.",
+  "theme": "chateau",
+  "levels": [
+    {
+      "id": "5-1",
+      "solution": "def valeur(fiche, cle):\n    return fiche.get(cle, \"inconnu\")\n",
+      "title": "La fiche du scribe",
+      "statement": "<p>Bienvenue au <strong>Château des Données</strong>. Dans la grande salle des archives, chaque village du royaume possède une <strong>fiche</strong> : un dictionnaire.</p><pre>fiche = {\"village\": \"Aval\", \"region\": \"Nord\", \"recolte\": 120}</pre><p>Le problème du scribe : <code>fiche[\"pluie\"]</code> fait <strong>planter</strong> le programme (<code>KeyError</code>) si la clé n'a jamais été relevée. Sur des données réelles, une mesure manquante ne doit jamais tout arrêter.</p><p>Écris <code>valeur(fiche, cle)</code> qui renvoie la valeur associée à <code>cle</code>, ou la chaîne <code>\"inconnu\"</code> si cette clé n'existe pas dans la fiche.</p>",
+      "startCode": "def valeur(fiche, cle):\n    # renvoie fiche[cle], ou \"inconnu\" si la cle est absente\n    pass\n\nfiche = {\"village\": \"Aval\", \"region\": \"Nord\", \"recolte\": 120}\nprint(valeur(fiche, \"recolte\"))   # attendu : 120\nprint(valeur(fiche, \"pluie\"))     # attendu : inconnu\n",
+      "xp": 40,
+      "hints": [
+        "Les dictionnaires ont une méthode faite exactement pour ça : <code>.get(cle, valeur_par_defaut)</code>. Elle ne plante jamais — elle renvoie le défaut quand la clé manque.",
+        "Une seule ligne : <code>return fiche.get(cle, \"inconnu\")</code>."
+      ],
+      "tests": [
+        {
+          "type": "function",
+          "description": "valeur(fiche, \"recolte\") renvoie 120",
+          "name": "valeur",
+          "args": [
+            {
+              "village": "Aval",
+              "region": "Nord",
+              "recolte": 120
+            },
+            "recolte"
+          ],
+          "expected": 120
+        },
+        {
+          "type": "function",
+          "description": "valeur(fiche, \"village\") renvoie Aval",
+          "name": "valeur",
+          "args": [
+            {
+              "village": "Aval",
+              "region": "Nord",
+              "recolte": 120
+            },
+            "village"
+          ],
+          "expected": "Aval"
+        },
+        {
+          "type": "function",
+          "description": "une cle absente renvoie \"inconnu\" (sans planter)",
+          "name": "valeur",
+          "args": [
+            {
+              "village": "Aval",
+              "region": "Nord",
+              "recolte": 120
+            },
+            "pluie"
+          ],
+          "expected": "inconnu"
+        }
+      ]
+    },
+    {
+      "id": "5-2",
+      "solution": "def colonne(registre, cle):\n    return [fiche[cle] for fiche in registre]\n",
+      "title": "Le registre du royaume",
+      "statement": "<p>Une fiche seule ne dit rien. Le <strong>registre</strong>, lui, est une <strong>liste de dictionnaires</strong> — exactement la forme d'un tableau de mesures :</p><pre>registre = [\n    {\"village\": \"Aval\",   \"region\": \"Nord\", \"recolte\": 120},\n    {\"village\": \"Brume\",  \"region\": \"Sud\",  \"recolte\": 90},\n    {\"village\": \"Cendre\", \"region\": \"Nord\", \"recolte\": 150},\n]</pre><p>Une <em>ligne</em> = une fiche. Une <em>colonne</em> = une clé. Pour calculer quoi que ce soit (moyenne, maximum…), il faut d'abord savoir <strong>extraire une colonne</strong>.</p><p>Écris <code>colonne(registre, cle)</code> qui renvoie la liste des valeurs de cette clé, dans l'ordre du registre.</p>",
+      "startCode": "def colonne(registre, cle):\n    # renvoie la liste des valeurs de cle, fiche par fiche\n    pass\n\nregistre = [\n    {\"village\": \"Aval\", \"region\": \"Nord\", \"recolte\": 120},\n    {\"village\": \"Brume\", \"region\": \"Sud\", \"recolte\": 90},\n    {\"village\": \"Cendre\", \"region\": \"Nord\", \"recolte\": 150},\n]\nprint(colonne(registre, \"recolte\"))   # attendu : [120, 90, 150]\n",
+      "xp": 45,
+      "hints": [
+        "Une boucle <code>for fiche in registre:</code> qui empile <code>fiche[cle]</code> dans une liste fonctionne. Mais souviens-toi du Marché : une <strong>compréhension</strong> fait ça en une ligne.",
+        "<code>return [fiche[cle] for fiche in registre]</code>."
+      ],
+      "tests": [
+        {
+          "type": "function",
+          "description": "colonne(registre, \"recolte\") renvoie [120, 90, 150]",
+          "name": "colonne",
+          "args": [
+            [
+              {
+                "village": "Aval",
+                "region": "Nord",
+                "recolte": 120
+              },
+              {
+                "village": "Brume",
+                "region": "Sud",
+                "recolte": 90
+              },
+              {
+                "village": "Cendre",
+                "region": "Nord",
+                "recolte": 150
+              }
+            ],
+            "recolte"
+          ],
+          "expected": [
+            120,
+            90,
+            150
+          ]
+        },
+        {
+          "type": "function",
+          "description": "colonne(registre, \"village\") renvoie les 3 noms",
+          "name": "colonne",
+          "args": [
+            [
+              {
+                "village": "Aval",
+                "region": "Nord",
+                "recolte": 120
+              },
+              {
+                "village": "Brume",
+                "region": "Sud",
+                "recolte": 90
+              },
+              {
+                "village": "Cendre",
+                "region": "Nord",
+                "recolte": 150
+              }
+            ],
+            "village"
+          ],
+          "expected": [
+            "Aval",
+            "Brume",
+            "Cendre"
+          ]
+        },
+        {
+          "type": "function",
+          "description": "un registre vide renvoie une liste vide",
+          "name": "colonne",
+          "args": [
+            [],
+            "recolte"
+          ],
+          "expected": []
+        }
+      ]
+    },
+    {
+      "id": "5-3",
+      "solution": "def filtrer(registre, cle, seuil):\n    return [fiche for fiche in registre if fiche[cle] >= seuil]\n",
+      "title": "Le tamis du chambellan",
+      "statement": "<p>Le chambellan ne veut pas tout le registre : il veut « les villages dont la récolte atteint au moins 100 sacs ». C'est l'opération la plus courante sur des données : <strong>filtrer</strong>.</p><p>Écris <code>filtrer(registre, cle, seuil)</code> qui renvoie la liste des fiches (les dictionnaires <em>entiers</em>, pas seulement leur nom) dont la valeur de <code>cle</code> est <strong>supérieure ou égale</strong> au seuil. L'ordre du registre est conservé.</p><p>Attention à la borne : « au moins 100 » inclut 100.</p>",
+      "startCode": "def filtrer(registre, cle, seuil):\n    # renvoie les fiches dont fiche[cle] >= seuil\n    pass\n\nregistre = [\n    {\"village\": \"Aval\", \"region\": \"Nord\", \"recolte\": 120},\n    {\"village\": \"Brume\", \"region\": \"Sud\", \"recolte\": 90},\n    {\"village\": \"Cendre\", \"region\": \"Nord\", \"recolte\": 150},\n]\nprint(filtrer(registre, \"recolte\", 100))\n# attendu : les fiches de Aval et de Cendre\n",
+      "xp": 50,
+      "hints": [
+        "Même forme qu'au niveau précédent, avec une condition en fin de compréhension : <code>[... for fiche in registre if ...]</code>. Ce que tu gardes ici, c'est <code>fiche</code> elle-même, pas <code>fiche[cle]</code>.",
+        "<code>return [fiche for fiche in registre if fiche[cle] >= seuil]</code>."
+      ],
+      "tests": [
+        {
+          "type": "function",
+          "description": "recolte >= 100 garde Aval et Cendre",
+          "name": "filtrer",
+          "args": [
+            [
+              {
+                "village": "Aval",
+                "region": "Nord",
+                "recolte": 120
+              },
+              {
+                "village": "Brume",
+                "region": "Sud",
+                "recolte": 90
+              },
+              {
+                "village": "Cendre",
+                "region": "Nord",
+                "recolte": 150
+              }
+            ],
+            "recolte",
+            100
+          ],
+          "expected": [
+            {
+              "village": "Aval",
+              "region": "Nord",
+              "recolte": 120
+            },
+            {
+              "village": "Cendre",
+              "region": "Nord",
+              "recolte": 150
+            }
+          ]
+        },
+        {
+          "type": "function",
+          "description": "un seuil trop haut ne garde rien",
+          "name": "filtrer",
+          "args": [
+            [
+              {
+                "village": "Aval",
+                "region": "Nord",
+                "recolte": 120
+              },
+              {
+                "village": "Brume",
+                "region": "Sud",
+                "recolte": 90
+              },
+              {
+                "village": "Cendre",
+                "region": "Nord",
+                "recolte": 150
+              }
+            ],
+            "recolte",
+            200
+          ],
+          "expected": []
+        },
+        {
+          "type": "function",
+          "description": "la borne est incluse : seuil 90 garde les 3 villages",
+          "name": "filtrer",
+          "args": [
+            [
+              {
+                "village": "Aval",
+                "region": "Nord",
+                "recolte": 120
+              },
+              {
+                "village": "Brume",
+                "region": "Sud",
+                "recolte": 90
+              },
+              {
+                "village": "Cendre",
+                "region": "Nord",
+                "recolte": 150
+              }
+            ],
+            "recolte",
+            90
+          ],
+          "expected": [
+            {
+              "village": "Aval",
+              "region": "Nord",
+              "recolte": 120
+            },
+            {
+              "village": "Brume",
+              "region": "Sud",
+              "recolte": 90
+            },
+            {
+              "village": "Cendre",
+              "region": "Nord",
+              "recolte": 150
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "5-4",
+      "solution": "def moyenne(valeurs):\n    if len(valeurs) == 0:\n        return 0.0\n    return round(sum(valeurs) / len(valeurs), 2)\n",
+      "title": "La moyenne du royaume",
+      "statement": "<p>Le roi veut un chiffre, pas un tableau. Une <strong>moyenne</strong> : la somme divisée par l'effectif — la première statistique de toute étude.</p><p>Écris <code>moyenne(valeurs)</code> qui prend une liste de nombres et renvoie leur moyenne <strong>arrondie à 2 décimales</strong> (<code>round(x, 2)</code>).</p><p><strong>Le piège</strong> : si la liste est <em>vide</em>, la division fait planter le programme (<code>ZeroDivisionError</code>) — un cas très réel quand aucune mesure n'a été relevée. Dans ce cas, renvoie <code>0.0</code>.</p><p>Ici, <code>sum()</code> et <code>len()</code> sont tes amis : dans l'Arène tu codais tout à la main pour <em>comprendre</em> ; au Château, on utilise les bons outils.</p>",
+      "startCode": "def moyenne(valeurs):\n    # moyenne arrondie a 2 decimales ; 0.0 si la liste est vide\n    pass\n\nprint(moyenne([120, 90, 150]))   # attendu : 120.0\nprint(moyenne([]))               # attendu : 0.0 (et surtout pas une erreur)\n",
+      "xp": 55,
+      "hints": [
+        "Commence par le cas particulier : <code>if len(valeurs) == 0:</code> → <code>return 0.0</code>. Traiter le cas vide <em>en premier</em> évite la division impossible ensuite.",
+        "<code>return round(sum(valeurs) / len(valeurs), 2)</code> après le test sur la liste vide."
+      ],
+      "tests": [
+        {
+          "type": "function",
+          "description": "moyenne([120, 90, 150]) vaut 120.0",
+          "name": "moyenne",
+          "args": [
+            [
+              120,
+              90,
+              150
+            ]
+          ],
+          "expected": 120.0,
+          "tol": 0.001
+        },
+        {
+          "type": "function",
+          "description": "moyenne([1, 2]) vaut 1.5",
+          "name": "moyenne",
+          "args": [
+            [
+              1,
+              2
+            ]
+          ],
+          "expected": 1.5,
+          "tol": 0.001
+        },
+        {
+          "type": "function",
+          "description": "arrondi a 2 decimales : moyenne([10, 20, 25]) vaut 18.33",
+          "name": "moyenne",
+          "args": [
+            [
+              10,
+              20,
+              25
+            ]
+          ],
+          "expected": 18.33,
+          "tol": 0.0001
+        },
+        {
+          "type": "function",
+          "description": "liste vide : renvoie 0.0 sans planter",
+          "name": "moyenne",
+          "args": [
+            []
+          ],
+          "expected": 0.0,
+          "tol": 0.001
+        }
+      ]
+    },
+    {
+      "id": "5-5",
+      "solution": "def top(registre, cle, n):\n    def score(fiche):\n        return fiche[cle]\n    return sorted(registre, key=score, reverse=True)[:n]\n",
+      "title": "Le classement du chambellan",
+      "statement": "<p>Dans l'Arène, tu as écrit les tris <em>à la main</em> pour comprendre comment ils marchent. Maintenant que tu sais, tu as le droit d'utiliser l'outil : <code>sorted()</code>.</p><p>Mais trier des <em>fiches</em> pose une question : trier selon quoi ? On le précise avec <code>key</code>, une fonction qui dit, pour chaque élément, <strong>quelle valeur sert de critère</strong> :</p><pre>def score(fiche):\n    return fiche[\"recolte\"]\n\nsorted(registre, key=score)                 # croissant\nsorted(registre, key=score, reverse=True)   # decroissant</pre><p>Écris <code>top(registre, cle, n)</code> qui renvoie les <code>n</code> fiches ayant la plus <strong>grande</strong> valeur de <code>cle</code>, de la plus grande à la plus petite. Si <code>n</code> dépasse la taille du registre, renvoie simplement tout le registre trié.</p>",
+      "startCode": "def top(registre, cle, n):\n    # les n meilleures fiches selon cle, de la plus grande a la plus petite\n    pass\n\nregistre = [\n    {\"village\": \"Aval\", \"region\": \"Nord\", \"recolte\": 120},\n    {\"village\": \"Brume\", \"region\": \"Sud\", \"recolte\": 90},\n    {\"village\": \"Cendre\", \"region\": \"Nord\", \"recolte\": 150},\n]\nprint(top(registre, \"recolte\", 2))\n# attendu : la fiche de Cendre (150), puis celle de Aval (120)\n",
+      "xp": 60,
+      "hints": [
+        "Définis une petite fonction <code>score(fiche)</code> <em>à l'intérieur</em> de <code>top</code> (elle voit ainsi le paramètre <code>cle</code>), passe-la en <code>key=</code>, puis découpe le résultat avec une tranche <code>[:n]</code> — une tranche plus longue que la liste ne plante pas, elle s'arrête à la fin.",
+        "<code>return sorted(registre, key=score, reverse=True)[:n]</code>. Raccourci équivalent, sans fonction nommée : <code>key=lambda fiche: fiche[cle]</code>."
+      ],
+      "tests": [
+        {
+          "type": "function",
+          "description": "top 2 des recoltes : Cendre puis Aval",
+          "name": "top",
+          "args": [
+            [
+              {
+                "village": "Aval",
+                "region": "Nord",
+                "recolte": 120
+              },
+              {
+                "village": "Brume",
+                "region": "Sud",
+                "recolte": 90
+              },
+              {
+                "village": "Cendre",
+                "region": "Nord",
+                "recolte": 150
+              }
+            ],
+            "recolte",
+            2
+          ],
+          "expected": [
+            {
+              "village": "Cendre",
+              "region": "Nord",
+              "recolte": 150
+            },
+            {
+              "village": "Aval",
+              "region": "Nord",
+              "recolte": 120
+            }
+          ]
+        },
+        {
+          "type": "function",
+          "description": "top 1 : seulement Cendre",
+          "name": "top",
+          "args": [
+            [
+              {
+                "village": "Aval",
+                "region": "Nord",
+                "recolte": 120
+              },
+              {
+                "village": "Brume",
+                "region": "Sud",
+                "recolte": 90
+              },
+              {
+                "village": "Cendre",
+                "region": "Nord",
+                "recolte": 150
+              }
+            ],
+            "recolte",
+            1
+          ],
+          "expected": [
+            {
+              "village": "Cendre",
+              "region": "Nord",
+              "recolte": 150
+            }
+          ]
+        },
+        {
+          "type": "function",
+          "description": "n plus grand que le registre : tout, trie decroissant",
+          "name": "top",
+          "args": [
+            [
+              {
+                "village": "Aval",
+                "region": "Nord",
+                "recolte": 120
+              },
+              {
+                "village": "Brume",
+                "region": "Sud",
+                "recolte": 90
+              },
+              {
+                "village": "Cendre",
+                "region": "Nord",
+                "recolte": 150
+              }
+            ],
+            "recolte",
+            10
+          ],
+          "expected": [
+            {
+              "village": "Cendre",
+              "region": "Nord",
+              "recolte": 150
+            },
+            {
+              "village": "Aval",
+              "region": "Nord",
+              "recolte": 120
+            },
+            {
+              "village": "Brume",
+              "region": "Sud",
+              "recolte": 90
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "5-6",
+      "solution": "def compter(registre, cle):\n    resultat = {}\n    for fiche in registre:\n        v = fiche[cle]\n        resultat[v] = resultat.get(v, 0) + 1\n    return resultat\n",
+      "title": "Le grand comptage",
+      "statement": "<p>« Combien de villages par région ? » Cette question-là ne se répond ni par un filtre ni par un tri : il faut <strong>regrouper puis compter</strong>. On obtient un <strong>tableau d'effectifs</strong> — la base de tout histogramme, et exactement ce qu'on calcule pour compter les succès d'une simulation.</p><p>Écris <code>compter(registre, cle)</code> qui renvoie un <strong>dictionnaire</strong> associant à chaque valeur rencontrée le nombre de fiches qui la portent. Par exemple avec la clé <code>\"region\"</code> : <code>{\"Nord\": 2, \"Sud\": 1}</code>.</p><p>Le dictionnaire de comptage est un <strong>accumulateur</strong> : il part vide et grandit au fil du parcours.</p>",
+      "startCode": "def compter(registre, cle):\n    # dictionnaire {valeur: nombre de fiches}\n    pass\n\nregistre = [\n    {\"village\": \"Aval\", \"region\": \"Nord\", \"recolte\": 120},\n    {\"village\": \"Brume\", \"region\": \"Sud\", \"recolte\": 90},\n    {\"village\": \"Cendre\", \"region\": \"Nord\", \"recolte\": 150},\n]\nprint(compter(registre, \"region\"))   # attendu : {'Nord': 2, 'Sud': 1}\n",
+      "xp": 70,
+      "hints": [
+        "Pars d'un dictionnaire vide <code>resultat = {}</code>. Pour chaque fiche, le piège est la <em>première</em> rencontre d'une valeur : la clé n'existe pas encore. Le <code>.get</code> du premier niveau règle ça — avec <code>0</code> comme défaut.",
+        "Dans la boucle : <code>v = fiche[cle]</code> puis <code>resultat[v] = resultat.get(v, 0) + 1</code>. Et <code>return resultat</code> à la fin (hors de la boucle !)."
+      ],
+      "tests": [
+        {
+          "type": "function",
+          "description": "compter par region : {Nord: 2, Sud: 1}",
+          "name": "compter",
+          "args": [
+            [
+              {
+                "village": "Aval",
+                "region": "Nord",
+                "recolte": 120
+              },
+              {
+                "village": "Brume",
+                "region": "Sud",
+                "recolte": 90
+              },
+              {
+                "village": "Cendre",
+                "region": "Nord",
+                "recolte": 150
+              }
+            ],
+            "region"
+          ],
+          "expected": {
+            "Nord": 2,
+            "Sud": 1
+          }
+        },
+        {
+          "type": "function",
+          "description": "un registre vide donne un dictionnaire vide",
+          "name": "compter",
+          "args": [
+            [],
+            "region"
+          ],
+          "expected": {}
+        },
+        {
+          "type": "function",
+          "description": "4 fiches, 2 regions a egalite",
+          "name": "compter",
+          "args": [
+            [
+              {
+                "village": "Aval",
+                "region": "Nord",
+                "recolte": 120
+              },
+              {
+                "village": "Brume",
+                "region": "Sud",
+                "recolte": 90
+              },
+              {
+                "village": "Cendre",
+                "region": "Nord",
+                "recolte": 150
+              },
+              {
+                "village": "Dune",
+                "region": "Sud",
+                "recolte": 60
+              }
+            ],
+            "region"
+          ],
+          "expected": {
+            "Nord": 2,
+            "Sud": 2
+          }
+        }
+      ]
+    },
+    {
+      "id": "5-7",
+      "solution": "def charger(texte):\n    lignes = texte.strip().split(\"\\n\")\n    entetes = lignes[0].split(\",\")\n    registre = []\n    for ligne in lignes[1:]:\n        valeurs = ligne.split(\",\")\n        fiche = {}\n        for i in range(len(entetes)):\n            fiche[entetes[i]] = valeurs[i]\n        registre.append(fiche)\n    return registre\n",
+      "title": "Les archives poussiéreuses",
+      "statement": "<p>Jusqu'ici, le registre était déjà écrit dans ton code. Dans la vraie vie, les données arrivent en <strong>texte brut</strong> : un fichier <code>.csv</code>, celui que produisent tous les tableurs et tous les capteurs.</p><pre>village,region,recolte\nAval,Nord,120\nBrume,Sud,90</pre><p>La <strong>première ligne</strong> donne les noms des colonnes ; chaque ligne suivante est une fiche. Écris <code>charger(texte)</code> qui reconstruit le registre (liste de dictionnaires).</p><p><strong>Important</strong> : un fichier ne contient que du texte. Les valeurs restent donc des <strong>chaînes</strong> — <code>\"120\"</code>, pas <code>120</code>. On s'occupera de la conversion au niveau suivant.</p>",
+      "startCode": "def charger(texte):\n    # 1re ligne = en-tetes ; lignes suivantes = fiches\n    # les valeurs restent des chaines de caracteres\n    pass\n\narchives = \"village,recolte\\nAval,120\\nBrume,90\"\nprint(charger(archives))\n# attendu : [{'village': 'Aval', 'recolte': '120'}, {'village': 'Brume', 'recolte': '90'}]\n",
+      "xp": 80,
+      "hints": [
+        "<code>texte.strip().split(\"\\n\")</code> donne la liste des lignes ; <code>ligne.split(\",\")</code> donne les cases d'une ligne. Les en-têtes sont dans <code>lignes[0]</code>, les fiches dans <code>lignes[1:]</code>.",
+        "Pour chaque ligne : <code>valeurs = ligne.split(\",\")</code>, puis une boucle <code>for i in range(len(entetes)):</code> qui fait <code>fiche[entetes[i]] = valeurs[i]</code>, et enfin <code>registre.append(fiche)</code>."
+      ],
+      "tests": [
+        {
+          "type": "function",
+          "description": "2 colonnes, 2 fiches, valeurs en texte",
+          "name": "charger",
+          "args": [
+            "village,recolte\nAval,120\nBrume,90"
+          ],
+          "expected": [
+            {
+              "village": "Aval",
+              "recolte": "120"
+            },
+            {
+              "village": "Brume",
+              "recolte": "90"
+            }
+          ]
+        },
+        {
+          "type": "function",
+          "description": "3 colonnes, 1 seule fiche",
+          "name": "charger",
+          "args": [
+            "village,region,recolte\nCendre,Nord,150"
+          ],
+          "expected": [
+            {
+              "village": "Cendre",
+              "region": "Nord",
+              "recolte": "150"
+            }
+          ]
+        },
+        {
+          "type": "function",
+          "description": "archives sans donnee (en-tete seul) : registre vide",
+          "name": "charger",
+          "args": [
+            "village,recolte"
+          ],
+          "expected": []
+        }
+      ]
+    },
+    {
+      "id": "5-8",
+      "solution": "def nettoyer(valeurs):\n    resultat = []\n    for v in valeurs:\n        try:\n            resultat.append(int(v))\n        except ValueError:\n            pass\n    return resultat\n",
+      "title": "Les données abîmées",
+      "statement": "<p>Les archives ont pris l'humidité. Certaines cases sont illisibles : <code>\"?\"</code>, une case vide, une tache d'encre. <code>int(\"?\")</code> lève une <code>ValueError</code> et tout le programme s'arrête — pour <em>une</em> case sur mille.</p><p>La parade s'appelle <strong>try / except</strong> : on <em>tente</em> l'opération risquée, et on prévoit quoi faire si elle échoue.</p><pre>try:\n    n = int(v)          # ce qu'on tente\nexcept ValueError:\n    pass                # ce qu'on fait si ca echoue :\n                        # ici, rien du tout — on ignore la case</pre><p>Écris <code>nettoyer(valeurs)</code> qui prend une liste de chaînes et renvoie la liste des entiers correspondants, en <strong>ignorant</strong> (sans planter) toute case non convertible.</p>",
+      "startCode": "def nettoyer(valeurs):\n    # convertit chaque case en entier ; ignore les cases illisibles\n    pass\n\nprint(nettoyer([\"120\", \"?\", \"90\", \"\"]))   # attendu : [120, 90]\n",
+      "xp": 90,
+      "hints": [
+        "Parcours la liste, et place <strong>uniquement</strong> le <code>int(v)</code> dans le <code>try</code>. Dans le <code>except ValueError:</code>, il n'y a rien à faire : <code>pass</code> suffit — la case est simplement oubliée.",
+        "<pre>for v in valeurs:\n    try:\n        resultat.append(int(v))\n    except ValueError:\n        pass</pre>Un test du genre <code>v.isdigit()</code> paraît plus simple, mais il rejette à tort les nombres négatifs comme <code>\"-5\"</code> : <code>try/except</code> est la bonne réponse."
+      ],
+      "tests": [
+        {
+          "type": "function",
+          "description": "[\"120\", \"?\", \"90\"] donne [120, 90]",
+          "name": "nettoyer",
+          "args": [
+            [
+              "120",
+              "?",
+              "90"
+            ]
+          ],
+          "expected": [
+            120,
+            90
+          ]
+        },
+        {
+          "type": "function",
+          "description": "case vide et tache d'encre ignorees",
+          "name": "nettoyer",
+          "args": [
+            [
+              "",
+              "xx",
+              "7"
+            ]
+          ],
+          "expected": [
+            7
+          ]
+        },
+        {
+          "type": "function",
+          "description": "les nombres negatifs sont des donnees valides",
+          "name": "nettoyer",
+          "args": [
+            [
+              "-5",
+              "abc",
+              "12"
+            ]
+          ],
+          "expected": [
+            -5,
+            12
+          ]
+        },
+        {
+          "type": "function",
+          "description": "une liste entierement lisible reste intacte",
+          "name": "nettoyer",
+          "args": [
+            [
+              "1",
+              "2",
+              "3"
+            ]
+          ],
+          "expected": [
+            1,
+            2,
+            3
+          ]
+        }
+      ]
+    },
+    {
+      "id": "5-9",
+      "solution": "def rapport(texte):\n    lignes = texte.strip().split(\"\\n\")\n    villages = []\n    recoltes = []\n    for ligne in lignes[1:]:\n        cases = ligne.split(\",\")\n        try:\n            r = int(cases[1])\n        except ValueError:\n            continue\n        villages.append(cases[0])\n        recoltes.append(r)\n    if len(recoltes) == 0:\n        return {\"villages\": 0, \"total\": 0, \"moyenne\": 0.0, \"meilleur\": \"\"}\n    total = sum(recoltes)\n    meilleur = villages[recoltes.index(max(recoltes))]\n    return {\n        \"villages\": len(recoltes),\n        \"total\": total,\n        \"moyenne\": round(total / len(recoltes), 1),\n        \"meilleur\": meilleur,\n    }\n",
+      "title": "Le Grand Rapport (BOSS)",
+      "statement": "<p>Le roi convoque la salle des archives. Il veut <strong>une</strong> synthèse du royaume, à partir des archives brutes — humidité comprise. Tout ce que tu as appris au Château sert ici, d'un seul coup.</p><pre>village,recolte\nAval,120\nBrume,?\nCendre,150</pre><p>Écris <code>rapport(texte)</code> qui renvoie un dictionnaire à <strong>quatre clés</strong> :</p><pre>{\"villages\": 2, \"total\": 270, \"moyenne\": 135.0, \"meilleur\": \"Cendre\"}</pre><ul><li><code>\"villages\"</code> : le nombre de fiches <strong>exploitables</strong> (les lignes abîmées ne comptent pas) ;</li><li><code>\"total\"</code> : la somme des récoltes retenues ;</li><li><code>\"moyenne\"</code> : la moyenne des récoltes, arrondie à <strong>1 décimale</strong> ;</li><li><code>\"meilleur\"</code> : le nom du village à la plus grande récolte.</li></ul><p>La première ligne reste l'en-tête. Chaque ligne de données a exactement deux cases : nom du village, puis récolte. Et si <strong>aucune</strong> ligne n'est exploitable, renvoie <code>{\"villages\": 0, \"total\": 0, \"moyenne\": 0.0, \"meilleur\": \"\"}</code> — un rapport vide, jamais une erreur.</p><p><em>Deux outils redeviennent autorisés ici, alors que l'Arène les interdisait : <code>max(...)</code> donne la plus grande valeur, et <code>liste.index(v)</code> donne la position de <code>v</code>. Dans l'Arène, l'objectif était de comprendre comment ils fonctionnent ; maintenant que tu le sais, tu as le droit de t'en servir.</em></p><p>C'est le dernier gardien du royaume. Prends les lignes une par une : lire, tenter la conversion, retenir ou ignorer.</p>",
+      "startCode": "def rapport(texte):\n    # 1) decouper le texte en lignes, sauter l'en-tete\n    # 2) pour chaque ligne : tenter int(recolte), ignorer si illisible\n    # 3) renvoyer villages / total / moyenne (1 decimale) / meilleur\n    pass\n\narchives = \"village,recolte\\nAval,120\\nBrume,?\\nCendre,150\"\nprint(rapport(archives))\n# attendu : {'villages': 2, 'total': 270, 'moyenne': 135.0, 'meilleur': 'Cendre'}\n",
+      "xp": 120,
+      "hints": [
+        "Construis <strong>deux listes en parallèle</strong> pendant le parcours : les noms retenus et les récoltes retenues. Elles restent alignées si tu n'ajoutes le nom qu'<em>après</em> une conversion réussie. Dans le <code>except ValueError:</code>, <code>continue</code> passe à la ligne suivante.",
+        "Une fois les deux listes remplies : <code>total = sum(recoltes)</code>, <code>round(total / len(recoltes), 1)</code> pour la moyenne, et pour le vainqueur <code>villages[recoltes.index(max(recoltes))]</code> — l'index de la plus grande récolte est aussi celui de son village. N'oublie pas le cas « aucune ligne exploitable » <em>avant</em> la division."
+      ],
+      "tests": [
+        {
+          "type": "function",
+          "description": "une ligne abimee sur trois : 2 villages, total 270, Cendre en tete",
+          "name": "rapport",
+          "args": [
+            "village,recolte\nAval,120\nBrume,?\nCendre,150"
+          ],
+          "expected": {
+            "villages": 2,
+            "total": 270,
+            "moyenne": 135.0,
+            "meilleur": "Cendre"
+          }
+        },
+        {
+          "type": "expression",
+          "description": "archives intactes : 3 villages, total 61, moyenne 20.3, Cendre en tête",
+          "expression": "rapport(\"village,recolte\\nAval,10\\nBrume,20\\nCendre,31\")[\"villages\"] == 3 and rapport(\"village,recolte\\nAval,10\\nBrume,20\\nCendre,31\")[\"total\"] == 61 and abs(rapport(\"village,recolte\\nAval,10\\nBrume,20\\nCendre,31\")[\"moyenne\"] - 20.3) < 1e-9 and rapport(\"village,recolte\\nAval,10\\nBrume,20\\nCendre,31\")[\"meilleur\"] == \"Cendre\"",
+          "expected": true
+        },
+        {
+          "type": "function",
+          "description": "archives illisibles : rapport vide, sans planter",
+          "name": "rapport",
+          "args": [
+            "village,recolte\nAval,?\nBrume,xx"
+          ],
+          "expected": {
+            "villages": 0,
+            "total": 0,
+            "moyenne": 0.0,
+            "meilleur": ""
+          }
+        }
+      ]
+    }
+  ]
+}

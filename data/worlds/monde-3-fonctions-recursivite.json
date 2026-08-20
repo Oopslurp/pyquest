@@ -16,9 +16,33 @@
         "<code>return \"Bienvenue, \" + nom + \" !\"</code> et <code>return n * 2</code>."
       ],
       "tests": [
-        { "type": "function", "description": "saluer(\"Léo\") renvoie \"Bienvenue, Léo !\"", "name": "saluer", "args": ["Léo"], "expected": "Bienvenue, Léo !" },
-        { "type": "function", "description": "saluer(\"Zoé\") renvoie \"Bienvenue, Zoé !\"", "name": "saluer", "args": ["Zoé"], "expected": "Bienvenue, Zoé !" },
-        { "type": "function", "description": "double(21) renvoie 42", "name": "double", "args": [21], "expected": 42 }
+        {
+          "type": "function",
+          "description": "saluer(\"Léo\") renvoie \"Bienvenue, Léo !\"",
+          "name": "saluer",
+          "args": [
+            "Léo"
+          ],
+          "expected": "Bienvenue, Léo !"
+        },
+        {
+          "type": "function",
+          "description": "saluer(\"Zoé\") renvoie \"Bienvenue, Zoé !\"",
+          "name": "saluer",
+          "args": [
+            "Zoé"
+          ],
+          "expected": "Bienvenue, Zoé !"
+        },
+        {
+          "type": "function",
+          "description": "double(21) renvoie 42",
+          "name": "double",
+          "args": [
+            21
+          ],
+          "expected": 42
+        }
       ]
     },
     {
@@ -33,9 +57,31 @@
         "<code>def puissance(base, exposant=2):</code> puis <code>return base ** exposant</code>."
       ],
       "tests": [
-        { "type": "function", "description": "puissance(5) renvoie 25 (défaut = 2)", "name": "puissance", "args": [5], "expected": 25 },
-        { "type": "function", "description": "puissance(2, 10) renvoie 1024", "name": "puissance", "args": [2, 10], "expected": 1024 },
-        { "type": "expression", "description": "puissance(3) = 9 et puissance(3, 3) = 27", "expression": "puissance(3) == 9 and puissance(3, 3) == 27", "expected": true }
+        {
+          "type": "function",
+          "description": "puissance(5) renvoie 25 (défaut = 2)",
+          "name": "puissance",
+          "args": [
+            5
+          ],
+          "expected": 25
+        },
+        {
+          "type": "function",
+          "description": "puissance(2, 10) renvoie 1024",
+          "name": "puissance",
+          "args": [
+            2,
+            10
+          ],
+          "expected": 1024
+        },
+        {
+          "type": "expression",
+          "description": "puissance(3) = 9 et puissance(3, 3) = 27",
+          "expression": "puissance(3) == 9 and puissance(3, 3) == 27",
+          "expected": true
+        }
       ]
     },
     {
@@ -50,9 +96,27 @@
         "<code>return tresor - montant</code> — c'est tout ! Si tu écris <code>tresor = tresor - montant</code>, Python crée une locale et lève une erreur (UnboundLocalError)."
       ],
       "tests": [
-        { "type": "expression", "description": "depenser(30) renvoie 70 et le trésor global reste 100", "expression": "depenser(30) == 70 and tresor == 100", "expected": true },
-        { "type": "expression", "description": "deux appels identiques donnent le même résultat", "expression": "depenser(10) == 90 and depenser(10) == 90", "expected": true },
-        { "type": "function", "description": "depenser(100) renvoie 0", "name": "depenser", "args": [100], "expected": 0 }
+        {
+          "type": "expression",
+          "description": "depenser(30) renvoie 70 et le trésor global reste 100",
+          "expression": "depenser(30) == 70 and tresor == 100",
+          "expected": true
+        },
+        {
+          "type": "expression",
+          "description": "deux appels identiques donnent le même résultat",
+          "expression": "depenser(10) == 90 and depenser(10) == 90",
+          "expected": true
+        },
+        {
+          "type": "function",
+          "description": "depenser(100) renvoie 0",
+          "name": "depenser",
+          "args": [
+            100
+          ],
+          "expected": 0
+        }
       ]
     },
     {
@@ -67,9 +131,31 @@
         "La ligne manquante est : <code>compte_a_rebours(n - 1)</code> (indentée dans le else, sous le print)."
       ],
       "tests": [
-        { "type": "stdout", "description": "entrée 3 → 3, 2, 1, Partez !", "stdin": "3\n", "expected": "3\n2\n1\nPartez !" },
-        { "type": "stdout", "description": "entrée 1 → 1, Partez !", "stdin": "1\n", "expected": "1\nPartez !" },
-        { "type": "stdout", "description": "entrée 0 → Partez ! direct", "stdin": "0\n", "expected": "Partez !" }
+        {
+          "type": "stdout",
+          "description": "entrée 3 → 3, 2, 1, Partez !",
+          "stdin": "3\n",
+          "expected": "3\n2\n1\nPartez !"
+        },
+        {
+          "type": "stdout",
+          "description": "entrée 1 → 1, Partez !",
+          "stdin": "1\n",
+          "expected": "1\nPartez !"
+        },
+        {
+          "type": "stdout",
+          "description": "entrée 0 → Partez ! direct",
+          "stdin": "0\n",
+          "expected": "Partez !"
+        },
+        {
+          "type": "expression",
+          "description": "la fonction est bien RÉCURSIVE : elle s'appelle elle-même",
+          "expression": "'compte_a_rebours' in compte_a_rebours.__code__.co_names",
+          "expected": true,
+          "stdin": "3\n"
+        }
       ]
     },
     {
@@ -84,9 +170,39 @@
         "<code>if n == 0: return 0</code> puis <code>return n + somme_recursive(n - 1)</code>."
       ],
       "tests": [
-        { "type": "function", "description": "somme_recursive(5) renvoie 15", "name": "somme_recursive", "args": [5], "expected": 15 },
-        { "type": "function", "description": "somme_recursive(1) renvoie 1", "name": "somme_recursive", "args": [1], "expected": 1 },
-        { "type": "function", "description": "somme_recursive(0) renvoie 0 (cas de base)", "name": "somme_recursive", "args": [0], "expected": 0 }
+        {
+          "type": "function",
+          "description": "somme_recursive(5) renvoie 15",
+          "name": "somme_recursive",
+          "args": [
+            5
+          ],
+          "expected": 15
+        },
+        {
+          "type": "function",
+          "description": "somme_recursive(1) renvoie 1",
+          "name": "somme_recursive",
+          "args": [
+            1
+          ],
+          "expected": 1
+        },
+        {
+          "type": "function",
+          "description": "somme_recursive(0) renvoie 0 (cas de base)",
+          "name": "somme_recursive",
+          "args": [
+            0
+          ],
+          "expected": 0
+        },
+        {
+          "type": "expression",
+          "description": "la fonction est bien RÉCURSIVE : elle s'appelle elle-même",
+          "expression": "'somme_recursive' in somme_recursive.__code__.co_names",
+          "expected": true
+        }
       ]
     },
     {
@@ -101,9 +217,39 @@
         "<code>if n == 0: return 1</code> puis <code>return n * factorielle(n - 1)</code>."
       ],
       "tests": [
-        { "type": "function", "description": "factorielle(5) renvoie 120", "name": "factorielle", "args": [5], "expected": 120 },
-        { "type": "function", "description": "factorielle(0) renvoie 1 (le piège !)", "name": "factorielle", "args": [0], "expected": 1 },
-        { "type": "function", "description": "factorielle(7) renvoie 5040", "name": "factorielle", "args": [7], "expected": 5040 }
+        {
+          "type": "function",
+          "description": "factorielle(5) renvoie 120",
+          "name": "factorielle",
+          "args": [
+            5
+          ],
+          "expected": 120
+        },
+        {
+          "type": "function",
+          "description": "factorielle(0) renvoie 1 (le piège !)",
+          "name": "factorielle",
+          "args": [
+            0
+          ],
+          "expected": 1
+        },
+        {
+          "type": "function",
+          "description": "factorielle(7) renvoie 5040",
+          "name": "factorielle",
+          "args": [
+            7
+          ],
+          "expected": 5040
+        },
+        {
+          "type": "expression",
+          "description": "la fonction est bien RÉCURSIVE : elle s'appelle elle-même",
+          "expression": "'factorielle' in factorielle.__code__.co_names",
+          "expected": true
+        }
       ]
     },
     {
@@ -118,9 +264,39 @@
         "<code>if n == 0: return 0</code>, <code>if n == 1: return 1</code>, puis <code>return fibonacci(n - 1) + fibonacci(n - 2)</code>."
       ],
       "tests": [
-        { "type": "function", "description": "fibonacci(0) renvoie 0", "name": "fibonacci", "args": [0], "expected": 0 },
-        { "type": "function", "description": "fibonacci(1) renvoie 1", "name": "fibonacci", "args": [1], "expected": 1 },
-        { "type": "function", "description": "fibonacci(10) renvoie 55", "name": "fibonacci", "args": [10], "expected": 55 }
+        {
+          "type": "function",
+          "description": "fibonacci(0) renvoie 0",
+          "name": "fibonacci",
+          "args": [
+            0
+          ],
+          "expected": 0
+        },
+        {
+          "type": "function",
+          "description": "fibonacci(1) renvoie 1",
+          "name": "fibonacci",
+          "args": [
+            1
+          ],
+          "expected": 1
+        },
+        {
+          "type": "function",
+          "description": "fibonacci(10) renvoie 55",
+          "name": "fibonacci",
+          "args": [
+            10
+          ],
+          "expected": 55
+        },
+        {
+          "type": "expression",
+          "description": "la fonction est bien RÉCURSIVE : elle s'appelle elle-même",
+          "expression": "'fibonacci' in fibonacci.__code__.co_names",
+          "expected": true
+        }
       ]
     },
     {
@@ -135,9 +311,50 @@
         "<code>if liste == []: return False</code>, <code>if liste[0] == cible: return True</code>, puis <code>return contient(liste[1:], cible)</code>."
       ],
       "tests": [
-        { "type": "function", "description": "trouve « clé » dans la pile", "name": "contient", "args": [["épée", "carte", "clé"], "clé"], "expected": true },
-        { "type": "function", "description": "« potion » est absente → False", "name": "contient", "args": [["épée", "carte", "clé"], "potion"], "expected": false },
-        { "type": "function", "description": "une pile vide ne contient rien", "name": "contient", "args": [[], "rien"], "expected": false }
+        {
+          "type": "function",
+          "description": "trouve « clé » dans la pile",
+          "name": "contient",
+          "args": [
+            [
+              "épée",
+              "carte",
+              "clé"
+            ],
+            "clé"
+          ],
+          "expected": true
+        },
+        {
+          "type": "function",
+          "description": "« potion » est absente → False",
+          "name": "contient",
+          "args": [
+            [
+              "épée",
+              "carte",
+              "clé"
+            ],
+            "potion"
+          ],
+          "expected": false
+        },
+        {
+          "type": "function",
+          "description": "une pile vide ne contient rien",
+          "name": "contient",
+          "args": [
+            [],
+            "rien"
+          ],
+          "expected": false
+        },
+        {
+          "type": "expression",
+          "description": "la fonction est bien RÉCURSIVE : elle s'appelle elle-même",
+          "expression": "'contient' in contient.__code__.co_names",
+          "expected": true
+        }
       ]
     },
     {
@@ -148,13 +365,40 @@
       "startCode": "def nb_deplacements(n):\n    # cas de base ? cas récursif ? (formule dans l'énoncé)\n    pass\n\ndef temps_total(n, secondes):\n    # ajoute la valeur par défaut, puis combine les deux fonctions\n    pass\n",
       "xp": 90,
       "hints": [
-        "<code>nb_deplacements</code> suit exactement le schéma de la factorielle (cas de base 0 → 0). Et pour <code>temps_total</code>, souviens-toi du sort par défaut : <code>secondes=5</code> dans la signature.",
+        "<code>nb_deplacements</code> a la même <em>forme</em> que la factorielle, mais attention : son cas de base vaut <strong>0</strong> et non 1 — zéro disque, zéro déplacement. Et pour <code>temps_total</code>, souviens-toi du sort par défaut : <code>secondes=5</code> dans la signature.",
         "<code>if n == 0: return 0</code> puis <code>return 2 * nb_deplacements(n - 1) + 1</code> ; et <code>def temps_total(n, secondes=5): return nb_deplacements(n) * secondes</code>."
       ],
       "tests": [
-        { "type": "function", "description": "3 disques → 7 déplacements", "name": "nb_deplacements", "args": [3], "expected": 7 },
-        { "type": "function", "description": "10 disques → 1023 déplacements", "name": "nb_deplacements", "args": [10], "expected": 1023 },
-        { "type": "expression", "description": "temps_total(3) = 35 (défaut) et temps_total(2, 10) = 30", "expression": "temps_total(3) == 35 and temps_total(2, 10) == 30", "expected": true }
+        {
+          "type": "function",
+          "description": "3 disques → 7 déplacements",
+          "name": "nb_deplacements",
+          "args": [
+            3
+          ],
+          "expected": 7
+        },
+        {
+          "type": "function",
+          "description": "10 disques → 1023 déplacements",
+          "name": "nb_deplacements",
+          "args": [
+            10
+          ],
+          "expected": 1023
+        },
+        {
+          "type": "expression",
+          "description": "temps_total(3) = 35 (défaut) et temps_total(2, 10) = 30",
+          "expression": "temps_total(3) == 35 and temps_total(2, 10) == 30",
+          "expected": true
+        },
+        {
+          "type": "expression",
+          "description": "la fonction est bien RÉCURSIVE : elle s'appelle elle-même",
+          "expression": "'nb_deplacements' in nb_deplacements.__code__.co_names",
+          "expected": true
+        }
       ]
     }
   ]

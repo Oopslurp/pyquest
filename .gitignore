@@ -13,3 +13,7 @@ Desktop.ini
 
 # Serveur local / logs
 *.log
+
+# Python (cache des outils de validation)
+__pycache__/
+*.pyc

@@ -9,18 +9,43 @@
       "file": "monde-0-test.json",
       "requires": null,
       "color": "#41a6f6",
-      "node": { "x": 13, "y": 68 }
+      "node": { "x": 6, "y": 60 }
     },
     {
       "id": "monde-1",
       "title": "Village des Fondamentaux",
-      "description": "Variables, types, opérateurs, conditions, boucles et entrées-sorties.",
+      "description": "Variables, types, opérateurs, fonctions, conditions, boucles et texte.",
       "file": "monde-1-fondamentaux.json",
       "requires": null,
       "color": "#38b764",
       "theme": "village",
       "banner": "assets/sprites/village/banner.svg",
-      "node": { "x": 30, "y": 50 }
+      "npc": "assets/sprites/village/villager.svg",
+      "node": { "x": 22, "y": 74 }
+    },
+    {
+      "id": "monde-6",
+      "title": "Chemin des Suites",
+      "description": "Termes d'une suite, récurrence, recherche de seuil, somme, dichotomie et méthode d'Euler.",
+      "file": "monde-6-suites-seuil.json",
+      "requires": "monde-1",
+      "color": "#73eff7",
+      "theme": "suites",
+      "banner": "assets/sprites/suites/banner.svg",
+      "npc": "assets/sprites/suites/astronomer.svg",
+      "node": { "x": 38, "y": 50 }
+    },
+    {
+      "id": "monde-7",
+      "title": "Taverne du Hasard",
+      "description": "Simulation, épreuve de Bernoulli, loi binomiale, fluctuation et loi des grands nombres.",
+      "file": "monde-7-hasard-simulation.json",
+      "requires": "monde-6",
+      "color": "#a7f070",
+      "theme": "hasard",
+      "banner": "assets/sprites/hasard/banner.svg",
+      "npc": "assets/sprites/hasard/jester.svg",
+      "node": { "x": 60, "y": 46 }
     },
     {
       "id": "monde-2",
@@ -31,7 +56,8 @@
       "color": "#b13e53",
       "theme": "marche",
       "banner": "assets/sprites/marche/banner.svg",
-      "node": { "x": 46, "y": 64 }
+      "npc": "assets/sprites/marche/merchant.svg",
+      "node": { "x": 40, "y": 78 }
     },
     {
       "id": "monde-3",
@@ -42,7 +68,8 @@
       "color": "#5d275d",
       "theme": "tour",
       "banner": "assets/sprites/tour/banner.svg",
-      "node": { "x": 61, "y": 46 }
+      "npc": "assets/sprites/tour/mage.svg",
+      "node": { "x": 56, "y": 70 }
     },
     {
       "id": "monde-4",
@@ -53,16 +80,20 @@
       "color": "#ef7d57",
       "theme": "arene",
       "banner": "assets/sprites/arene/banner.svg",
-      "node": { "x": 76, "y": 60 }
+      "npc": "assets/sprites/arene/fighter.svg",
+      "node": { "x": 74, "y": 80 }
     },
     {
       "id": "monde-5",
       "title": "Château des Données",
-      "description": "Bientôt disponible.",
-      "file": null,
+      "description": "Fiches, registres, filtres, moyennes et archives abîmées : le traitement de données, jusqu'au rapport du roi.",
+      "file": "monde-5-donnees.json",
       "requires": "monde-4",
       "color": "#ffcd75",
-      "node": { "x": 89, "y": 38 }
+      "theme": "chateau",
+      "banner": "assets/sprites/chateau/banner.svg",
+      "npc": "assets/sprites/chateau/scribe.svg",
+      "node": { "x": 90, "y": 60 }
     }
   ]
 }

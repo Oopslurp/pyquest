@@ -1,7 +1,7 @@
 {
   "id": "monde-1",
   "title": "Village des Fondamentaux",
-  "description": "Les bases de Python au coeur du village : variables, types, opérateurs, conditions, boucles et entrées-sorties.",
+  "description": "Variables, types, opérateurs, premières fonctions, conditions, boucles, saisie et texte : tout ce sur quoi le reste repose.",
   "theme": "village",
   "levels": [
     {
@@ -16,9 +16,31 @@
         "<code>pseudo = \"Alex\"</code>, <code>niveau = 1</code>, <code>energie = 100.0</code>, <code>actif = True</code>."
       ],
       "tests": [
-        { "type": "variable", "description": "pseudo vaut \"Alex\" (texte)", "name": "pseudo", "expected": "Alex" },
-        { "type": "variable", "description": "niveau vaut 1 (entier)", "name": "niveau", "expected": 1 },
-        { "type": "expression", "description": "energie est un décimal et actif un booléen", "expression": "type(energie) == float and actif is True", "expected": true }
+        {
+          "type": "variable",
+          "description": "pseudo vaut \"Alex\" (texte)",
+          "name": "pseudo",
+          "expected": "Alex"
+        },
+        {
+          "type": "expression",
+          "description": "niveau vaut 1, et c'est bien un entier",
+          "expression": "niveau == 1 and type(niveau) == int",
+          "expected": true
+        },
+        {
+          "type": "variable",
+          "description": "energie vaut 100.0 (et non la valeur de départ)",
+          "name": "energie",
+          "expected": 100.0,
+          "tol": 1e-09
+        },
+        {
+          "type": "expression",
+          "description": "energie est un décimal et actif un booléen",
+          "expression": "type(energie) == float and actif is True",
+          "expected": true
+        }
       ]
     },
     {
@@ -33,9 +55,24 @@
         "<code>somme = a + b</code>, <code>produit = a * b</code>, <code>reste = a % b</code>."
       ],
       "tests": [
-        { "type": "variable", "description": "somme = a + b (22)", "name": "somme", "expected": 22 },
-        { "type": "variable", "description": "produit = a * b (85)", "name": "produit", "expected": 85 },
-        { "type": "variable", "description": "reste = a % b (2)", "name": "reste", "expected": 2 }
+        {
+          "type": "variable",
+          "description": "somme = a + b (22)",
+          "name": "somme",
+          "expected": 22
+        },
+        {
+          "type": "variable",
+          "description": "produit = a * b (85)",
+          "name": "produit",
+          "expected": 85
+        },
+        {
+          "type": "variable",
+          "description": "reste = a % b (2)",
+          "name": "reste",
+          "expected": 2
+        }
       ]
     },
     {
@@ -50,9 +87,24 @@
         "<code>egal = x == y</code>, <code>plus_grand = x &gt; y</code>, <code>different = x != y</code>."
       ],
       "tests": [
-        { "type": "variable", "description": "egal vaut False", "name": "egal", "expected": false },
-        { "type": "variable", "description": "plus_grand vaut False", "name": "plus_grand", "expected": false },
-        { "type": "variable", "description": "different vaut True", "name": "different", "expected": true }
+        {
+          "type": "expression",
+          "description": "egal vaut False",
+          "expression": "egal is False",
+          "expected": true
+        },
+        {
+          "type": "expression",
+          "description": "plus_grand vaut False",
+          "expression": "plus_grand is False",
+          "expected": true
+        },
+        {
+          "type": "expression",
+          "description": "different vaut True",
+          "expression": "different is True",
+          "expected": true
+        }
       ]
     },
     {
@@ -67,9 +119,82 @@
         "<code>sortir = not pluie and not vent</code>, <code>alerte = pluie or vent</code>, <code>beau_temps = not alerte</code>."
       ],
       "tests": [
-        { "type": "variable", "description": "sortir vaut False", "name": "sortir", "expected": false },
-        { "type": "variable", "description": "alerte vaut True", "name": "alerte", "expected": true },
-        { "type": "variable", "description": "beau_temps vaut False", "name": "beau_temps", "expected": false }
+        {
+          "type": "expression",
+          "description": "sortir vaut False",
+          "expression": "sortir is False",
+          "expected": true
+        },
+        {
+          "type": "expression",
+          "description": "alerte vaut True",
+          "expression": "alerte is True",
+          "expected": true
+        },
+        {
+          "type": "expression",
+          "description": "beau_temps vaut False",
+          "expression": "beau_temps is False",
+          "expected": true
+        }
+      ]
+    },
+    {
+      "id": "1-4b",
+      "solution": "def double(n):\n    return 2 * n\n\ndef perimetre(largeur, hauteur):\n    return 2 * (largeur + hauteur)\n",
+      "title": "La recette du forgeron",
+      "statement": "<p>Le forgeron du village répète les mêmes gestes cent fois par jour. Plutôt que de réécrire la recette à chaque fois, il l'a notée une bonne fois sur un parchemin, avec un nom. En programmation, ce parchemin s'appelle une <strong>fonction</strong>.</p><pre>def double(n):\n    return 2 * n</pre><p>Trois choses à repérer :</p><ul><li><code>def</code> annonce une nouvelle recette, suivie de son nom ;</li><li><code>n</code> entre parenthèses est le <strong>paramètre</strong> : l'ingrédient qu'on fournira au moment de s'en servir ;</li><li>le corps est <strong>indenté de 4 espaces</strong>, et <code>return</code> indique le résultat à rendre.</li></ul><p><strong>La distinction la plus importante du niveau — et la plus grande source d'erreurs pour toute la suite :</strong></p><pre>print(2 * n)    # AFFICHE le resultat : il part a l'ecran, il est perdu\nreturn 2 * n    # RENVOIE le resultat : on peut le reutiliser dans un calcul</pre><p>Avec <code>return</code>, <code>double(5) + 1</code> vaut 11. Avec <code>print</code>, la fonction ne renvoie rien du tout et ce calcul plante. Dans presque tous les niveaux de ce jeu, c'est <code>return</code> qu'il faut.</p><p>Écris <strong>deux</strong> fonctions : <code>double(n)</code>, et <code>perimetre(largeur, hauteur)</code> qui renvoie le périmètre d'un rectangle (<code>2 × (largeur + hauteur)</code>) — celle-là prend <strong>deux</strong> paramètres, séparés par une virgule.</p>",
+      "startCode": "def double(n):\n    # renvoie le double de n\n    pass\n\ndef perimetre(largeur, hauteur):\n    # renvoie 2 * (largeur + hauteur)\n    pass\n\nprint(double(7))          # attendu : 14\nprint(perimetre(3, 5))    # attendu : 16\n",
+      "xp": 35,
+      "hints": [
+        "Le corps d'une fonction est décalé de 4 espaces, et commence ici par <code>return</code>. Attention : <code>print</code> à la place de <code>return</code> affichera la bonne valeur à l'écran mais ne la <em>renverra</em> pas — les tests verront « rien ».",
+        "<pre>def double(n):\n    return 2 * n\n\ndef perimetre(largeur, hauteur):\n    return 2 * (largeur + hauteur)</pre>"
+      ],
+      "tests": [
+        {
+          "type": "function",
+          "description": "double(7) renvoie 14",
+          "name": "double",
+          "args": [
+            7
+          ],
+          "expected": 14
+        },
+        {
+          "type": "function",
+          "description": "double(0) renvoie 0",
+          "name": "double",
+          "args": [
+            0
+          ],
+          "expected": 0
+        },
+        {
+          "type": "function",
+          "description": "perimetre(3, 5) renvoie 16",
+          "name": "perimetre",
+          "args": [
+            3,
+            5
+          ],
+          "expected": 16
+        },
+        {
+          "type": "function",
+          "description": "perimetre(1, 1) renvoie 4",
+          "name": "perimetre",
+          "args": [
+            1,
+            1
+          ],
+          "expected": 4
+        },
+        {
+          "type": "expression",
+          "description": "le résultat est réutilisable dans un calcul (return, et non print)",
+          "expression": "double(5) + 1 == 11",
+          "expected": true
+        }
       ]
     },
     {
@@ -84,9 +209,69 @@
         "<code>if note &lt; 10: return \"Recalé\"</code> ; <code>elif note &lt; 14: return \"Passable\"</code> ; <code>else: return \"Bien\"</code>."
       ],
       "tests": [
-        { "type": "function", "description": "mention(8) renvoie \"Recalé\"", "name": "mention", "args": [8], "expected": "Recalé" },
-        { "type": "function", "description": "mention(12) renvoie \"Passable\"", "name": "mention", "args": [12], "expected": "Passable" },
-        { "type": "function", "description": "mention(16) renvoie \"Bien\"", "name": "mention", "args": [16], "expected": "Bien" }
+        {
+          "type": "function",
+          "description": "mention(8) renvoie \"Recalé\"",
+          "name": "mention",
+          "args": [
+            8
+          ],
+          "expected": "Recalé"
+        },
+        {
+          "type": "function",
+          "description": "mention(12) renvoie \"Passable\"",
+          "name": "mention",
+          "args": [
+            12
+          ],
+          "expected": "Passable"
+        },
+        {
+          "type": "function",
+          "description": "mention(16) renvoie \"Bien\"",
+          "name": "mention",
+          "args": [
+            16
+          ],
+          "expected": "Bien"
+        },
+        {
+          "type": "function",
+          "description": "mention(9) renvoie « Recalé » — la borne exacte",
+          "name": "mention",
+          "args": [
+            9
+          ],
+          "expected": "Recalé"
+        },
+        {
+          "type": "function",
+          "description": "mention(10) renvoie « Passable » — la borne exacte",
+          "name": "mention",
+          "args": [
+            10
+          ],
+          "expected": "Passable"
+        },
+        {
+          "type": "function",
+          "description": "mention(13) renvoie « Passable » — la borne exacte",
+          "name": "mention",
+          "args": [
+            13
+          ],
+          "expected": "Passable"
+        },
+        {
+          "type": "function",
+          "description": "mention(14) renvoie « Bien » — la borne exacte",
+          "name": "mention",
+          "args": [
+            14
+          ],
+          "expected": "Bien"
+        }
       ]
     },
     {
@@ -101,9 +286,33 @@
         "<code>for i in range(1, n + 1): total = total + i</code>, puis <code>return total</code>."
       ],
       "tests": [
-        { "type": "function", "description": "somme_jusqua(5) renvoie 15", "name": "somme_jusqua", "args": [5], "expected": 15 },
-        { "type": "function", "description": "somme_jusqua(1) renvoie 1", "name": "somme_jusqua", "args": [1], "expected": 1 },
-        { "type": "function", "description": "somme_jusqua(10) renvoie 55", "name": "somme_jusqua", "args": [10], "expected": 55 }
+        {
+          "type": "function",
+          "description": "somme_jusqua(5) renvoie 15",
+          "name": "somme_jusqua",
+          "args": [
+            5
+          ],
+          "expected": 15
+        },
+        {
+          "type": "function",
+          "description": "somme_jusqua(1) renvoie 1",
+          "name": "somme_jusqua",
+          "args": [
+            1
+          ],
+          "expected": 1
+        },
+        {
+          "type": "function",
+          "description": "somme_jusqua(10) renvoie 55",
+          "name": "somme_jusqua",
+          "args": [
+            10
+          ],
+          "expected": 55
+        }
       ]
     },
     {
@@ -118,9 +327,33 @@
         "<code>while n &gt; 0: n = n // 10 ; compte = compte + 1</code>, puis <code>return compte</code>."
       ],
       "tests": [
-        { "type": "function", "description": "nb_chiffres(7) renvoie 1", "name": "nb_chiffres", "args": [7], "expected": 1 },
-        { "type": "function", "description": "nb_chiffres(48) renvoie 2", "name": "nb_chiffres", "args": [48], "expected": 2 },
-        { "type": "function", "description": "nb_chiffres(705) renvoie 3", "name": "nb_chiffres", "args": [705], "expected": 3 }
+        {
+          "type": "function",
+          "description": "nb_chiffres(7) renvoie 1",
+          "name": "nb_chiffres",
+          "args": [
+            7
+          ],
+          "expected": 1
+        },
+        {
+          "type": "function",
+          "description": "nb_chiffres(48) renvoie 2",
+          "name": "nb_chiffres",
+          "args": [
+            48
+          ],
+          "expected": 2
+        },
+        {
+          "type": "function",
+          "description": "nb_chiffres(705) renvoie 3",
+          "name": "nb_chiffres",
+          "args": [
+            705
+          ],
+          "expected": 3
+        }
       ]
     },
     {
@@ -135,9 +368,64 @@
         "<code>n = int(input())</code> puis <code>print(\"Le double est\", n * 2)</code>."
       ],
       "tests": [
-        { "type": "stdout", "description": "entrée 7 → Le double est 14", "stdin": "7\n", "expected": "Le double est 14" },
-        { "type": "stdout", "description": "entrée 0 → Le double est 0", "stdin": "0\n", "expected": "Le double est 0" },
-        { "type": "stdout", "description": "entrée 25 → Le double est 50", "stdin": "25\n", "expected": "Le double est 50" }
+        {
+          "type": "stdout",
+          "description": "entrée 7 → Le double est 14",
+          "stdin": "7\n",
+          "expected": "Le double est 14"
+        },
+        {
+          "type": "stdout",
+          "description": "entrée 0 → Le double est 0",
+          "stdin": "0\n",
+          "expected": "Le double est 0"
+        },
+        {
+          "type": "stdout",
+          "description": "entrée 25 → Le double est 50",
+          "stdin": "25\n",
+          "expected": "Le double est 50"
+        }
+      ]
+    },
+    {
+      "id": "1-8b",
+      "solution": "def etiquette(nom, prix):\n    return nom + \" : \" + str(prix) + \" pièces\"\n",
+      "title": "Le parchemin du crieur",
+      "statement": "<p>Le crieur doit annoncer « Pain : 3 pièces ». Le nom est du <strong>texte</strong>, le prix est un <strong>nombre</strong> — et Python refuse catégoriquement de les additionner tels quels : <code>\"Pain\" + 3</code> lève une <code>TypeError</code>.</p><p>Il existe trois façons d'assembler du texte et des nombres. Tu vas en avoir besoin dès le niveau suivant :</p><pre>print(\"Pain\", 3)              # AFFICHE : Pain 3\n                              # print insere UN ESPACE entre chaque valeur\n\n\"Pain\" + \" : \" + str(3)       # CONSTRUIT le texte \"Pain : 3\"\n                              # str() convertit le nombre en texte\n\nf\"Pain : {3} pieces\"          # le f devant les guillemets autorise les {}\n                              # ce qui est entre accolades est calcule</pre><p>Retiens surtout l'espace automatique de <code>print</code> : <code>print(1, \": pair\")</code> affiche <code>1 : pair</code> — avec un espace en trop avant les deux-points. C'est le piège classique quand un format exact est demandé.</p><p>Écris <code>etiquette(nom, prix)</code> qui <strong>renvoie</strong> (et n'affiche pas) le texte au format exact : <code>Pain : 3 pièces</code> — le nom, espace, deux-points, espace, le prix, espace, le mot <code>pièces</code>.</p>",
+      "startCode": "def etiquette(nom, prix):\n    # renvoie par exemple : Pain : 3 pieces\n    pass\n\nprint(etiquette(\"Pain\", 3))    # attendu : Pain : 3 pièces\nprint(etiquette(\"Miel\", 12))   # attendu : Miel : 12 pièces\n",
+      "xp": 50,
+      "hints": [
+        "Deux solutions au choix, toutes deux acceptées : la concaténation <code>nom + \" : \" + str(prix) + \" pièces\"</code>, ou la f-string <code>f\"{nom} : {prix} pièces\"</code>. Dans la première, <code>str()</code> est obligatoire autour du nombre.",
+        "<pre>def etiquette(nom, prix):\n    return f\"{nom} : {prix} pièces\"</pre>Vérifie les espaces : un avant les deux-points, un après, un avant « pièces »."
+      ],
+      "tests": [
+        {
+          "type": "function",
+          "description": "etiquette(\"Pain\", 3) renvoie « Pain : 3 pièces »",
+          "name": "etiquette",
+          "args": [
+            "Pain",
+            3
+          ],
+          "expected": "Pain : 3 pièces"
+        },
+        {
+          "type": "function",
+          "description": "etiquette(\"Miel\", 12) renvoie « Miel : 12 pièces »",
+          "name": "etiquette",
+          "args": [
+            "Miel",
+            12
+          ],
+          "expected": "Miel : 12 pièces"
+        },
+        {
+          "type": "expression",
+          "description": "la fonction renvoie bien du texte (et ne se contente pas de l'afficher)",
+          "expression": "type(etiquette(\"Sel\", 1)) == str",
+          "expected": true
+        }
       ]
     },
     {
@@ -152,9 +440,24 @@
         "Dans la boucle : <code>if i % 2 == 0: print(f\"{i}: pair\")</code> sinon <code>print(f\"{i}: impair\")</code>. Pense à <code>n = int(input())</code> au début."
       ],
       "tests": [
-        { "type": "stdout", "description": "entrée 3", "stdin": "3\n", "expected": "1: impair\n2: pair\n3: impair" },
-        { "type": "stdout", "description": "entrée 1", "stdin": "1\n", "expected": "1: impair" },
-        { "type": "stdout", "description": "entrée 4", "stdin": "4\n", "expected": "1: impair\n2: pair\n3: impair\n4: pair" }
+        {
+          "type": "stdout",
+          "description": "entrée 3",
+          "stdin": "3\n",
+          "expected": "1: impair\n2: pair\n3: impair"
+        },
+        {
+          "type": "stdout",
+          "description": "entrée 1",
+          "stdin": "1\n",
+          "expected": "1: impair"
+        },
+        {
+          "type": "stdout",
+          "description": "entrée 4",
+          "stdin": "4\n",
+          "expected": "1: impair\n2: pair\n3: impair\n4: pair"
+        }
       ]
     }
   ]
