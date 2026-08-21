@@ -126,7 +126,3 @@ Ce projet est distribué sous licence [MIT](LICENSE), au nom de Mathieu C.
 
 Conçu et développé par Mathieu C., avec l'aide de
 [Claude](https://www.anthropic.com/claude) d'Anthropic.
-
-## Contributeurs
-
-- [Oopslurp](https://github.com/Oopslurp)
